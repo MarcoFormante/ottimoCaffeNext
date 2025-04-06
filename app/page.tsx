@@ -8,8 +8,8 @@ import productTest3 from '@/app/components/ProductCard/productTest3.png'
 import tazza from "@/public/assets/images/tazza.jpg"
 import Footer from "./components/layout/Footer/Footer";
 import Link from "next/link";
-import { getProduts } from "./actions/products";
-import { isProduction } from "./helpers";
+// import { getProduts } from "./actions/products";
+// import { isProduction } from "./helpers";
 
 
 const products = [

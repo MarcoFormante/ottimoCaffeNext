@@ -93,6 +93,9 @@ header#app-header nav .icons-container div {
   display: grid;
   place-items: center;
 }
+header#app-header .searchBar {
+  animation: appear 0.3s ease-in;
+}
 
 @keyframes headerAnim {
   0% {
@@ -100,6 +103,17 @@ header#app-header nav .icons-container div {
   }
   100% {
     transform: translateY(0);
+  }
+}
+@keyframes appear {
+  0% {
+    top: 0px;
+  }
+  50% {
+    top: 14px;
+  }
+  100% {
+    top: 0px;
   }
 }
 .product-card {

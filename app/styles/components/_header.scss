@@ -34,6 +34,10 @@ header#app-header{
         }
     }
 
+    .searchBar{
+        animation: appear 0.3s ease-in ;
+    }
+
 }
 
 
@@ -44,5 +48,23 @@ header#app-header{
 
     100%{
         transform: translateY(0);
+    }
+}
+
+
+
+@keyframes appear {
+    0%{
+        top: 0px;
+    }
+
+   
+
+    50%{
+        top: 14px;
+    }
+
+    100%{
+        top: 0px;
     }
 }
