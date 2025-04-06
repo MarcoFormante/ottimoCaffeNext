@@ -1,0 +1,48 @@
+header#app-header{
+    background-color: $primary-color;
+    height: $height-header;
+    position: fixed;
+    width: 100%;
+    max-width: 1440px;
+    top: 0;
+    animation: headerAnim 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    nav{
+        & .links{
+            gap: 24px;
+            color: $white;
+
+            a{   
+                font-size: 12px;
+                letter-spacing: 0.25px;
+                font-weight: 500;
+                text-transform: uppercase;
+            }
+        }
+
+        .logo{
+            height: 48px;
+            width: 150px;
+        }
+
+        .icons-container{
+            div{
+                width: 32px;
+                height: 32px;
+                display: grid;
+                place-items: center;
+            }
+        }
+    }
+
+}
+
+
+@keyframes headerAnim {
+    0%{
+        transform: translateY(-100%);
+    }
+
+    100%{
+        transform: translateY(0);
+    }
+}

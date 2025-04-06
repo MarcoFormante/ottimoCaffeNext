@@ -1,0 +1,14 @@
+#hero{
+    height: $hero-height;
+    background: url("/assets/images/Hero.webp") no-repeat center center ;
+    width: 100%;
+    position:relative;
+}
+
+
+#hero__contents__container{
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}

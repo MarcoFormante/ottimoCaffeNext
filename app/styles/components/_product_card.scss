@@ -1,0 +1,37 @@
+.product-card{
+    background-color: $white;
+    border-radius: 8px;
+    padding: 16px;
+    width: 331px;
+    height: 451px;
+    min-width: 331px;
+    
+    &__desc{
+        color: $grey-primary;
+    }
+
+    img{
+        margin: auto;
+    }
+
+    &__price-del{
+        color: $grey-primary;
+    }
+    
+    &__price{
+        color: $blue-primary;
+        font-weight: bold;
+        font-size: 24px;
+    }
+
+    &__button{
+        color: $white;
+        background-color: $red-600;
+        max-width: 298px;
+        height: 48px;
+        border-radius: 24px;
+        width: 100%;
+        display: grid;
+        place-items: center;
+    }
+}

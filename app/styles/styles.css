@@ -1,0 +1,136 @@
+@import "./index.css";
+.app {
+  max-width: 1440px;
+  margin: auto;
+}
+
+body {
+  background-color: #F8F8F8;
+  scroll-behavior: smooth;
+}
+
+.cl-gap-46 {
+  gap: 46px;
+}
+
+.cl-gap-12 {
+  gap: 12px;
+}
+
+.cl-pd-200x {
+  color: aliceblue;
+}
+@media screen and (max-width: 1440px) {
+  .cl-pd-200x {
+    @apply container;
+  }
+}
+@media screen and (max-width: 1440px) and (min-width: 48rem) {
+  .cl-pd-200x {
+    max-width: 90vw;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .cl-pd-200x {
+    @apply px-[200px];
+  }
+}
+
+.cl-text-blue-primary {
+  color: #4652CE;
+}
+
+.cl-blue-text {
+  color: #292F6C;
+}
+
+.jost, .app {
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+#hero {
+  height: 672px;
+  background: url("/assets/images/Hero.webp") no-repeat center center;
+  width: 100%;
+  position: relative;
+}
+
+#hero__contents__container {
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+header#app-header {
+  background-color: #DB2734;
+  height: 96px;
+  position: fixed;
+  width: 100%;
+  max-width: 1440px;
+  top: 0;
+  animation: headerAnim 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+header#app-header nav .links {
+  gap: 24px;
+  color: #FFFFFF;
+}
+header#app-header nav .links a {
+  font-size: 12px;
+  letter-spacing: 0.25px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+header#app-header nav .logo {
+  height: 48px;
+  width: 150px;
+}
+header#app-header nav .icons-container div {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+}
+
+@keyframes headerAnim {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.product-card {
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  padding: 16px;
+  width: 331px;
+  height: 451px;
+  min-width: 331px;
+}
+.product-card__desc {
+  color: #788A8B;
+}
+.product-card img {
+  margin: auto;
+}
+.product-card__price-del {
+  color: #788A8B;
+}
+.product-card__price {
+  color: #4652CE;
+  font-weight: bold;
+  font-size: 24px;
+}
+.product-card__button {
+  color: #FFFFFF;
+  background-color: #DB2734;
+  max-width: 298px;
+  height: 48px;
+  border-radius: 24px;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}/*# sourceMappingURL=styles.css.map */
