@@ -3,10 +3,17 @@ import Link from 'next/link'
 import React from 'react'
 import logo from '@/public/assets/svg/logo_header.svg'
 
-const Logo = () => {
+
+interface LinksProps{
+  menuActive:boolean,
+  setMenuActive: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const Logo = ({menuActive,setMenuActive}:LinksProps) => {
+    
   return (
-    <div className='logo' >
-    <Link href='/'>
+    <div className={`logo ${menuActive ? "z-30": ""}`} >
+    <Link onClick={()=>setMenuActive(false)} href='/'>
       <Image src={logo} alt='Ottimo Caffé' />
     </Link>
   </div>

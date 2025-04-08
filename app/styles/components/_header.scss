@@ -1,3 +1,6 @@
+
+
+
 header#app-header{
     background-color: $primary-color;
     height: $height-header;
@@ -5,23 +8,95 @@ header#app-header{
     width: 100%;
     max-width: 1440px;
     top: 0;
-    animation: headerAnim 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: translateY(0);
+    @media screen and (min-width:1080) {
+        animation: headerAnim 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
     nav{
         & .links{
             gap: 24px;
             color: $white;
-
+          
             a{   
                 font-size: 12px;
                 letter-spacing: 0.25px;
                 font-weight: 500;
                 text-transform: uppercase;
+                display: block;
+                &:hover{
+                    text-decoration: underline;
+                }
             }
+
+
+            &.menu-on{
+                
+                @media screen and (max-width:1080px ) {
+                    position: fixed;
+                    background-color: $primary-color;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    top: 0;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    animation: none;
+
+                    li{
+                        transform: translateX(-20%);
+                        animation: appearInMenu 0.3s forwards;
+                        @for $i from 1 through 7 {
+                            &:nth-child(#{$i}) {
+                                opacity: 0;
+                                animation-delay: #{$i * 0.15}s;
+                            }
+                        }
+                    
+                        a{
+                            font-size: clamp(12px,5vw,24px);
+                            display: inline;
+                            &:hover{
+                                text-decoration: underline;
+                            }
+                            
+                        }
+                    }
+                }
+                
+            }
+
+            @media screen and (max-width:1080px) {
+                position: fixed;
+                background-color: $primary-color;
+                left: 0;
+                width: 0;
+                height: 100vh;
+                top: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                animation: none;
+                overflow: hidden;
+                transition: width 0.2s cubic-bezier(0.47, 0, 0.745, 0.715);
+                
+                    li{
+                        opacity: 0;
+                        
+                    }
+            }
+            
         }
 
         .logo{
             height: 48px;
             width: 150px;
+            place-content: center;
+            @media screen and (max-width:1080)  {
+                width: clamp(100px,20vw,150px);
+                min-width: 100px;
+            }
         }
 
         .icons-container{
@@ -35,36 +110,87 @@ header#app-header{
     }
 
     .searchBar{
-        animation: appear 0.3s ease-in ;
+        animation: appear 0.2s cubic-bezier(0.23, 1, 0.320, 1);
+        left: 28%;
+        width: 55%;
+
+        @media screen and (max-width:1440px) {
+            left: 20%;
+            width: calc(76vw - 55px);
+        }
+
+
+        @media screen and (max-width:1080px) {
+            width: 98%;
+            left: 1%;
+        }
+       
     }
 
+    .menu-b{
+        width: 32px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 5px;
+
+        &-menu-on{
+            border: 1px solid $white;
+            border-radius: 50%;
+
+            span:first-child{
+                transform: translateY(7px) rotate(45deg);
+            }
+
+            span:nth-child(2){
+                opacity: 0;
+            }
+
+            span:nth-child(3){
+                transform: translateY(-7px) rotate(-45deg);
+           }
+        }
+
+        span{
+            width: 16px;
+            height: 2px;
+            display: block;
+            border-radius: 16px;
+            opacity: 1;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.320, 1), opacity 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+    }
+
+
+    
 }
 
 
 @keyframes headerAnim {
-    0%{
-        transform: translateY(-100%);
-    }
-
-    100%{
-        transform: translateY(0);
+    50%{
+        transform: translateY(30px);
     }
 }
 
 
 
 @keyframes appear {
-    0%{
-        top: 0px;
-    }
-
-   
-
-    50%{
-        top: 14px;
-    }
-
-    100%{
-        top: 0px;
+    90%{
+        transform: translateY(-8px);
     }
 }
+
+
+@keyframes appearInMenu {
+  
+    100%{
+        opacity: 1;
+        transform: translateX(40px);
+    }
+}
+
+
+               
+

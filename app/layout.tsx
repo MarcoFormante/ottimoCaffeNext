@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../app/styles/styles.css"
 import Header from "./components/layout/Header/Header";
 import { Jost } from 'next/font/google'
+import Footer from "./components/layout/Footer/Footer";
 
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`app ${jost.className}`}>
         <Header/>
         {children}
+        <Footer/>
       </body>
     </html>
   );

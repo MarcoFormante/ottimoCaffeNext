@@ -2,3 +2,77 @@
 @import './abstracts/abstracts',
         './typography/typography',
         './components/components';
+
+
+        #category-cards{
+           @media screen and (min-width:641px) {
+                grid-template-columns: repeat(4,minmax(0,242px));
+           }
+
+           @media screen and (max-width: 48rem) {
+                grid-template-columns: repeat(2,minmax(0,1fr));
+            }
+        }
+
+        #search::-webkit-search-cancel-button{
+            display: none;  
+        }
+
+
+        .prod-slider{
+            @media screen and (max-width:481px) {
+                &::-webkit-scrollbar{
+                    opacity: 0;
+                }
+               
+            }
+           
+            scroll-snap-type: x mandatory;
+
+            article{
+                scroll-snap-align: start;
+            }
+        }
+
+
+        #slider-scroll-elements-container{
+            display: flex;
+            gap: 32px;
+            width: 50%;
+            height: 6px;
+            align-items: center;
+            margin: 32px auto;
+            justify-content: center;
+            li{
+                width: 45px;
+                height: 15px;
+                min-width: 40px;
+                cursor: pointer;
+                place-content: center;
+
+                div{
+                    width: 100%;
+                    height: 6px;
+                    background-color: $grey-primary;
+                    opacity: 0.2;
+                    border-radius: 3px;
+                    &[data-active="true"]{
+                        background-color: $blue-text;
+                        opacity: 1;
+                    }
+                }
+            }
+
+            @media screen and (min-width:480px) {
+                display: none;
+            }
+           
+               
+        }
+
+
+        .footer-category-list{
+            li:hover{
+                text-decoration: underline;
+            }
+        }

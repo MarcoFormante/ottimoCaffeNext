@@ -6,7 +6,7 @@ export default function Hero(){
     return(
         <div id="hero" className="flex justify-center">
         <div id='hero__contents__container' className=''>
-          <Image src={logo} className='drop-shadow-xl bg-cover' alt="Ottimo Caffé" />
+          <Image src={logo} className='drop-shadow-xl min-w-[253]' alt="Ottimo Caffé" />
           <Image className='m-auto' src={claim_ottimo} alt="logo Ottimo Caffé" />
         </div>
       </div>

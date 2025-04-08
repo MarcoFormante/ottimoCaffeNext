@@ -8,7 +8,8 @@ import Link from "next/link";
 export default function Footer(){
     return (
         <footer id="app-footer" className="bg-blue-text  container-full m-auto pt-10 pb-[72px]">
-            <div className="container-full m-auto flex  justify-between  cl-pd-200x">
+            <div className="container-full m-auto flex justify-between  text-white-primary px-[200px] max-2xl:px-[50px]  max-lg:px-[16px]  min-md:max-lg:gap-6 max-md:flex-col max-md:gap-10  ">
+                
 {/* PRIMA COLUMN */}
                     <div className="flex flex-col gap-[40px]">
                         <div className="payment-methods">
@@ -17,16 +18,17 @@ export default function Footer(){
                         </div>
                             <Image src={logo} alt="Ottimo Caffé" className="" width={153} height={49}/>
                             <div className="footer-address">
-                                <address className="text-white-primary not-italic inline">
-                                    D.P. Event - Via nazionale 83 S.Margherita <br/> marina ME - Cap 98135 
+                                <address className="text-white-primary not-italic inline text-wrap">
+                                    D.P. Event - Via nazionale 83 <span className="block"> S.Margherita  marina ME - Cap 98135 </span>
                                 </address>
-                                <span> - P.iva 03410070837</span>
+                                <span className="max-xl:block"> P.iva 03410070837</span>
                             </div>
                         </div>
 
  {/* SECONDA COLUMN */}
+                <div className="flex justify-evenly w-[40%] mx-auto max-md:w-full max-md:gap-6  max-md:justify-start ">
 
-                    <ul className="flex flex-col gap-[24px] font-normal">
+                    <ul className="flex flex-col gap-[24px] font-normal pr-6 footer-category-list">
                         <li>
                             <Link href={"#"}>Promozioni</Link>
                         </li>
@@ -43,9 +45,9 @@ export default function Footer(){
                             <Link href={"#"}>Bottiglieria</Link>
                         </li>
                     </ul>
-
-
-                    <ul className="flex flex-col gap-[24px]">
+{/* TERZA COLUMN */}
+              
+                    <ul className="flex flex-col gap-[24px] footer-category-list">
                         <li>
                             <Link href={"#"}>Kit</Link>
                         </li>
@@ -61,9 +63,8 @@ export default function Footer(){
                        
                     </ul>
 
-
-
- {/* TERZA COLUMN */}
+                </div>
+ {/* QUARTA COLUMN */}
 
                     <div className="flex flex-col gap-12 ">
                         <div>

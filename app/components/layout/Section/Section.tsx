@@ -7,7 +7,7 @@ interface SectionProps {
 
 export default function Section({children,style}:SectionProps){
   return (
-    <section className={`cl-pd-200x mx-auto ${style ?? ""}`}>
+    <section className={`min-lg:w-[100%] min-lg:mx-auto ${style ?? ""}`}>
         {children}
     </section>
   )
