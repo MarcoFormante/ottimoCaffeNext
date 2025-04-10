@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import { usePathname } from 'next/navigation'
 
 interface LinksProps{
   menuActive:boolean,
@@ -38,12 +39,14 @@ const navLinks = [
 ]
 
 
+
 const Links = ({menuActive,setMenuActive}:LinksProps) => {
+  const pathname = usePathname()
   return (
     <ul id='nav-links'  className={`links flex ${menuActive ? "menu-on" : "" }`}>
       {navLinks.map(link => 
         <li key={link.text}>
-          <Link onClick={()=>setMenuActive(false)} href={link.href}>{link.text}</Link>
+          <Link className={pathname === link.href ? "active" : ""} onClick={()=>setMenuActive(false)} href={link.href}>{link.text}</Link>
         </li>
     )}
     </ul>

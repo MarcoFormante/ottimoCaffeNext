@@ -3,6 +3,7 @@ import { isProduction } from "@/app/helpers";
 import { NextResponse } from "next/server";
 
 export  async function GET(){
+    
     try {
         const result = await getProduts()
         return NextResponse.json(result,{status:200})

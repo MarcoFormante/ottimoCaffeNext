@@ -3,7 +3,7 @@ import "../app/styles/styles.css"
 import Header from "./components/layout/Header/Header";
 import { Jost } from 'next/font/google'
 import Footer from "./components/layout/Footer/Footer";
-
+import CartContext from "./context/CartContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,13 +18,17 @@ const jost = Jost({
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactElement;
 }>) {
   return (
     <html lang="en">
       <body className={`app ${jost.className}`}>
         <Header/>
-        {children}
+        <main>
+          <CartContext>
+            {children}
+          </CartContext>
+        </main>
         <Footer/>
       </body>
     </html>

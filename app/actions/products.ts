@@ -10,9 +10,15 @@ export async function createProduct(data:Product): Promise<Product> {
 } 
 
  
-
 export async function getProduts():Promise<Product[]>{
-    return await prisma.product.findMany()
+    const data = await prisma.product.findMany({
+        where:{
+            name:{
+                startsWith:"mac"
+            }
+        }
+    })
+    return data
 }
 
 

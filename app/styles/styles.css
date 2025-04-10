@@ -11,6 +11,7 @@ html {
 body {
   background-color: #F8F8F8;
   scroll-behavior: smooth;
+  min-height: 100dvh;
 }
 
 .cl-gap-46 {
@@ -106,6 +107,9 @@ header#app-header nav .links a {
   display: block;
 }
 header#app-header nav .links a:hover {
+  text-decoration: underline;
+}
+header#app-header nav .links a.active {
   text-decoration: underline;
 }
 @media screen and (max-width: 1080px) {
