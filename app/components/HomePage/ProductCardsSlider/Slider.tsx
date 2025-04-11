@@ -1,8 +1,11 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
-import ProductCard, { ProductCardProps } from '../../common/ProductCard/ProductCard'
 
-const Slider = ({products}:{products:ProductCardProps[]}) => {
+interface SliderProps{
+    children:React.ReactElement
+}
+
+const Slider = ({children}:SliderProps) => {
     const [sliderScrollX,setSliderScrollX] = useState(0)
     const sliderRef = useRef<HTMLDivElement | null>(null)
     const [activeCardByScroll,setActiveCardByScroll] = useState(0)
@@ -13,7 +16,6 @@ const Slider = ({products}:{products:ProductCardProps[]}) => {
         const slider = sliderRef.current
         if (slider ) {
             sliderScrollWidth.current = slider.scrollWidth;
-    
             const handleScroll = () => {
                 if (isScrollingByClick) {
                     return
@@ -62,20 +64,15 @@ const Slider = ({products}:{products:ProductCardProps[]}) => {
     
       return (
         <div>
-            <div onScroll={()=>setIsScrollingByClick(false)} onTouchStart={()=>setIsScrollingByClick(false)} onMouseDown={()=>setIsScrollingByClick(false)} ref={sliderRef} className='prod-slider flex items-center gap-7 max-[1116px]:overflow-x-scroll justify-center max-xl:justify-start'>
-                {products && products.map((product)=>(
-                <ProductCard
-                    id={product.id}
-                    key={product.id}
-                    name={product.name}
-                    desc={product.desc}
-                    price={product.price}
-                    img={product.img}
-                    pathName={product.pathName}
-                    UUID={product.UUID}
-                    offer={product.offer}
-                />
-                ))}
+            <div 
+                onScroll={()=>setIsScrollingByClick(false)} 
+                onTouchStart={()=>setIsScrollingByClick(false)} 
+                onMouseDown={()=>setIsScrollingByClick(false)} 
+                ref={sliderRef} 
+                className='prod-slider flex items-center gap-7 max-[1116px]:overflow-x-scroll justify-center  max-[1116px]:justify-start'
+            >
+                {children}
+                
             </div>
         <ul id='slider-scroll-elements-container'>
             <li onClick={()=>handleClick(0)}>

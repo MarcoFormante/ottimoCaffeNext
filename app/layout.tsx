@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactElement;
 }>) {
   return (
-    <html lang="en">
+    <html lang="it">
       <body className={`app ${jost.className}`}>
         <Header/>
         <main>

@@ -8,7 +8,10 @@ const Footer = ({children}:{children:React.ReactElement}) => {
     const [quantity,setQuantity] = useState(1)
 
     function addQuantity(){
-        setQuantity(quantity + 1)
+        if (quantity < 99) {
+            setQuantity(quantity + 1)
+        }
+       
     }
 
     function subTraitQuantity(){

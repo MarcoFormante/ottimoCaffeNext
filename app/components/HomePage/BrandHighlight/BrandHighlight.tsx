@@ -10,7 +10,7 @@ const BrandHighlight = () => {
         <p className="font-normal">Le nostre cialde da caffè sono preparate con passione e cura, utilizzando solo le migliori miscele siciliane per regalarti un caffè dal sapore intenso e ricco. </p>
         <p className="font-normal">Ma non è solo la qualità del nostro caffè a fare la differenza: con un servizio clienti sempre attento e disponibile, siamo qui per offrirti un’esperienza che ti farà tornare ogni volta.</p>
     </div>
-    <Image className="w-[508px]  min-md:h-[85%]" src={tazza}  alt="Ottimo Caffè - Caffè siciliano"/>
+    <Image className=" min-md:h-[85%] max-lg:w-[50vw] max-md:w-[508px]" src={tazza} width={508} height={336}  alt="Ottimo Caffè - Caffè siciliano"/>
   </article>
   )
 }

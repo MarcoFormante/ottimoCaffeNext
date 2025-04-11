@@ -20,7 +20,7 @@ export default function ProductCard({img,name,desc,price,pathName,UUID,offer = n
         <div>
             <figure>
                 <div className="mb-6">
-                    <Image className="aspect-square" width={202} height={187} src={"/assets/images/products/" + img} alt={name} />
+                    <Image className="aspect-square w-auto h-auto max-w-[202px] max-h-[187]" width={202} height={187} src={"/assets/images/products/" + img} alt={name} />
                 </div>
                 <figcaption>
                     <h3 className="font-normal text-black">{name}</h3>
