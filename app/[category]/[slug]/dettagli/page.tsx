@@ -7,9 +7,9 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function ProductDetails({params}:{
-  params:{id:string}
+  params:{slug:string}
 }){
-  const id =  await params.id
+  const {slug} =  await params
   const res = await fetch("http://localhost:3000/products.json")
   const data = await res.json()
 
@@ -17,19 +17,17 @@ export default async function ProductDetails({params}:{
    return  notFound()
   }
 
-  const product = data.filter((product:ProductCardProps )=> product.UUID === id)[0]
+  const product = data.filter((product:ProductCardProps )=> product.slug === slug)[0]
  
   if (!product) {
     return notFound()
   }
-   
-    
   
   const isKit = true;
   return (
-    <div className="px-[200px] max-2xl:px-[50px] max-lg:px-[16px] mb-[102px]">
+    <div className="px-[200px] max-2xl:px-[50px] max-lg:px-[16px] mb-[102px] ">
     <Breadcrumb category={product.category} name={product.name}/>
-      <article className={`flex justify-evenly gap-6 mt-[71px] max-lg:pr-[20px]`}> 
+      <article className={`flex justify-evenly gap-6 max-lg:pr-[20px] mt-[71px]`}> 
         <Image className="max-lg:w-[30vw] max-lg:h-[30vw] max-h-[470px]" src={"/assets/images/products/image-details.jpg"} width={508} height={470} alt="Ottimo Caffè - Kit macchinetta del caffè Frog + 1 confezione da 30 cialde"/>
         <div className={`flex flex-col justify-between  ${!isKit ? "justify-start gap-8" : ""}`}>
           <Header name={product.name} UUID={product.UUID}/>

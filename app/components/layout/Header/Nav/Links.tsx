@@ -33,7 +33,7 @@ const navLinks = [
     text:"Kit"
   },
   {
-    href:"/non-solo-caffè",
+    href:"/non-solo-caffe",
     text:"Non solo caffè"
   },
 ]

@@ -393,4 +393,10 @@ header#app-header .menu-b span {
 
 .footer-category-list li:hover {
   text-decoration: underline;
+}
+
+select#sort {
+  margin-left: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }/*# sourceMappingURL=styles.css.map */

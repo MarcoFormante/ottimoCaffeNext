@@ -8,7 +8,8 @@ import ProductCard, { ProductCardProps } from '../../common/ProductCard/ProductC
 
 export default async function  ProductCardsSlider(){
     const response = await fetch("http://localhost:3000/products.json",{next:{tags:["promozione"]}})
-    const products = await response.json()
+    const data = await response.json()
+    const products = data.filter((product:ProductCardProps,index:number) => index < 3)
     
   return (
     <React.Fragment>
@@ -34,6 +35,7 @@ export default async function  ProductCardsSlider(){
                     img={product.img}
                     category={product.category}
                     UUID={product.UUID}
+                    slug={product.slug}
                     offer={product.offer}
                 />
                 ))}
