@@ -5,8 +5,9 @@ import Slider from './Slider'
 import ProductCard, { ProductCardProps } from '../../common/ProductCard/ProductCard'
 
 
+
 export default async function  ProductCardsSlider(){
-    const response = await fetch("http://localhost:3000/products.json")
+    const response = await fetch("http://localhost:3000/products.json",{next:{tags:["promozione"]}})
     const products = await response.json()
     
   return (
@@ -31,7 +32,7 @@ export default async function  ProductCardsSlider(){
                     desc={product.desc}
                     price={product.price}
                     img={product.img}
-                    pathName={product.pathName}
+                    category={product.category}
                     UUID={product.UUID}
                     offer={product.offer}
                 />

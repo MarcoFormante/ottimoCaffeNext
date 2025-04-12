@@ -1,12 +1,18 @@
 import Link from 'next/link'
 import React from 'react'
 
-const Breadcrumb = () => {
+interface BreadcrumbProps{
+  category:string,
+  name:string
+}
+
+const Breadcrumb = ({category,name}:BreadcrumbProps) => {
+  
   return (
     <div className="pt-[120px] text-blue-text">
         <Link href={"/"}>Home {">"}</Link> 
-        <Link href={"/prodotti-in-promozione"}> Prodotti in promozione {">"}</Link> 
-        <span className="font-semibold"> Kit macchinettà del caffè + cialde</span>  
+        <Link href={`/${category}`}> {category} {">"}</Link> 
+        <span className="font-semibold"> {name}</span>  
     </div>
   )
 }

@@ -1,31 +1,31 @@
 [
     {
-        "name": "Ottimo Caffè - Kit famiglia, 3 confezioni da 30 Cialde (90 cialde totali)",
+        "name": "Kit famiglia, 3 confezioni da 30 Cialde (90 cialde totali)",
         "desc": "Carta filtro da 44mm",
         "price": "59.90",
         "img": "productTest.png",
-        "pathName": "caffè-in-grani",
-        "UUID": "BNHDYJDW",
+        "category": "cialde",
+        "UUID": "CDPRF",
         "id": "1",
         "offer": "49.90"
     },
     {
-        "name": "Ottimo Caffè - Kit famiglia, 3 confezioni da 30 Cialde (90 cialde totali)",
+        "name": "Kit famiglia, 3 confezioni da 30 Cialde (90 cialde totali)",
         "desc": "Carta filtro da 44mm",
         "price": "59.90",
         "img": "productTest2.png",
-        "pathName": "caffè-in-grani",
+        "category": "capsule",
         "UUID": "BNHDYJDW",
         "id": "2",
         "offer": "49.90"
     },
     {
-        "name": "Ottimo Caffè - Kit famiglia, 3 confezioni da 30 Cialde (90 cialde totali)",
+        "name": "Kit famiglia, 3 confezioni da 30 Cialde (90 cialde totali)",
         "desc": "Carta filtro da 44mm",
         "price": "59.90",
         "img": "productTest3.png",
-        "pathName": "caffè-in-grani",
-        "UUID": "BNHDYJDW",
+        "category": "kit",
+        "UUID": "CDPRFERFE",
         "id": "3",
         "offer": "49.90"
     }

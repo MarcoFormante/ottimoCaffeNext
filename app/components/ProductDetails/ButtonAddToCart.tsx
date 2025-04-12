@@ -24,7 +24,7 @@ const ButtonAddToCart = ({quantity}:{quantity:number}) => {
           desc: "string",
           price: "string",
           img: "StaticImageData",
-          pathName: "string",
+          category: "string",
           UUID: "esa3",
           offer:"string",
           quantity:quantity
@@ -44,7 +44,6 @@ const ButtonAddToCart = ({quantity}:{quantity:number}) => {
     }
   },[toasts])
 
-console.log(cartContext.products);
 
 
   return (
