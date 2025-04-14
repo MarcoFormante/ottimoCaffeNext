@@ -2,21 +2,28 @@ import { notFound } from 'next/navigation'
 import ProductCard, { ProductCardProps } from '../components/common/ProductCard/ProductCard'
 import Breadcrumb from '../components/common/Breadcrumb/Breadcrumb'
 import Sort from '../components/Category/Sort'
+import { SearchParams } from 'next/dist/server/request/search-params'
 
 const categories = ["promozioni","cialde","capsule","macchinette-e-accessori","bottiglieria","kit","non-solo-caffe"]
 
-export const revalidate = 10
+export const revalidate = 3600
 
-export  async function page({params}:{
-    params:{category:string}
+export  async function page({params,searchParams}:{
+    params:{category:string},
+    searchParams:SearchParams
 }){
     const { category } = await params
+    const {ordina} = await searchParams
+    const url = ordina ? "ordina.json" : "products.json"
     
+     
     if (!categories.includes(category.toLowerCase())) {
         console.log("error category");
         return  notFound()
     }
-    const data = await fetch("http://localhost:3000/products.json")
+
+
+    const data = await fetch("http://localhost:3000/" + url)
     .then(res => res.json())
     .catch(error => console.log(error))
     
@@ -26,6 +33,9 @@ export  async function page({params}:{
     }
 
     const products =  data.filter((p:ProductCardProps) => p.category === category)
+    if (ordina === "prezzo-crescente") {
+        products.sort((a:ProductCardProps, b:ProductCardProps) => +a.price - +b.price)
+    }
 
 
   return (
