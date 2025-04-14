@@ -89,6 +89,7 @@ header#app-header {
   max-width: 1440px;
   top: 0;
   transform: translateY(0);
+  z-index: 50;
 }
 @media screen and (min-width: 1080) {
   header#app-header {
@@ -309,6 +310,13 @@ header#app-header .menu-b span {
   border-radius: 8px;
   box-shadow: 0px 3px 10px rgb(53, 53, 53);
   animation: toast-appear 3.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+}
+@media screen and (max-width: 768px) {
+  .toast {
+    width: clamp(320px, 60vw, 685px);
+    padding: 10px 20px;
+    text-align: center;
+  }
 }
 @media screen and (max-width: 768px) {
   .toast-container {

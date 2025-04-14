@@ -4,7 +4,7 @@ import React, { useState} from 'react'
 import ButtonAddToCart from './ButtonAddToCart'
 
 
-const Footer = ({children}:{children:React.ReactElement}) => {
+const Footer = ({children,isKit}:{children:React.ReactElement,isKit:boolean}) => {
     const [quantity,setQuantity] = useState(1)
 
     function addQuantity(){
@@ -21,8 +21,8 @@ const Footer = ({children}:{children:React.ReactElement}) => {
     }
 
   return (
-    <section>
-        <div className="flex justify-between w-[50%] max-xl:w-[75%] items-center">
+    <section className={`max-md:order-4 ${isKit ? "max-md:mt-8": ""}`}>
+        <div className="flex justify-between w-[50%] max-xl:w-[75%] items-center max-md:flex-row-reverse max-md:w-full  ">
         {children}
         <div className='flex flex-col gap-3'>
             <span className="text-blue-text font-bold">Quantità</span>

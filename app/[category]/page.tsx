@@ -42,12 +42,14 @@ export  async function page({params,searchParams}:{
     <div> 
         <div className='min-h-[70dvh] px-[200px] max-2xl:px-[50px] max-lg:px-[16px]'>
             <Breadcrumb category={category}/>
-            <h1 className='text-[clamp(24px,5vw,32px)] font-semibold text-blue-text mt-6'><CategoryText category={category}/></h1>
+            <h1 className='text-[clamp(24px,5vw,32px)] font-semibold text-blue-text mt-6'>
+                <CategoryText category={category}/>
+            </h1>
             <div className='flex items-center justify-between mt-6 mb-6'>
                 {(products.length > 1 || !products.length ) && <p className=' text-blue-text'>{products.length} prodotti trovati</p>}
                 {products.length === 1  && <p className='mt-6 text-blue-text'> 1 prodotto trovati</p>}
                {products.length > 1 &&  <div className='flex text-blue-text'>
-                   <p>Ordina per:</p> 
+                   <p className='max-sm:hidden'>Ordina per:</p> 
                    <Sort /> 
                 </div> }
             </div>

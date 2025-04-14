@@ -5,7 +5,7 @@ export default function Toast({quantity}:{quantity:number}){
 
   return (
     <div className="toast">
-        <div className="toast-container flex items-center justify-between ">
+        <div className="toast-container flex items-center justify-between max-md:p-0 max-md:w-full">
             <div className="flex items-center gap-[10px]">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="22" height="22" rx="11" stroke="#292F6C" strokeWidth="2"/>

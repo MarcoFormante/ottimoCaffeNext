@@ -7,7 +7,7 @@ interface HeaderProps{
 
 const Header = ({name,UUID}:HeaderProps) => {
   return (
-        <div>
+        <div className=''>
             <header>
                 <h1 className="text-2xl font-bold text-blue-text">Ottimo Caffè <br/> 
                    {name}

@@ -26,8 +26,9 @@ const ButtonAddToCart = ({quantity}:{quantity:number}) => {
           img: "StaticImageData",
           category: "string",
           UUID: "esa3",
+          slug:"slug",
           offer:"string",
-          quantity:quantity
+          quantity
         }])
       }
       setToasts((prev)=>[...prev,quantity])
@@ -47,8 +48,9 @@ const ButtonAddToCart = ({quantity}:{quantity:number}) => {
 
 
   return (
-    <div>
+    <div className='max-md:place-items-center '>
     { toasts.length > 0 && toasts.map((quantity,i)=><Toast key={i} quantity={quantity}/>)} 
+    <Toast quantity={1}/>
       <Button onClick={addToCart} style="mt-10">
           <div className="flex gap-x-2.5 items-center">
           <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">

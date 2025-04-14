@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import BackBtn from './BackBtn'
 
 interface BreadcrumbProps{
   category:string,
@@ -9,11 +10,15 @@ interface BreadcrumbProps{
 const Breadcrumb = ({category,name}:BreadcrumbProps) => {
   
   return (
-    <div className="pt-[120px] text-blue-text ">
-        <Link href={"/"}>Home {">"}</Link> 
-        <Link className={!name ? "font-semibold capitalize" : ""} href={`/${category}`}> {category} {name ? ">" : ""}</Link> 
+    <div className='pt-[120px]'>
+      <BackBtn/>
+      <div className=" text-blue-text max-lg:hidden ">
+        <Link href={"/"}>Home </Link> {">"}
+        <Link className={!name ? "font-semibold capitalize" : ""} href={`/${category}`}> {category} </Link> {name ? ">" : ""}
       {  name && <span className="font-semibold"> {name}</span>  }
+      </div>
     </div>
+    
   )
 }
 

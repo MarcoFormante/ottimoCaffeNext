@@ -9,6 +9,7 @@ header#app-header{
     max-width: 1440px;
     top: 0;
     transform: translateY(0);
+    z-index: 50;
     @media screen and (min-width:1080) {
         animation: headerAnim 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
