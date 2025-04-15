@@ -9,18 +9,26 @@
     border-radius: 8px;
     box-shadow: 0px 3px 10px rgb(53, 53, 53) ;
     animation:toast-appear 3.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
-    
+   
     @media screen and (max-width:768px) {
-        width: clamp(320px,60vw,685px);
+        width: clamp(393px,50vw,685px);
         padding: 10px 20px;
         text-align: center;
     }
+    @media screen and (max-width:400px) {
+        width:93vw;
+        padding: 5px 5px;
+        text-align: center;
+    }
+
+  
 
     &-container{
         @media screen and (max-width:768px) {
             flex-direction: column;
             gap: 16px;
         }
+       
     }
 }
 

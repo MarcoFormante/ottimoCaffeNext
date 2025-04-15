@@ -27,7 +27,7 @@ export default async function ProductDetails({params}:{
   return (
     <div className="px-[200px] max-2xl:px-[50px] max-lg:px-[16px] mb-[102px] ">
     <Breadcrumb category={product.category} name={product.name}/>
-      <article className={`flex justify-evenly gap-6 max-lg:pr-[20px] mt-[71px] max-md:flex-col`}> 
+      <article className={`flex justify-evenly gap-6  mt-[71px] max-md:flex-col`}> 
          <Image className="max-lg:w-[30vw] max-lg:h-[30vw] max-h-[470px]  max-md:order-1   hidden min-md:block" src={"/assets/images/products/image-details.jpg"} width={508} height={470} alt="Ottimo Caffè - Kit macchinetta del caffè Frog + 1 confezione da 30 cialde"/> 
         <div className={`flex flex-col justify-between  ${!isKit ? "justify-start gap-8" : ""}`}>
           <Header name={product.name} UUID={product.UUID}/>
