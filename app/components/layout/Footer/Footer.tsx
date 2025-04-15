@@ -4,7 +4,13 @@ import paymentMethod from "./paymentTypes.png"
 import SocialMediaIcons from "./SocialMediaIcons";
 import Link from "next/link";
 
+// 332.25
+// 38
 
+// 242
+// 27.7
+
+export const revalidate = 10
 export default function Footer(){
     return (
         <footer id="app-footer" className="bg-blue-text  container-full m-auto pt-10 pb-[72px] max-md:text-xl">
@@ -14,7 +20,7 @@ export default function Footer(){
                     <div className="flex flex-col gap-[40px] ">
                         <div className="payment-methods">
                             <h3 className="text-white-primary font-bold text-[20px] mb-4">Metodi di pagamento accettati</h3>
-                            <Image src={paymentMethod} alt="Metodi di pagamento - Ottimo Caffé" width={242} height={27.7}/>
+                            <Image src={"/assets/svg/payment-methods.svg"}  alt="Metodi di pagamento - Ottimo Caffé" width={332.25} height={38}  className="min-md:w-[242px]"/>
                         </div>
                             <Image src={logo} alt="Ottimo Caffé" className="" width={153} height={49}/>
                             <div className="footer-address">
