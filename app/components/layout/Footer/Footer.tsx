@@ -7,11 +7,11 @@ import Link from "next/link";
 
 export default function Footer(){
     return (
-        <footer id="app-footer" className="bg-blue-text  container-full m-auto pt-10 pb-[72px]">
+        <footer id="app-footer" className="bg-blue-text  container-full m-auto pt-10 pb-[72px] max-md:text-xl">
             <div className="container-full m-auto flex justify-between  text-white-primary px-[200px] max-2xl:px-[50px]  max-lg:px-[16px]  min-md:max-lg:gap-6 max-md:flex-col max-md:gap-10  ">
                 
 {/* PRIMA COLUMN */}
-                    <div className="flex flex-col gap-[40px]">
+                    <div className="flex flex-col gap-[40px] ">
                         <div className="payment-methods">
                             <h3 className="text-white-primary font-bold text-[20px] mb-4">Metodi di pagamento accettati</h3>
                             <Image src={paymentMethod} alt="Metodi di pagamento - Ottimo Caffé" width={242} height={27.7}/>
