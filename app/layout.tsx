@@ -11,7 +11,8 @@ export const metadata: Metadata = {
 };
 
 const jost = Jost({
-  adjustFontFallback:true
+  adjustFontFallback:true,
+  subsets:["latin"]
 })
 
 
