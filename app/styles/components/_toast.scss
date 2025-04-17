@@ -12,11 +12,11 @@
    
     @media screen and (max-width:768px) {
         width: clamp(393px,50vw,685px);
-        padding: 10px 20px;
+        padding: 20px 15px;
         text-align: center;
     }
-    @media screen and (max-width:400px) {
-        width:93vw;
+    @media screen and (max-width:440px) {
+        width:95vw;
         padding: 20px 5px;
         text-align: center;
     }
@@ -27,6 +27,8 @@
         @media screen and (max-width:768px) {
             flex-direction: column;
             gap: 16px;
+            justify-content: center;
+            align-items: center;
         }
        
     }
