@@ -5,7 +5,7 @@ import Button from "../../common/Button/Button";
 
 export default function CartSummary(){
     return (
-            <div className="rounded-[8px] bg-[#EAEFEF] max-h-[362px] p-4  sticky top-[150px] left-[65vw] max-lg:static max-lg:min-w-[300px]  max-lg:w-[100%]  max-lg:m-auto">
+            <div className="rounded-[8px] bg-[#EAEFEF] max-h-fit p-4  sticky top-[150px] left-[65vw] max-lg:static max-lg:min-w-[300px]  max-lg:w-[100%]  max-lg:m-auto">
                 <div className="text-[14px] max-lg:text-[16px] text-blue-text pb-6 border-b-1 border-gray-300 flex flex-col gap-2">
                     <h2 className="font-bold">Riepilogo</h2>
                     <div className="flex items-center justify-between">

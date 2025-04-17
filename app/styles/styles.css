@@ -163,6 +163,10 @@ header#app-header nav .links a.active {
     opacity: 0;
     animation-delay: 1.05s;
   }
+  header#app-header nav .links.menu-on li:nth-child(8) {
+    opacity: 0;
+    animation-delay: 1.2s;
+  }
   header#app-header nav .links.menu-on li a {
     font-size: clamp(12px, 5vw, 24px);
     display: inline;

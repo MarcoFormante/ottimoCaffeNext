@@ -58,7 +58,7 @@ header#app-header{
                     li{
                         transform: translateX(-20%);
                         animation: appearInMenu 0.3s forwards;
-                        @for $i from 1 through 7 {
+                        @for $i from 1 through 8 {
                             &:nth-child(#{$i}) {
                                 opacity: 0;
                                 animation-delay: #{$i * 0.15}s;
