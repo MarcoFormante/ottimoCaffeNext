@@ -1,0 +1,139 @@
+'use client'
+import Image from "next/image"
+import Breadcrumb from "../components/common/Breadcrumb/Breadcrumb"
+import { useState } from "react"
+import Button from "../components/common/Button/Button"
+
+export function Page(){
+     const [quantity,setQuantity] = useState(1)
+    
+        function addQuantity(){
+            if (quantity < 99) {
+                setQuantity(quantity + 1)
+            }
+           
+        }
+    
+        function subTraitQuantity(){
+            if (quantity > 1 ) {
+                setQuantity(quantity - 1)
+            }
+        }
+  return (
+    <div>
+        <div className='min-h-[70dvh] px-[200px] max-2xl:px-[50px] max-lg:px-[16px] mb-15'>
+            <Breadcrumb category={"carrello"}/>
+            <div>
+                <div className="flex flex-col ">
+                    <div className="mt-12">
+                        
+                    </div>
+                    {/* {SCROLLABLE} */}
+                 
+                    <div className="flex gap-6 max-lg:flex-col">
+                        <div className="">
+                        <div className="flex flex-col gap-[9px] max-lg:flex-row max-lg:justify-between  max-lg:pb-4 max-lg:border-b-2 max-lg:border-gray-400 max-lg:mb-4">
+                            <h1 className="font-bold text-blue-text text-2xl">Il tuo carrello </h1>
+                            <span className="min-lg:text-[12px] text-gray-500 mb-10 max-lg:mt-1 ">1 articolo nel carrello </span>
+                        </div>
+
+                        {/* {Prodotto} */}
+
+                            <div className="pb-10 border-b-2  border-gray-400">
+                                <div className="flex items-center gap-6 max-md:gap-2 max-md:justify-between max-lg:justify-evenly">
+                                    <div>
+                                        <Image src={"/assets/images/products/productTest.png"} alt="prodotto nel carrello" width={153} height={142} />
+                                    </div>
+                                    <div className="flex gap-6 min-md:items-center max-md:flex-col w-full place-content-center max-lg:w-[70%] " >
+                                        <div className="min-md:max-w-[242px] max-md:order-2">
+                                            <p className="text-blue-text max-md:text-[14px]">Ottimo Caffè <br/> Kit macchinetta del caffè Frog + 1 confezione da 30 cialde</p>
+                                        </div>
+                                        <div className="border-l-1 border-gray-500 opacity-30 h-[69px] max-md:hidden "></div>
+
+                                        <div className="flex gap-6   max-[414px]:gap-8  max-[768px]:gap-20  max-md:order-3">
+                                            <div>
+                                                <div className='flex flex-col gap-3'>
+                                                    <span className="text-blue-text max-md:font-semibold max-md:text-[14px]">Quantità</span>
+                                                    <div>
+                                                        <div className='flex gap-[13px] items-center border-1 rounded-lg border-gray-400 w-[95px] text-blue-text justify-center '>
+                                                            <button className='appearance-none p-1 cursor-pointer' onClick={subTraitQuantity}><span className='w-2.5 h-[1.5px] bg-blue-text block'></span></button>
+                                                            <span>{quantity}</span>
+                                                            <button className='appearance-none p-1 cursor-pointer' onClick={addQuantity}>+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="border-l-1 border-gray-500 opacity-30 h-[69px] max-md:hidden "></div>
+                                            <div>
+                                                <div className='flex flex-col gap-3 text-blue-text'>
+                                                    <span className="max-md:font-semibold max-md:text-[14px]">Prezzo</span>
+                                                    <span className="flex items-center gap-1 max-md:font-semibold max-md:text-blue-primary">59,99 <span className="text-[12px] max-md:hidden">EUR</span> <span className="min-md:hidden">€</span></span>
+                                                </div>
+                                            </div>
+                                                <div className="border-l-1 border-gray-500 opacity-30 h-[69px] max-md:hidden"></div>
+                                        </div>
+
+                                        <div className="place-items-center grid max-md:order-1 place-content-end">
+                                        {/* {"DA CLICCARE"}  */}
+                                            <div className="flex items-center gap-2 text-blue-text"> 
+                                                <span className="min-md:hidden max-md:text-[14px]">Rimuovi</span> 
+                                                <svg className="cursor-pointer max-md:h-[32px] max-md:w-[100%]"  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="1" y="1" width="22" height="22" rx="11" stroke="#292F6C" stroke-width="1"/>
+                                                    <path d="M8 17L7 16L11 12L7 8L8 7L12 11L16 7L17 8L13 12L17 16L16 17L12 13L8 17Z" fill="#292F6C"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div className="rounded-[8px] bg-[#EAEFEF] max-h-[362px] p-4  sticky top-[150px] left-[65vw] max-lg:static max-lg:min-w-[300px]  max-lg:w-[50vw]  max-lg:m-auto">
+                            <div className="text-[14px] text-blue-text pb-6 border-b-1 border-gray-300 flex flex-col gap-2">
+                                <h2 className="font-bold">Riepilogo</h2>
+                                <div className="flex items-center justify-between">
+                                    <span>1 articolo</span>
+                                    <span>59,99 €</span>
+                                </div>
+
+                                <div className="flex items-center justify-between">
+                                    <span>Spedizione</span>
+                                    <span>6,99 €</span>
+                                </div>
+
+                                <div className="font-bold flex items-center justify-between">
+                                    <span>Totale (iva incl.)</span>
+                                    <span>65,98 €</span>
+                                </div>
+                            </div>
+
+                            <div className="mt-6 place-items-center">
+                                <span className="text-[14px] text-blue-text ">Metodi di pagamento accettati</span>
+                                <Image className="mt-4" src={"/assets/svg/payment-methods.svg"}  alt="Metodi di pagamento - Ottimo Caffé" width={242} height={27.7} />
+                            </div>
+
+                            <div className="mt-8 max-lg:flex justify-center">
+                               <Button onClick={()=>{}}>
+                                    Procedi al checkout
+                               </Button>
+                            </div>
+                            <div className="flex justify-center gap-1 mt-3">
+                                <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.54825 0H5.45169C3.47166 0 1.86454 1.66661 1.86454 3.71986V5.13985H1.53018C0.687902 5.13985 0 5.84649 0 6.7265V10.2933C0.000129591 13.44 2.46887 16 5.50315 16C8.53113 16 11 13.4401 11 10.2933V6.7265C11 5.84649 10.3121 5.13985 9.46982 5.13985H9.13546L9.13559 3.71986C9.13559 1.66644 7.52844 0 5.54844 0H5.54825ZM3.15028 3.71986C3.15028 2.39984 4.17878 1.33316 5.4517 1.33316H5.54825C6.82117 1.33316 7.84968 2.39984 7.84968 3.71986V5.13314H3.15042L3.15028 3.71986ZM3.47168 10.3665C3.3058 10.779 2.76381 10.9323 2.42374 10.5798C2.17931 10.352 2.16778 9.87855 2.42374 9.63988C2.67736 9.34798 3.16065 9.42042 3.33015 9.63988C3.53725 9.85451 3.55398 10.161 3.47168 10.3665ZM5.95326 10.5798C5.73294 10.8336 5.27584 10.8442 5.04685 10.5798C4.80165 10.3512 4.79167 9.87789 5.04685 9.63988C5.20652 9.43197 5.6679 9.33104 5.95326 9.63988C6.23449 9.93138 6.17293 10.375 5.95326 10.5798ZM8.57624 10.5798C8.35735 10.8318 7.92603 10.8458 7.6697 10.5798C7.43421 10.3598 7.3921 9.92789 7.6697 9.63988C7.91088 9.36236 8.39144 9.40053 8.57624 9.63988C8.85864 9.93326 8.79436 10.3761 8.57624 10.5798Z" fill="#788A8B"/>
+                                </svg>
+                               <span className="text-[12px] text-gray-500 text-center ">Il pagamento è sicuro</span>
+                            </div>
+                           
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+         
+        </div>
+    </div>
+  )
+}
+
+export default Page

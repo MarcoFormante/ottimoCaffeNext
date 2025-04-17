@@ -6,6 +6,7 @@ import search from '@/public/assets/svg/search.svg';
 import cart from '@/public/assets/svg/cart.svg';
 import Logo from './Logo';
 import SearchBar from './SearchBar';
+import Link from 'next/link';
 
 
 const Nav = () => {
@@ -54,9 +55,9 @@ return (
                 <div className='cursor-pointer'>
                   <Image className='aspect-square' onClick={()=>handleSearchBarVisibleState(true)} width={21} height={21} src={search} alt='Cerca i prodotti' />
                 </div>
-                <div className='cursor-pointer'>
+                <Link href={"/carrello"} className='cursor-pointer flex'>
                   <Image className='aspect-square' width={21} height={21} src={cart} alt='Consulta il carrello' />
-                </div>
+                </Link>
               </div>
             </div>
           <div className='cursor-pointer min-[1081px]:hidden' onClick={()=>setMenuActive(!menuActive)}>
