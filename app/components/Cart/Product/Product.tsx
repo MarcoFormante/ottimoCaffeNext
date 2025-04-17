@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import { useState } from "react";
 
@@ -59,7 +60,7 @@ export default function Product(){
                             <div className="flex items-center gap-2 text-blue-text"> 
                                 <span className="min-md:hidden max-md:text-[14px]">Rimuovi</span> 
                                 <svg className="cursor-pointer max-md:h-[32px] max-md:w-[100%]"  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="1" y="1" width="22" height="22" rx="11" stroke="#292F6C" stroke-width="1"/>
+                                    <rect x="1" y="1" width="22" height="22" rx="11" stroke="#292F6C" strokeWidth="1"/>
                                     <path d="M8 17L7 16L11 12L7 8L8 7L12 11L16 7L17 8L13 12L17 16L16 17L12 13L8 17Z" fill="#292F6C"/>
                                 </svg>
                             </div>

@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import "../app/styles/styles.css"
 import Header from "./components/layout/Header/Header";

@@ -7,11 +7,10 @@ import { categories } from "@/app/utils";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-
 export default async function ProductDetails({params}:{
-  params:{slug:string}
+  params: Promise<{ slug: string }>
 }){
-  const {slug} =  await params
+  const {slug} = await params
   const res = await fetch("http://localhost:3000/products.json")
   const data = await res.json()
 
@@ -19,9 +18,7 @@ export default async function ProductDetails({params}:{
    return  notFound()
   }
 
-  
-
-  const product = data.filter((product:ProductCardProps )=> product.slug === slug)[0]
+  const product = data.find((product:ProductCardProps )=> product.slug === slug)
    
   if (!product) {
     return notFound()

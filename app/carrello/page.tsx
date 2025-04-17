@@ -3,7 +3,7 @@ import Breadcrumb from "../components/common/Breadcrumb/Breadcrumb"
 import Product from "../components/Cart/Product/Product"
 import CartSummary from "../components/Cart/CartSummary/CartSummary"
 
-export function Page(){
+export default  function Cart(){
     
   return (
     <div>
@@ -33,4 +33,3 @@ export function Page(){
   )
 }
 
-export default Page

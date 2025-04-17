@@ -2,15 +2,14 @@ import { notFound } from 'next/navigation'
 import ProductCard, { ProductCardProps } from '../components/common/ProductCard/ProductCard'
 import Breadcrumb from '../components/common/Breadcrumb/Breadcrumb'
 import Sort from '../components/Category/Sort'
-import { SearchParams } from 'next/dist/server/request/search-params'
 import { categories } from '../utils'
 
 export const revalidate = 10
 
 
-export  async function page({params,searchParams}:{
-    params:{category:string},
-    searchParams:SearchParams
+export default async function Category({params,searchParams}:{
+    params: Promise<{ category: string }>
+    searchParams: Promise<{ ordina: string }>
 }){
     const { category } = await params
     const {ordina} = await searchParams
@@ -79,5 +78,5 @@ export  async function page({params,searchParams}:{
   )
 }
 
-export default page
+
 

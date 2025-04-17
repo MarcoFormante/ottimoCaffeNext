@@ -1,3 +1,4 @@
+'use client'
 import React, { useContext, useEffect, useState} from 'react'
 import Button from '../common/Button/Button'
 import { Context } from '@/app/context/CartContext'
@@ -7,7 +8,6 @@ import Toast from './Toast'
 const ButtonAddToCart = ({quantity}:{quantity:number}) => {
   const cartContext = useContext(Context)
   const [toasts,setToasts] = useState<number[]>([])
-
 
 
   function addToCart()
