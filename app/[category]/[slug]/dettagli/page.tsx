@@ -6,19 +6,20 @@ import KitInfo from "@/app/components/ProductDetails/KitInfo";
 import { categories } from "@/app/utils";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import productsList from "../../products.json"
 
 export default async function ProductDetails({params}:{
   params: Promise<{ slug: string }>
 }){
   const {slug} = await params
-  const res = await fetch("http://localhost:3000/products.json")
-  const data = await res.json()
+  // const res = await fetch("http://localhost:3000/products.json")
+  // const data = await res.json()
 
-  if (!data || data.length === 0) {
-   return  notFound()
-  }
+  // if (!data || data.length === 0) {
+  //  return  notFound()
+  // }
 
-  const product = data.find((product:ProductCardProps )=> product.slug === slug)
+  const product = JSON.parse(JSON.stringify(productsList)).find((product:ProductCardProps )=> product.slug === slug)
    
   if (!product) {
     return notFound()

@@ -24,14 +24,14 @@ export default async function Category({params,searchParams}:{
     }
 
 
-    const data = await fetch("products.json")
-    .then(res => res.json())
-    .catch(error => console.log(error))
+    // const data = await fetch("products.json")
+    // .then(res => res.json())
+    // .catch(error => console.log(error))
     
-    if (!data || data.length === 0) {
-        console.log("no data");
-        return  notFound()
-    }
+    // if (!data || data.length === 0) {
+    //     console.log("no data");
+    //     return  notFound()
+    // }
 
     const products = JSON.parse(JSON.stringify(productsList)).filter((p:ProductCardProps) => p.category === category)
 
