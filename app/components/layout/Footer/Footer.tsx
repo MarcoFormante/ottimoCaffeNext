@@ -1,14 +1,8 @@
 import Image from "next/image";
 import logo from "@/public/assets/svg/logo.svg"
-import paymentMethod from "./paymentTypes.png"
 import SocialMediaIcons from "./SocialMediaIcons";
 import Link from "next/link";
 
-// 332.25
-// 38
-
-// 242
-// 27.7
 
 export const revalidate = 10
 export default function Footer(){
@@ -20,7 +14,7 @@ export default function Footer(){
                     <div className="flex flex-col gap-[40px] ">
                         <div className="payment-methods">
                             <h3 className="text-white-primary font-bold text-[20px] mb-4">Metodi di pagamento accettati</h3>
-                            <Image src={"/assets/svg/payment-methods.svg"}  alt="Metodi di pagamento - Ottimo Caffé" width={332.25} height={38}  className="min-md:w-[242px]"/>
+                            <Image src={"/assets/svg/payment-methods.svg"}  alt="Metodi di pagamento - Ottimo Caffé" width={332} height={38}  className="min-md:w-[242px] min-md:h-[38px]  w-auto h-auto"/>
                         </div>
                             <Image src={logo} alt="Ottimo Caffé" className="" width={153} height={49}/>
                             <div className="footer-address">
@@ -36,35 +30,35 @@ export default function Footer(){
 
                     <ul className="flex flex-col gap-[24px] font-normal pr-6 footer-category-list">
                         <li>
-                            <Link href={"#"}>Promozioni</Link>
+                            <Link href={"/promozioni"}>Promozioni</Link>
                         </li>
                         <li>
-                            <Link href={"#"}>Caffè in cialde</Link>
+                            <Link href={"/caffè-in-cialde"}>Caffè in cialde</Link>
                         </li>
                         <li>
-                            <Link href={"#"}>Caffè in capsule</Link>
+                            <Link href={"/caffè-in-capsule"}>Caffè in capsule</Link>
                         </li>
                         <li>
-                            <Link href={"#"}>Macchinette e <br /> accessori</Link>
+                            <Link href={"/macchinette-e-accessori"}>Macchinette e <br /> accessori</Link>
                         </li>
                         <li>
-                            <Link href={"#"}>Bottiglieria</Link>
+                            <Link href={"bottiglieria"}>Bottiglieria</Link>
                         </li>
                     </ul>
 {/* TERZA COLUMN */}
               
                     <ul className="flex flex-col gap-[24px] footer-category-list">
                         <li>
-                            <Link href={"#"}>Kit</Link>
+                            <Link href={"kit"}>Kit</Link>
                         </li>
                         <li>
-                            <Link href={"#"}>Non solo caffè</Link>
+                            <Link href={"non-solo-caffè"}>Non solo caffè</Link>
                         </li>
                         <li>
-                            <Link href={"#"}>Privacy policy</Link>
+                            <Link href={"/privacy-policy"}>Privacy policy</Link>
                         </li>
                         <li>
-                            <Link href={"#"}>Cookie policy</Link>
+                            <Link href={"/cookie-policy"}>Cookie policy</Link>
                         </li>
                        
                     </ul>
@@ -75,11 +69,11 @@ export default function Footer(){
                     <div className="flex flex-col gap-12 ">
                         <div>
                             <h4 className="text-white-primary font-bold text-[20px] mb-4"> Contatti</h4>
-                            <Link href={"tel:+"} className="text-white-primary" title="Numero di Telefono Ottimo Caffé" aria-label="Numero di Telefono Ottimo Caffè">Whatsapp: +39 123 45 67 890</Link>
-                            <Link href={"mailto:formante.marco@gmail.com"} className="text-white-primary block mt-1.5" title="Numero di Telefono Ottimo Caffé" aria-label="Numero di Telefono Ottimo Caffè">E-mail: <span className="underline">ottimo.caffe.23@gmail.com</span></Link>
+                            <Link href={"tel:+39 380 64 68 034"} className="text-white-primary" title="Numero di Telefono Ottimo Caffé" aria-label="Numero di Telefono Ottimo Caffè">Whatsapp: +39 123 45 67 890</Link>
+                            <Link href={"mailto:ottimo.caffe.23@gmail.com"} className="text-white-primary block mt-1.5" title="Numero di Telefono Ottimo Caffé" aria-label="Numero di Telefono Ottimo Caffè">E-mail: <span className="underline">ottimo.caffe.23@gmail.com</span></Link>
                         </div>
                         <div>
-                            <p className="text-white-primary font-bold text-[20px] mb-4"> Seguici su</p>
+                            <p className="text-white-primary font-bold text-[20px] mb-4">Seguici su</p>
                             <SocialMediaIcons/>
                         </div>
                      

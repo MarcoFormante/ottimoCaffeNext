@@ -3,19 +3,24 @@ import React from 'react'
 import BackBtn from './BackBtn'
 
 interface BreadcrumbProps{
-  category:string,
-  name?:string
+  categoryName:string,
+  productName?:string,
+  categoryHref?:string
 }
 
-const Breadcrumb = ({category,name}:BreadcrumbProps) => {
+const Breadcrumb = ({categoryName,productName,categoryHref}:BreadcrumbProps) => {
   
   return (
     <div className='pt-[120px]'>
       <BackBtn/>
       <div className=" text-blue-text max-lg:hidden  min-lg:py-6">
-        <Link href={"/"}>Home </Link> {">"}
-        <Link className={!name ? "font-semibold capitalize" : ""} href={`/${category}`}> {category} </Link> {name ? ">" : ""}
-      {  name && <span className="font-semibold"> {name}</span>  }
+        <Link href={"/"}>Home</Link> {">"}
+        {!productName && <span className='font-semibold capitalize'> {categoryName}</span>}
+        {productName && <>
+        <Link className={!productName ? "font-semibold capitalize" : ""}  href={`/${categoryHref}`}> {categoryName} </Link> {productName ? ">" : ""}
+        </> 
+        } 
+      {  productName && <span className="font-semibold"> {productName}</span>  }
       </div>
     </div>
     

@@ -3,10 +3,10 @@ import ProductCard, { ProductCardProps } from '../components/common/ProductCard/
 import Breadcrumb from '../components/common/Breadcrumb/Breadcrumb'
 import Sort from '../components/Category/Sort'
 import { SearchParams } from 'next/dist/server/request/search-params'
+import { categories } from '../utils'
 
-const categories = ["promozioni","cialde","capsule","macchinette-e-accessori","bottiglieria","kit","non-solo-caffe"]
+export const revalidate = 10
 
-export const revalidate = 3600
 
 export  async function page({params,searchParams}:{
     params:{category:string},
@@ -15,9 +15,12 @@ export  async function page({params,searchParams}:{
     const { category } = await params
     const {ordina} = await searchParams
     const url = ordina ? "ordina.json" : "products.json"
+        
+        
+     const categoryElement = categories.find(c => c.href === `/${category}`)
     
      
-    if (!categories.includes(category.toLowerCase())) {
+    if (!categoryElement) {
         console.log("error category");
         return  notFound()
     }
@@ -33,6 +36,7 @@ export  async function page({params,searchParams}:{
     }
 
     const products =  data.filter((p:ProductCardProps) => p.category === category)
+
     if (ordina === "prezzo-crescente") {
         products.sort((a:ProductCardProps, b:ProductCardProps) => +a.price - +b.price)
     }
@@ -41,14 +45,14 @@ export  async function page({params,searchParams}:{
   return (
     <div> 
         <div className='min-h-[70dvh] px-[200px] max-2xl:px-[50px] max-lg:px-[16px]'>
-            <Breadcrumb category={category}/>
+            <Breadcrumb categoryName={categoryElement.nameInCategoryPage} />
             <h1 className='text-[clamp(24px,5vw,32px)] font-semibold text-blue-text mt-6'>
-                <CategoryText category={category}/>
+                <span>{categoryElement.nameInCategoryPage}</span>
             </h1>
             <div className='flex items-center justify-between mt-6 mb-6'>
                 {(products.length > 1 || !products.length ) && <p className=' text-blue-text'>{products.length} prodotti trovati</p>}
                 {products.length === 1  && <p className='mt-6 text-blue-text'> 1 prodotto trovati</p>}
-               {products.length > 1 &&  <div className='flex text-blue-text'>
+                {products.length > 1 &&  <div className='flex text-blue-text'>
                    <p className='max-sm:hidden'>Ordina per:</p> 
                    <Sort /> 
                 </div> }
@@ -77,13 +81,3 @@ export  async function page({params,searchParams}:{
 
 export default page
 
-const CategoryText = ({category}:{category: typeof categories[number]})=> {
-
-    return categories.includes("macchinette") ? 
-    <span>Macchinette e Accessori</span> :
-    categories.includes("promozioni") ? 
-    <span>Prodotti in Promozione</span> :
-    categories.includes("non-solo-caffe") ? 
-    <span>Non solo Caffè</span>: 
-    <span className='capitalize'>{category}</span>
-}

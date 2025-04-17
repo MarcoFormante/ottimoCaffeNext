@@ -9,15 +9,15 @@ interface LinksProps{
 
 const navLinks = [
   {
-    href:"/promozioni",
+    href:"/in-promozione",
     text:"Promozioni"
   },
   {
-    href:"/cialde",
+    href:"/caffe-in-cialde",
     text:"Cialde"
   },
   {
-    href:"/capsule",
+    href:"/caffe-in-capsule",
     text:"Capsule"
   },
   {

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import { categories } from '@/app/utils'
 
 const CategoryCards = () => {
   return (
@@ -9,14 +10,27 @@ const CategoryCards = () => {
         </div>
         <div>
             <ul id="category-cards" className="text-black grid  gap-6 justify-center w-[100%] m-auto place-items-center max-md:grid-cols-2">
-            <li className="font-normal  text-center  aspect-video flex align-center justify-center 2xl:max-w-[242px] h-[112px] min-w-[169px] max-sm:h-[80px] w-full"><Link className="w-full h-full grid place-items-center drop-shadow-lg rounded-[8px] bg-[#FFFFFF] hover:bg-primary hover:text-white-primary transition-colors" href={"#"}>In Promozione</Link></li>
-            <li className="font-normal text-center  aspect-video flex align-center justify-center 2xl:max-w-[242px] h-[112px] min-w-[169px] max-sm:h-[80px] w-full"><Link className="w-full h-full grid place-items-center drop-shadow-lg rounded-[8px] bg-[#FFFFFF]  hover:bg-primary hover:text-white-primary transition-colors" href={"#"}>Caffè in cialde</Link></li>
-            <li className="text-center  aspect-video flex align-center justify-center 2xl:max-w-[242px] h-[112px] min-w-[169px] max-sm:h-[80px] w-full"><Link className="w-full h-full grid place-items-center drop-shadow-lg rounded-[8px] bg-[#FFFFFF]  hover:bg-primary hover:text-white-primary transition-colors" href={"#"}>Caffè in capsule</Link></li>
-            <li className="text-center  aspect-video flex align-center justify-center 2xl:max-w-[242px] h-[112px] min-w-[169px] max-sm:h-[80px] w-full"><Link className="w-full h-full grid place-items-center drop-shadow-lg rounded-[8px] bg-[#FFFFFF]  hover:bg-primary hover:text-white-primary transition-colors" href={"#"}>Macchinette ed accessori</Link></li>
-            <li className="text-center  aspect-video flex align-center justify-center 2xl:max-w-[242px] h-[112px] min-w-[169px] max-sm:h-[80px] w-full"><Link className="w-full h-full grid place-items-center drop-shadow-lg rounded-[8px] bg-[#FFFFFF]  hover:bg-primary hover:text-white-primary transition-colors" href={"#"}>Bottiglieria</Link></li>
-            <li className="text-center aspect-video flex align-center justify-center 2xl:max-w-[242px] h-[112px] min-w-[169px] max-sm:h-[80px] w-full"><Link className="w-full h-full grid place-items-center drop-shadow-lg rounded-[8px] bg-[#FFFFFF]  hover:bg-primary hover:text-white-primary transition-colors" href={"#"}>Kit</Link></li>
-            <li className="text-center aspect-video flex align-center justify-center 2xl:max-w-[242px] h-[112px] min-w-[169px] max-sm:h-[80px] w-full"><Link className="w-full h-full grid place-items-center drop-shadow-lg rounded-[8px] bg-[#FFFFFF]  hover:bg-primary hover:text-white-primary transition-colors" href={"#"}>Non solo caffè</Link></li>
-            <li className="text-center aspect-video flex align-center justify-center 2xl:max-w-[242px] h-[112px] min-w-[169px] max-sm:h-[80px] w-full"><Link className="w-full h-full grid place-items-center drop-shadow-lg rounded-[8px] bg-[#FFFFFF]  hover:bg-primary hover:text-white-primary transition-colors" href={"#"}>Tutti i prodotti</Link></li>
+              {categories.map((c)=>{
+                 return (
+                      <li 
+                        key={c.nameInCard} 
+                        className={`font-normal text-center aspect-video 
+                          flex align-center justify-center 
+                          2xl:max-w-[242px] h-[112px] 
+                          min-w-[169px] max-sm:h-[80px] w-full`}
+                      >
+                        <Link 
+                          className={`w-full h-full grid place-items-center 
+                            drop-shadow-lg rounded-[8px] bg-[#FFFFFF] hover:bg-primary
+                             hover:text-white-primary transition-colors`
+                            } 
+                          href={c.href}
+                        >
+                        {c.nameInCard}
+                        </Link>
+                      </li>
+                    )
+                  })}
             </ul>
         </div> 
     </React.Fragment>
