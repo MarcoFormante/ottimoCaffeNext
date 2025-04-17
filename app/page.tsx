@@ -25,7 +25,7 @@ export default async function Home() {
   return (
     <div id='homepage' className="">
       <Hero/>
-      <div className="flex flex-col gap-10 px-[200px] max-2xl:px-[50px] max-lg:px-[16px] ">
+      <div className="flex flex-col max-[482px]:gap-0 gap-10 px-[200px] max-2xl:px-[50px] max-lg:px-[16px] ">
         <Section>
           <ProductCardsSlider/>
         </Section>
@@ -34,7 +34,7 @@ export default async function Home() {
           <CategoryCards/>  
         </Section>
 
-        <Section style="mt-6 mb-14">
+        <Section style="max-[482px]:mt-16 mt-6 mb-14">
           <BrandHighlight/>
         </Section>
       </div>

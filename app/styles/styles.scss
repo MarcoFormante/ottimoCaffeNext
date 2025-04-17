@@ -20,6 +20,7 @@
 
 
         .prod-slider{
+            padding:15px 0 ;
             @media screen and (max-width:481px) {
                 &::-webkit-scrollbar{
                     opacity: 0;
@@ -37,7 +38,7 @@
 
         #slider-scroll-elements-container{
             display: flex;
-            gap: 32px;
+            gap: 8px;
             width: 50%;
             height: 6px;
             align-items: center;
@@ -64,7 +65,7 @@
                 }
             }
 
-            @media screen and (min-width:480px) {
+            @media screen and (min-width:482px) {
                 display: none;
             }
            

@@ -32,6 +32,12 @@ header#app-header{
                 &.active{
                     text-decoration: underline;
                 }
+
+                &#home-link{
+                    @media screen and (min-width:1080) {
+                       display: none;
+                    }
+                }
             }
 
 

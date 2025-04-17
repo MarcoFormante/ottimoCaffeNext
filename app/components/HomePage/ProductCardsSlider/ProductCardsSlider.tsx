@@ -13,7 +13,7 @@ export default async function  ProductCardsSlider(){
     
   return (
     <React.Fragment>
-        <div className='flex justify-between mt-16 max-[394px]:mt-10 items-baseline'>
+        <div className='flex justify-between mt-14 max-[394px]:mt-10 items-baseline'>
             <h2 className='font-semibold text-2xl cl-blue-text mb-8 max-lg:text-xl'>Prodotti in promozione</h2>
             <Link className='text-base font-semibold underline'  href={'/in-promozione'}>
                 <span className="text-black font-normal">vedi tutti</span>

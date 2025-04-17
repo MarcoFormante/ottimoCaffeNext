@@ -5,7 +5,7 @@
     width: 331px;
     height: 451px;
     min-width: 331px;
-    
+    max-width:  331px;
     &__desc{
         color: $grey-primary;
     }
@@ -33,5 +33,9 @@
         width: 100%;
         display: grid;
         place-items: center;
+
+        @media screen and (max-width:1024px) {
+            max-width: 100%;
+        }
     }
 }

@@ -39,8 +39,8 @@ export default function Product(){
                                     <div>
                                             <div className='flex gap-[13px] items-center border-1 rounded-lg border-gray-400 w-[95px] text-blue-text justify-center '>
                                                 <button className='appearance-none p-1 cursor-pointer' onClick={subTraitQuantity}><span className='w-2.5 h-[1.5px] bg-blue-text block'></span></button>
-                                                <span>{quantity}</span>
-                                                <button className='appearance-none p-1 cursor-pointer' onClick={addQuantity}>+</button>
+                                                <span className='p-1'>{quantity}</span>
+                                                <button className='appearance-none p-1 cursor-pointer' onClick={addQuantity}><span className='block'>+</span></button>
                                             </div>
                                     </div>
                                 </div>

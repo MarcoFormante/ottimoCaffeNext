@@ -5,8 +5,8 @@ import Button from "../../common/Button/Button";
 
 export default function CartSummary(){
     return (
-            <div className="rounded-[8px] bg-[#EAEFEF] max-h-[362px] p-4  sticky top-[150px] left-[65vw] max-lg:static max-lg:min-w-[300px]  max-lg:w-[50vw]  max-lg:m-auto">
-                <div className="text-[14px] text-blue-text pb-6 border-b-1 border-gray-300 flex flex-col gap-2">
+            <div className="rounded-[8px] bg-[#EAEFEF] max-h-[362px] p-4  sticky top-[150px] left-[65vw] max-lg:static max-lg:min-w-[300px]  max-lg:w-[100%]  max-lg:m-auto">
+                <div className="text-[14px] max-lg:text-[16px] text-blue-text pb-6 border-b-1 border-gray-300 flex flex-col gap-2">
                     <h2 className="font-bold">Riepilogo</h2>
                     <div className="flex items-center justify-between">
                         <span>1 articolo</span>
@@ -16,16 +16,16 @@ export default function CartSummary(){
                         <span>Spedizione</span>
                         <span>6,99 €</span>
                     </div>
-                    <div className="font-bold flex items-center justify-between">
+                    <div className="min-md:font-bold flex items-center justify-between max-md:text-xl">
                         <span>Totale (iva incl.)</span>
                         <span>65,98 €</span>
                     </div>
                 </div>
-                <div className="mt-6 place-items-center">
-                    <span className="text-[14px] text-blue-text ">Metodi di pagamento accettati</span>
-                    <Image className="mt-4" src={"/assets/svg/payment-methods.svg"}  alt="Metodi di pagamento - Ottimo Caffé" width={242} height={27.7} />
+                <div className="mt-6">
+                    <span className="text-[14px] text-blue-text max-md:text-[16px] max-md:font-semibold">Metodi di pagamento accettati</span>
+                    <Image className="mt-4 block " src={"/assets/svg/payment-methods.svg"}  alt="Metodi di pagamento - Ottimo Caffé" width={242} height={27.7} />
                 </div>
-                <div className="mt-8 max-lg:flex justify-center">
+                <div className="mt-8 max-lg:flex">
                    <Button onClick={()=>{}}>
                         Procedi al checkout
                    </Button>

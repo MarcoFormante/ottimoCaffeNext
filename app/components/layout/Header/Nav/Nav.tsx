@@ -51,7 +51,7 @@ return (
               {/* Page Links */}
               <Links menuActive={menuActive} setMenuActive={setMenuActive}/>
               {/* Icons */}
-              <div className='icons-container flex cl-gap-12 '>
+              <div className='icons-container flex items-center  cl-gap-12 '>
                 <div className='cursor-pointer'>
                   <Image className='aspect-square' onClick={()=>handleSearchBarVisibleState(true)} width={21} height={21} src={search} alt='Cerca i prodotti' />
                 </div>

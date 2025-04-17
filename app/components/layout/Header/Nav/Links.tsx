@@ -45,6 +45,9 @@ const Links = ({menuActive,setMenuActive}:LinksProps) => {
   const pathname = usePathname()
   return (
     <ul id='nav-links'  className={`links flex ${menuActive ? "menu-on" : "" }`}>
+       <li >
+          <Link id='home-link' className={pathname === "/" ? "active" : ""} onClick={()=>setMenuActive(false)} href={"/"}>{"Home"}</Link>
+        </li>
       {navLinks.map(link => 
         <li key={link.text}>
           <Link className={pathname === link.href ? "active" : ""} onClick={()=>setMenuActive(false)} href={link.href}>{link.text}</Link>

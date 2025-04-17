@@ -113,6 +113,11 @@ header#app-header nav .links a:hover {
 header#app-header nav .links a.active {
   text-decoration: underline;
 }
+@media screen and (min-width: 1080) {
+  header#app-header nav .links a#home-link {
+    display: none;
+  }
+}
 @media screen and (max-width: 1080px) {
   header#app-header nav .links.menu-on {
     position: fixed;
@@ -273,6 +278,7 @@ header#app-header .menu-b span {
   width: 331px;
   height: 451px;
   min-width: 331px;
+  max-width: 331px;
 }
 .product-card__desc {
   color: #788A8B;
@@ -297,6 +303,11 @@ header#app-header .menu-b span {
   width: 100%;
   display: grid;
   place-items: center;
+}
+@media screen and (max-width: 1024px) {
+  .product-card__button {
+    max-width: 100%;
+  }
 }
 
 .toast {
@@ -364,6 +375,7 @@ header#app-header .menu-b span {
 }
 
 .prod-slider {
+  padding: 15px 0;
   scroll-snap-type: x mandatory;
 }
 @media screen and (max-width: 481px) {
@@ -377,7 +389,7 @@ header#app-header .menu-b span {
 
 #slider-scroll-elements-container {
   display: flex;
-  gap: 32px;
+  gap: 8px;
   width: 50%;
   height: 6px;
   align-items: center;
@@ -402,7 +414,7 @@ header#app-header .menu-b span {
   background-color: #292F6C;
   opacity: 1;
 }
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 482px) {
   #slider-scroll-elements-container {
     display: none;
   }
