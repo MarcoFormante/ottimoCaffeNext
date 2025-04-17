@@ -30,7 +30,7 @@ export default function Footer(){
 
                     <ul className="flex flex-col gap-[24px] font-normal pr-6 footer-category-list">
                         <li>
-                            <Link href={"/promozioni"}>Promozioni</Link>
+                            <Link href={"/in-promozione"}>Promozioni</Link>
                         </li>
                         <li>
                             <Link href={"/caffè-in-cialde"}>Caffè in cialde</Link>
@@ -52,7 +52,7 @@ export default function Footer(){
                             <Link href={"kit"}>Kit</Link>
                         </li>
                         <li>
-                            <Link href={"non-solo-caffè"}>Non solo caffè</Link>
+                            <Link href={"non-solo-caffe"}>Non solo caffè</Link>
                         </li>
                         <li>
                             <Link href={"/privacy-policy"}>Privacy policy</Link>
