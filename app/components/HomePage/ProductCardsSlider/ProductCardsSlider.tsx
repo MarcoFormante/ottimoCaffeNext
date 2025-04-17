@@ -3,13 +3,13 @@ import React from 'react'
 import Link from 'next/link'
 import Slider from './Slider'
 import ProductCard, { ProductCardProps } from '../../common/ProductCard/ProductCard'
-
+import productsList from "./products.json"
 
 
 export default async function  ProductCardsSlider(){
-    const response = await fetch("http://localhost:3000/products.json",{next:{tags:["promozione"]}})
-    const data = await response.json()
-    const products = data.filter((product:ProductCardProps,index:number) => index < 3)
+    // const response = await fetch("/products.json",{next:{tags:["promozione"]}})
+    // const data = await response.json()
+    const products = JSON.parse(JSON.stringify(productsList)).filter((product:ProductCardProps,index:number) => index < 3)
     
   return (
     <React.Fragment>

@@ -3,7 +3,7 @@ import ProductCard, { ProductCardProps } from '../components/common/ProductCard/
 import Breadcrumb from '../components/common/Breadcrumb/Breadcrumb'
 import Sort from '../components/Category/Sort'
 import { categories } from '../utils'
-
+import productsList from "./products.json"
 export const revalidate = 10
 
 
@@ -13,7 +13,6 @@ export default async function Category({params,searchParams}:{
 }){
     const { category } = await params
     const {ordina} = await searchParams
-    const url = ordina ? "ordina.json" : "products.json"
         
         
      const categoryElement = categories.find(c => c.href === `/${category}`)
@@ -25,7 +24,7 @@ export default async function Category({params,searchParams}:{
     }
 
 
-    const data = await fetch("http://localhost:3000/" + url)
+    const data = await fetch("products.json")
     .then(res => res.json())
     .catch(error => console.log(error))
     
@@ -34,7 +33,7 @@ export default async function Category({params,searchParams}:{
         return  notFound()
     }
 
-    const products =  data.filter((p:ProductCardProps) => p.category === category)
+    const products = JSON.parse(JSON.stringify(productsList)).filter((p:ProductCardProps) => p.category === category)
 
     if (ordina === "prezzo-crescente") {
         products.sort((a:ProductCardProps, b:ProductCardProps) => +a.price - +b.price)

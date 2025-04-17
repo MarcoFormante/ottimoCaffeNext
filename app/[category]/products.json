@@ -1,0 +1,69 @@
+[
+    {
+        "name": "Kit famiglia, 3 confezioni da 30 Cialde (90 cialde totali)",
+        "desc": "Carta filtro da 44mm",
+        "price": "59.90",
+        "img": "productTest.png",
+        "category": "caffe-in-cialde",
+        "UUID": "CDPRF",
+        "id": "1",
+        "slug":"Kit-famiglia-3-confezioni-da-20-cialde",
+        "offer": "49.90"
+    },
+    {
+        "name": "Kit famiglia, 3 confezioni da 30 Cialde (90 cialde totali)",
+        "desc": "Carta filtro da 44mm",
+        "price": "59.90",
+        "img": "productTest2.png",
+        "category": "kit",
+        "UUID": "BNHDYJDW",
+        "id": "2",
+        "slug":"Kit-famiglia-3-confezioni-da-30-cialde",
+        "offer": "5.00"
+    },
+    {
+        "name": "Kit famiglia, 3 confezioni da 30 Cialde (90 cialde totali)",
+        "desc": "Carta filtro da 44mm",
+        "price": "59.90",
+        "img": "productTest3.png",
+        "category": "kit",
+        "UUID": "CDPRFERFE",
+        "id": "3",
+        "slug":"Kit-famiglia-3-confezioni",
+        "offer": "49.90"
+    },
+    {
+        "name": "Kit famiglia, 3 confezioni da 30 Cialde (90 cialde totali)",
+        "desc": "Carta filtro da 44mm",
+        "price": "59.90",
+        "img": "productTest3.png",
+        "category": "kit",
+        "UUID": "CDPRFERFE",
+        "id": "3",
+        "slug":"Kit-famiglia-3-confezioni",
+        "offer": "49.90"
+    },
+    {
+        "name": "Kit famiglia, 3 confezioni da 30 Cialde (90 cialde totali)",
+        "desc": "Carta filtro da 44mm",
+        "price": "59.90",
+        "img": "productTest3.png",
+        "category": "kit",
+        "UUID": "CDPRFERFE",
+        "id": "3",
+        "slug":"Kit-famiglia-3-confezioni",
+        "offer": "49.90"
+    },
+    {
+        "name": "Kit famiglia, 3 confezioni da 30 Cialde (90 cialde totali)",
+        "desc": "Carta filtro da 44mm",
+        "price": "59.90",
+        "img": "productTest3.png",
+        "category": "in-promozione",
+        "UUID": "CDPRFERFE",
+        "id": "3",
+        "slug":"Kit-famiglia-3-confezioni",
+        "offer": "49.90"
+    }
+]
+
