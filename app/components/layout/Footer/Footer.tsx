@@ -33,10 +33,10 @@ export default function Footer(){
                             <Link href={"/in-promozione"}>Promozioni</Link>
                         </li>
                         <li>
-                            <Link href={"/caffè-in-cialde"}>Caffè in cialde</Link>
+                            <Link href={"/caffe-in-cialde"}>Caffè in cialde</Link>
                         </li>
                         <li>
-                            <Link href={"/caffè-in-capsule"}>Caffè in capsule</Link>
+                            <Link href={"/caffe-in-capsule"}>Caffè in capsule</Link>
                         </li>
                         <li>
                             <Link href={"/macchinette-e-accessori"}>Macchinette e <br /> accessori</Link>
