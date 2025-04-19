@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
-import ProductCard, { ProductCardProps } from '../components/common/ProductCard/ProductCard'
-import Breadcrumb from '../components/common/Breadcrumb/Breadcrumb'
-import Sort from '../components/Category/Sort'
+import ProductCard, { ProductCardProps } from '../(components)/common/ProductCard/ProductCard'
+import Breadcrumb from '../(components)/common/Breadcrumb/Breadcrumb'
+import Sort from '../(components)/Category/Sort'
 import { categories } from '../utils'
 import productsList from "./products.json"
 export const revalidate = 10
@@ -50,7 +50,8 @@ export default async function Category({params,searchParams}:{
             <div className='flex items-center justify-between mt-6 mb-6'>
                 {(products.length > 1 || !products.length ) && <p className=' text-blue-text'>{products.length} prodotti trovati</p>}
                 {products.length === 1  && <p className='mt-6 text-blue-text'> 1 prodotto trovati</p>}
-                {products.length > 1 &&  <div className='flex text-blue-text'>
+                {products.length > 1 &&  
+                <div className='flex text-blue-text'>
                    <p className='max-sm:hidden'>Ordina per:</p> 
                    <Sort /> 
                 </div> }

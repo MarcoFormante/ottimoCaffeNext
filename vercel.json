@@ -1,0 +1,8 @@
+{
+    "rewrites":[
+        {
+            "source":"admin.ottimo-caffe-next.vercel.app",
+            "destination":"/app/admin/main/"
+        }
+    ]
+}

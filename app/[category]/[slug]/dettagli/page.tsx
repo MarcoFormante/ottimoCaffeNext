@@ -1,8 +1,8 @@
-import Breadcrumb from "@/app/components/common/Breadcrumb/Breadcrumb";
-import { ProductCardProps } from "@/app/components/common/ProductCard/ProductCard";
-import Footer from "@/app/components/ProductDetails/Footer";
-import Header from "@/app/components/ProductDetails/Header";
-import KitInfo from "@/app/components/ProductDetails/KitInfo";
+import Breadcrumb from "@/app/(components)/common/Breadcrumb/Breadcrumb";
+import { ProductCardProps } from "@/app/(components)/common/ProductCard/ProductCard";
+import Footer from "@/app/(components)/ProductDetails/Footer";
+import Header from "@/app/(components)/ProductDetails/Header";
+import KitInfo from "@/app/(components)/ProductDetails/KitInfo";
 import { categories } from "@/app/utils";
 import Image from "next/image";
 import { notFound } from "next/navigation";
