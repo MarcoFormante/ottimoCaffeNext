@@ -1,7 +1,7 @@
 {
     "rewrites":[
         {
-            "source":"admin.ottimo-caffe-next.vercel.app",
+            "source":"admin.ottimo-caffe-next-d6h7fqllf-marcoformantes-projects.vercel.app",
             "destination":"/admin"
         }
     ]
