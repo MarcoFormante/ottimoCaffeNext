@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { categories } from '@/app/utils'
+import { categories } from '@/app/(main)/utils'
 
 const CategoryCards = () => {
   return (

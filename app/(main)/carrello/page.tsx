@@ -1,7 +1,7 @@
 'use client'
-import Breadcrumb from "../components/common/Breadcrumb/Breadcrumb"
-import Product from "../components/Cart/Product/Product"
-import CartSummary from "../components/Cart/CartSummary/CartSummary"
+import Breadcrumb from "../../components/common/Breadcrumb/Breadcrumb"
+import Product from "../../components/Cart/Product/Product"
+import CartSummary from "../../components/Cart/CartSummary/CartSummary"
 
 export default  function Cart(){
     

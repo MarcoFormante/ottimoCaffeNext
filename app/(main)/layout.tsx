@@ -1,9 +1,9 @@
 
 import type { Metadata } from "next";
-import "../app/styles/styles.css"
-import Header from "./components/layout/Header/Header";
+import "@/app/styles/styles.css"
+import Header from "../components/layout/Header/Header";
 import { Jost } from 'next/font/google'
-import Footer from "./components/layout/Footer/Footer";
+import Footer from "../components/layout/Footer/Footer";
 import CartContext from "./context/CartContext";
 
 export const metadata: Metadata = {

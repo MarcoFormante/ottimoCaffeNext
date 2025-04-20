@@ -3,7 +3,7 @@ import { ProductCardProps } from "@/app/components/common/ProductCard/ProductCar
 import Footer from "@/app/components/ProductDetails/Footer";
 import Header from "@/app/components/ProductDetails/Header";
 import KitInfo from "@/app/components/ProductDetails/KitInfo";
-import { categories } from "@/app/utils";
+import { categories } from "@/app/(main)/utils";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import productsList from "../../products.json"

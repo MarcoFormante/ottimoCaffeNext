@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
-import ProductCard, { ProductCardProps } from '../components/common/ProductCard/ProductCard'
-import Breadcrumb from '../components/common/Breadcrumb/Breadcrumb'
-import Sort from '../components/Category/Sort'
+import ProductCard, { ProductCardProps } from '../../components/common/ProductCard/ProductCard'
+import Breadcrumb from '../../components/common/Breadcrumb/Breadcrumb'
+import Sort from '../../components/Category/Sort'
 import { categories } from '../utils'
 import productsList from "./products.json"
 export const revalidate = 10
