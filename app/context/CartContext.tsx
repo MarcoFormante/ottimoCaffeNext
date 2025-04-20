@@ -1,7 +1,7 @@
 "use client"
 import React, {  useState } from 'react'
 import { createContext } from 'react'
-import { ProductCardProps } from '../(components)/common/ProductCard/ProductCard';
+import { ProductCardProps } from '../components/common/ProductCard/ProductCard';
 
 type ProductPropsWithQuantity = ProductCardProps & {quantity:number};
 
