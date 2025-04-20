@@ -4,8 +4,14 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "admin.novacreatives.org",  
-        destination: "/admin",  
+        source: "/admin",  
+        has: [{ type: "host", value: "admin.novacreatives.com" }],  
+        destination: "/admin", 
+      },
+      
+      {
+        source: "/admin",
+        destination: "/404",  
       },
     ];
   },
