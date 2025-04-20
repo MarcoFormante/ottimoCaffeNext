@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export function middleware(request) {
   const url = request.nextUrl.clone();
 
-  if (url.hostname === 'admin.ottimo-caffe-next.vercel.app') {
+  if (url.hostname === 'admin.novacreatives.org') {
     url.pathname = `/admin${url.pathname}`;
     return NextResponse.rewrite(url);
   }
