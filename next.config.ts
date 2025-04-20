@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "admin.novacreatives.org",  
+        destination: "/admin",  
+      },
+    ];
+  },
+
 };
 
 export default nextConfig;
