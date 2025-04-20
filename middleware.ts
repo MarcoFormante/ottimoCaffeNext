@@ -7,11 +7,11 @@ export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   if (host === 'admin.novacreatives.org' && path === '/') {
-    return NextResponse.redirect(new URL('/admin', request.url));
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
   // Blocca l'accesso a /admin se non dal sottodominio
-  if (path.startsWith('/admin') && host !== 'admin.novacreatives.org') {
+  if (path.startsWith('/dashboard') && host !== 'admin.novacreatives.org') {
     return NextResponse.rewrite(new URL('/404', request.url));
   }
 

@@ -2,7 +2,7 @@
     "rewrites":[
         {
             "source":"admin.novacreatives.org",
-            "destination":"/admin"
+            "destination":"/dashboard"
         }
     ]
 }
