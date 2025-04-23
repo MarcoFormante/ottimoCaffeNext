@@ -12,6 +12,7 @@ export type ProductCardProps = {
     UUID: string,
     slug:string
     offer?:string | null,
+    active:boolean
 }
 
 

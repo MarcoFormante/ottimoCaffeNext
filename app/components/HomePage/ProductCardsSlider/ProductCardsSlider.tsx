@@ -37,6 +37,7 @@ export default async function  ProductCardsSlider(){
                 UUID={product.UUID}
                 slug={product.slug}
                 offer={product.offer}
+                active={product.active}
             />
           ))}
       </Slider>

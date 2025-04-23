@@ -92,6 +92,12 @@ export default function Products(){
 
                         <th className="p-4 border-b border-slate-200 bg-slate-50">
                             <p className="text-sm font-normal leading-none text-slate-500">
+                                Stato
+                            </p>
+                        </th>
+
+                        <th className="p-4 border-b border-slate-200 bg-slate-50">
+                            <p className="text-sm font-normal leading-none text-slate-500">
                                 Modifica
                             </p>
                         </th>
@@ -137,8 +143,13 @@ export default function Products(){
                                         <p className="text-sm text-slate-500">{product.offer || 0} </p>
                                     </td>
 
+                                    <td className="p-4 py-5">
+                                       {product.active &&  <p className="text-sm  border text-center bg-green-400 text-amber-50 p-1">Attivo</p>}
+                                       {!product.active && <p className="text-sm  border text-center bg-red-400 text-amber-50 p-1">Inattivo</p>}
+                                    </td>
+
                                     <td className="p-4 ">
-                                        <button className="cursor-pointer   relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20" type="button">
+                                        <button className="cursor-pointer  relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20" type="button">
                                             <span className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="blue" aria-hidden="true" className="h-4 w-4">
                                                     <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z"></path>
