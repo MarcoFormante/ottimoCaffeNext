@@ -11,7 +11,7 @@ export default async function Category({params,searchParams}:{
     params: Promise<{ category: string }>
     searchParams: Promise<{ ordina: string }>
 }){
-    const { category } = await params
+    const {category} = await params
     const {ordina} = await searchParams
         
         

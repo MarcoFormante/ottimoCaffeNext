@@ -1,12 +1,18 @@
+'use client'
+
+import { usePathname } from 'next/navigation';
+
 import Image from "next/image";
 import logo from "@/public/assets/svg/logo.svg"
 import SocialMediaIcons from "./SocialMediaIcons";
 import Link from "next/link";
 
 
-export const revalidate = 10
 export default function Footer(){
-    return (
+
+    const pathname = usePathname()
+
+    return pathname !== "/login" &&(
         <footer id="app-footer" className="bg-blue-text  container-full m-auto pt-10 pb-[72px] max-md:text-xl">
             <div className="container-full m-auto flex justify-between  text-white-primary px-[200px] max-2xl:px-[50px]  max-lg:px-[16px]  min-md:max-lg:gap-6 max-md:flex-col max-md:gap-10  ">
                 

@@ -3,7 +3,7 @@ export const categories = [
         nameInCard:"In Promozione",
         href:"/in-promozione",
         nameInNav:"Promozioni",
-        nameInCategoryPage:"Prodotti in Promozione"
+        nameInCategoryPage:"Prodotti in Promozione",
     },
     {
         nameInCard:"Caffè in cialde",
