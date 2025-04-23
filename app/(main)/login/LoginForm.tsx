@@ -10,6 +10,10 @@ export default function LoginForm(){
           authenticate,
           undefined,
         );
+
+        if (isPending) {
+            return "LOADING"
+        }
         return (
             <form action={formAction} className="space-y-3 h-[60vh]">
           <div className="flex-1 rounded-lg bg-gray-50 pt-40 px-50">

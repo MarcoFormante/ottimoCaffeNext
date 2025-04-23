@@ -14,7 +14,7 @@ function getCred():Promise<{email:string,password:string}>{
     return new Promise((resolve) => {
         setTimeout(()=>{
             resolve({
-                email:"gino@gmail.com",
+                email: process.env.AUTH_EMAIL || "test@mail.com",
                 password: process.env.AUTH_PASSWORD || ""
             });
         }, 1000);
