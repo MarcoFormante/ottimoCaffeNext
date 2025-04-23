@@ -5,6 +5,7 @@ import { ProductCardProps } from "@/app/components/common/ProductCard/ProductCar
 import productsJson from "@/public/products.json"
 import Image from "next/image"
 import CategoryOption from "../../components/common/CategoryOption/CategoryOption"
+import {Suspense} from "react"
 
 export default function Products(){
     const products = JSON.parse(JSON.stringify(productsJson))
@@ -17,7 +18,10 @@ export default function Products(){
         <div className="w-full p-10">
             <div className="w-full flex justify-between items-center mb-3 mt-1 pl-3">
                 <div className=" pt-5 ml-5 mb-5">
-                   <CategoryOption/>
+                <Suspense fallback={"loading"}>
+                    <CategoryOption/>
+                </Suspense>
+                
                 </div>
                 <div className="ml-3">
                     <div className="w-full max-w-sm min-w-[200px] relative">
@@ -169,12 +173,13 @@ export default function Products(){
                      
                     </tbody>
                 </table>
-            
-               <Pagination 
-                pagination={pagination} 
-                totalProducts={totalProducts}
-                productsLength={products.length}
-               />
+            <Suspense fallback={"loading"}>
+                <Pagination 
+                    pagination={pagination} 
+                    totalProducts={totalProducts}
+                    productsLength={products.length}
+                />
+            </Suspense>
             </div>
         </div>
     </div>
