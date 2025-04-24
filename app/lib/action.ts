@@ -5,12 +5,13 @@ import { createClient } from '@/app/utils/supabase/server'
 import { redirect } from "next/navigation"
 
 
-export async function login(state: string | null, formData: FormData): Promise<string | null > {
+export async function login( formData: FormData): Promise<string | null > {
   try {
     const supabase = await createClient()
+    
     const dataObject = z.object({
-      email:z.string().email().min(5),
-      password:z.string().min(6)
+      email:z.string().email({message:"L'email non è corretta"}).min(5),
+      password:z.string().min(6).max(60)
     })
 
     const data = {
@@ -20,6 +21,7 @@ export async function login(state: string | null, formData: FormData): Promise<s
 
     const dataParsed = dataObject.safeParse(data)
 
+
     if (!dataParsed.success) {
       throw new Error("Invalid email or password format");
     }
@@ -28,9 +30,9 @@ export async function login(state: string | null, formData: FormData): Promise<s
     if (error)  return error.message
     return null
     
-} catch(error){
-      return "Error during Login, try again" + error
-}
+  } catch(error){
+        return "Error during Login, try again" + error
+  }
 }
 
   

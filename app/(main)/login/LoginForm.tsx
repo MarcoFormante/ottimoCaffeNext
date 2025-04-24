@@ -1,7 +1,6 @@
 'use client'
 
 import {  useState } from 'react'
-import { login} from '../../lib/action'
 import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
@@ -12,13 +11,25 @@ export default function LoginPage() {
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       event.preventDefault();
       setIsPending(true)
+      setError("")
       const formData = new FormData(event.currentTarget);
-      const error = await login(null, formData);
-      if (!error) {
-        router.push('/'); 
-      } else {
-        setError(error || "")
-        setIsPending(false)
+      try {
+        const res = await fetch("/auth/login",{
+          method:"POST",
+          body:formData,
+        })
+
+        const data = await res.json()
+        if (data.success) {
+            router.push('/'); 
+        }else{
+          setError(data?.errorMessage || "Problem during LOGIN")
+          setIsPending(false)
+        }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {
+          setError("Problem during LOGIN")
+          setIsPending(false)
       }
     }
   
@@ -33,7 +44,7 @@ export default function LoginPage() {
 
   return (
     <div className='p-10 container'>
-        <form className='flex flex-col  gap-3.5' onSubmit={(e)=>handleSubmit(e)}   >
+        <form className='flex flex-col  gap-3.5' onSubmit={(e)=>handleSubmit(e)}>
             LOGIN ADMIN
             <div className='flex flex-col'>
                 <label htmlFor="email">Email</label>
