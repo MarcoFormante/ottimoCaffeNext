@@ -30,11 +30,11 @@ export default async function  ProductCardsSlider(){
                 id={product.id}
                 key={product.id}
                 name={product.name}
-                desc={product.desc}
+                description={product.description}
                 price={product.price}
-                img={product.img}
+                image_url={product.image_url}
                 category={product.category}
-                UUID={product.UUID}
+                code={product.code}
                 slug={product.slug}
                 offer={product.offer}
                 active={product.active}

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
-import ProductCard, { ProductCardProps } from '../../components/common/ProductCard/ProductCard'
-import Breadcrumb from '../../components/common/Breadcrumb/Breadcrumb'
-import Sort from '../../components/Category/Sort'
+import ProductCard, { ProductCardProps } from '../components/common/ProductCard/ProductCard'
+import Breadcrumb from '../components/common/Breadcrumb/Breadcrumb'
+import Sort from '../components/Category/Sort'
 import { categories } from '../utils'
 import productsList from "./products.json"
 export const revalidate = 10
@@ -22,16 +22,6 @@ export default async function Category({params,searchParams}:{
         console.log("error category");
         return  notFound()
     }
-
-
-    // const data = await fetch("products.json")
-    // .then(res => res.json())
-    // .catch(error => console.log(error))
-    
-    // if (!data || data.length === 0) {
-    //     console.log("no data");
-    //     return  notFound()
-    // }
 
     const products = JSON.parse(JSON.stringify(productsList)).filter((p:ProductCardProps) => p.category === category)
 
@@ -61,15 +51,16 @@ export default async function Category({params,searchParams}:{
                 {products.map((product:ProductCardProps,i:number)=>  
                     <ProductCard
                         id={product.id}
-                        key={product.UUID + i }
+                        key={product.code + i }
                         name={product.name}
-                        desc={product.desc}
+                        description={product.description}
                         price={product.price}
-                        img={product.img}
+                        image_url={product.image_url}
                         category={product.category}
-                        UUID={product.UUID}
+                        code={product.code}
                         slug={product.slug}
                         offer={product.offer}
+                        active={product.active}
                     />
                 )}
             </div>

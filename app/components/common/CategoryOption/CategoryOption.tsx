@@ -1,7 +1,7 @@
 
 'use client'
 
-import { categories } from "@/app/(main)/utils"
+import { categories } from "@/app/utils"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -20,6 +20,8 @@ export default function CategoryOption(){
         router.push(`${pathName}?${params}`)
  },[category])
 
+
+
     return (
         <div>
             <b className="block">Categoria</b>
@@ -28,7 +30,7 @@ export default function CategoryOption(){
                         const value = c.href.replace("/","")
                         return <option key={c.nameInNav} value={value}>{c.nameInNav}</option>
                     })}
-                    <option value={"category"}>Category</option>
+                   
                 </select>
         </div>
     )

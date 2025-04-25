@@ -21,6 +21,8 @@ export default function Pagination({
     const pathName = usePathname()
     const searchParams = useSearchParams()
 
+    console.log(pagination,totalProducts,productsLength);
+    
      useEffect(()=>{
         const params = new URLSearchParams(searchParams.toString())
         const p = params.get("page")
@@ -41,9 +43,9 @@ export default function Pagination({
 
      
     return (
-        <div className="flex justify-between items-center px-4 py-3">
+        <div hidden={!totalProducts} className="flex justify-between items-center px-4 py-3">
                     <div className="text-sm text-slate-500">
-                        <p>Mostrando <b>{page} -- {productsLength}</b> di {totalProducts} prodotti</p>
+                        <p>Mostrando <b>{productsLength}</b> prodotti di {totalProducts} prodotti totali</p>
                     </div>
                     <div className="flex space-x-1">
                         <button 
@@ -53,7 +55,7 @@ export default function Pagination({
                             >
                             Prev
                         </button>
-                        {pagination > 1 && Array.from({length:pagination}).map((_,i)=>{
+                        {pagination >= 0 && Array.from({length:pagination + 1 }).map((_,i)=>{
                             const pageNumber = i + 1
                             return(
                                 <button 
@@ -68,8 +70,8 @@ export default function Pagination({
                     
                         <button 
                             onClick={()=>handleOnClick(page + 1)} 
-                            disabled={page >= pagination}  
-                            className={`px-3 py-1 min-w-9 min-h-9 text-sm font-normal text-slate-500 bg-white border border-slate-200 rounded  transition duration-200 ease ${page >= pagination ? "cursor-not-allowed" : "cursor-pointer hover:bg-slate-50 hover:border-slate-400"}`}
+                            disabled={page >= pagination + 1}  
+                            className={`px-3 py-1 min-w-9 min-h-9 text-sm font-normal text-slate-500 bg-white border border-slate-200 rounded  transition duration-200 ease ${page >= pagination + 1 ? "cursor-not-allowed" : "cursor-pointer hover:bg-slate-50 hover:border-slate-400"}`}
                             >
                             Next
                         </button>

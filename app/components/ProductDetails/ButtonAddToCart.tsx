@@ -1,7 +1,7 @@
 'use client'
 import React, { useContext, useEffect, useState} from 'react'
 import Button from '../common/Button/Button'
-import { Context } from '@/app/(main)/context/CartContext'
+import { Context } from '@/app/context/CartContext'
 import Toast from './Toast'
 
 

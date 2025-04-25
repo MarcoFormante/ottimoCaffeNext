@@ -1,8 +1,8 @@
-import Hero from "../components/HomePage/Hero/Hero";
-import Section from "../components/layout/Section/Section";
-import ProductCardsSlider from "../components/HomePage/ProductCardsSlider/ProductCardsSlider";
-import CategoryCards from "../components/HomePage/CategoryCards/CategoryCards";
-import BrandHighlight from "../components/HomePage/BrandHighlight/BrandHighlight";
+import Hero from "./components/HomePage/Hero/Hero";
+import Section from "./components/layout/Section/Section";
+import ProductCardsSlider from "./components/HomePage/ProductCardsSlider/ProductCardsSlider";
+import CategoryCards from "./components/HomePage/CategoryCards/CategoryCards";
+import BrandHighlight from "./components/HomePage/BrandHighlight/BrandHighlight";
 // import { getProduts } from "./actions/products";
 // import { isProduction } from "./helpers";
 
