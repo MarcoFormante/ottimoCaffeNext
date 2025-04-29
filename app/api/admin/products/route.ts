@@ -10,27 +10,26 @@ export async function POST(req:NextRequest){
             status:400
         })
     }
-    let categoria = ""
-    let value = ""
-    if (params.categoria !== "tutti-i-prodotti") {
-        categoria = "category"
-        value = params.categoria
-    }
+    
     
     const supabase = await createClient()
 
-    const {data,error,count} = await supabase.from("products").select("*",{count:"exact"}).eq(categoria,value).range((params.page - 1 )* 10,params.page * 9)
+    const {data,error,count} = params.categoria === "tutti-i-prodotti" 
+    ? await supabase.from("products").select("*",{count:"exact"}).range((params.page - 1 )* 10,params.page * 9) 
+    : params.categoria === "in-promozione" ? await supabase.from("products").select("*",{count:"exact"}).not("offer","is",null).range((params.page - 1 )* 10,params.page * 9) 
+    : await supabase.from("products").select("*",{count:"exact"}).eq("category",params.categoria).range((params.page - 1 )* 10,params.page * 9)
+
 
     if (error) {
         return NextResponse.json({success:false,errorMessage:"Errore durante la ricerca dei prodotti" + error.message},{
-            status:400
+            status:500
         })
     }
-    if (data) {
+    
         return NextResponse.json({success:true,products:data,totalProducts:count},{
             status:200
         })
-    }
+    
 
   
 }

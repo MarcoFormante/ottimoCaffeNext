@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation"
 export default function Products(){
     const [products,setProducts] = useState([])
     const [totalProducts,setTotalProducts] = useState(0)
-    const [isPending,setIsPending] = useState(false)
+    const [isPending,setIsPending] = useState(true)
     const [search,setSearch] = useState("")
     const [error,setError] = useState<{message:string,color:"red"|"gray"| ""}>({message:"",color:""})
     const params = useSearchParams()
@@ -26,13 +26,14 @@ export default function Products(){
             setIsPending(true)
             setSearchActive(false)
             try {
-                const res = await fetch("/api/products",{
+                const res = await fetch("/api/admin/products",{
                     method:"POST",
                     body:JSON.stringify({
                         page:params.get("page"),
                         categoria:params.get("categoria"),
                     })
                 })
+              
                 const data = await res.json()
                 if (data.products) {
                     setProducts(data.products)
@@ -115,7 +116,13 @@ return (
                 </div>
                 
               
-                <ProductsList products={products} isPending={isPending} error={error} searchActive={searchActive} search={search}/>
+                <ProductsList 
+                    products={products} 
+                    isPending={isPending} 
+                    error={error} 
+                    searchActive={searchActive} 
+                    search={search}
+                />
          
                 <Suspense fallback={"loading"}>
                     <Pagination 

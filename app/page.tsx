@@ -3,6 +3,7 @@ import Section from "./components/layout/Section/Section";
 import ProductCardsSlider from "./components/HomePage/ProductCardsSlider/ProductCardsSlider";
 import CategoryCards from "./components/HomePage/CategoryCards/CategoryCards";
 import BrandHighlight from "./components/HomePage/BrandHighlight/BrandHighlight";
+import { createClient } from "./utils/supabase/server";
 // import { getProduts } from "./actions/products";
 // import { isProduction } from "./helpers";
 
@@ -12,7 +13,9 @@ import BrandHighlight from "./components/HomePage/BrandHighlight/BrandHighlight"
 
 
 export default async function Home() {
-  
+  const supabase = await createClient()
+  const { data, error } = await supabase.auth.getUser()
+  console.log("userss",data);
   // try {
   //   const res =  await getProduts()
   // } catch (error) {

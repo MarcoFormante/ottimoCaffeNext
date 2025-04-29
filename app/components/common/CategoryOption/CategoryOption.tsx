@@ -28,7 +28,7 @@ export default function CategoryOption(){
                 <select id="searchByOption" name="searchByOption" defaultValue={"tutti-i-prodotti"} autoFocus onChange={(e)=>setCategory(e.target.value)}>
                     {categories.map((c)=>{
                         const value = c.href.replace("/","")
-                        return <option key={c.nameInNav} value={value}>{c.nameInNav}</option>
+                        return c.nameInNav !== "promozioni" && <option key={c.nameInNav} value={value}>{c.nameInNav}</option>
                     })}
                    
                 </select>

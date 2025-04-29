@@ -5,7 +5,7 @@ import Link from "next/link"
 export type ProductCardProps = {
     id:string
     name: string,
-    description: string,
+    description?: string,
     price: string,
     image_url: StaticImageData | string,
     category: string,
