@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+"use client"
 import CategoriesList from "./CategoriesList"
 import { ProductCardProps } from '../../common/ProductCard/ProductCard';
 import Image from "next/image";
 import Loading from "../common/Loading/Loading";
 import Error from "../common/Error/Error";
-import React from "react";
+import React, { SetStateAction, useState } from "react";
 import Link from "next/link";
+import useAlert from "@/app/hooks/useAlert";
 
 interface ProductsListProps{
     products:ProductCardProps[],
@@ -14,13 +17,17 @@ interface ProductsListProps{
         color:"red"|"gray"|""
     },
     search:string,
-    searchActive:boolean
+    searchActive:boolean,
+    setTotalProducts:()=>void
 }
 
-export default function ProductsList({products,isPending,error,search,searchActive}:ProductsListProps){
+export default function ProductsList({products,isPending,error,search,searchActive,setTotalProducts}:ProductsListProps){
+    const [deletedProducts,setDeletedProducts] = useState<string[]>([])
+    const {AlertComponent,setAlert} = useAlert(null)
     {if (isPending) return <Loading/>}
     {if (!isPending && error.message) return <Error message={error.message} color={error.color}/>}
     if (!products.length && !error.message) return <Error message={"Nessun Prodotto Trovato"} color={"gray"}/>
+    
         
     function FindText(text:string){
         if (searchActive) {
@@ -45,7 +52,6 @@ export default function ProductsList({products,isPending,error,search,searchActi
                     :
                     <p className="text-sm text-slate-500">{text}</p>
                 }
-                   
                 </p>
             )
         }else{
@@ -54,15 +60,41 @@ export default function ProductsList({products,isPending,error,search,searchActi
             )
         }
     }
+
+    async function deleteProduct(id:string){
+        try {
+            const res = await fetch("/api/admin/products/delete",{
+                method:"DELETE",
+                body:JSON.stringify(id)
+            }) 
+            if (!res.ok) {
+                console.log("qui ok");
+                return setAlert({message:"Errore durante l'eliminazione del prodotto" + res.statusText,color:"bg-red-500"})
+            }
+            const data = await res.json()
+            if (!data.success) {
+                console.log("qui success");
+                return setAlert({message:`Errore durante l'eliminazione del prodotto : ${data?.error?.message}, `,color:"bg-red-500"})
+            }
+            setDeletedProducts(prev => [...prev,id])
+            setTotalProducts()
+            return setAlert({message:"Prodotto eliminato con successo",color:"bg-green-500"})
+        } catch (error) {
+            console.log(error);
+            return setAlert({message:"Errore durante l'eliminazione del prodotto",color:"bg-red-500"})
+        }
+    }
   
     return (
+        <div>
+        <AlertComponent/>
         <div hidden={!products.length} className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                 <table className="w-full text-left table-auto min-w-max">
                     <CategoriesList/>
                     <tbody>
                         {products.map((product:ProductCardProps,i:number)=>{
                             return (
-                                <tr key={i} className="hover:bg-slate-50 border-b border-slate-200">
+                                <tr hidden={deletedProducts.includes(product.id)} key={i} className="hover:bg-slate-50 border-b border-slate-200">
                                     <td className="p-4 py-5">
                                         <Image src={"/assets/images/products/"+ product.image_url} width={40} height={40} alt=""/>
                                     </td>
@@ -104,7 +136,7 @@ export default function ProductsList({products,isPending,error,search,searchActi
                                     </td>
 
                                     <td className="p-4">
-                                        <button   className=" cursor-pointer relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20" type="button">
+                                        <button  className=" cursor-pointer relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20" type="button">
                                             <div className="w-4 ml-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -115,7 +147,7 @@ export default function ProductsList({products,isPending,error,search,searchActi
                                     </td>
 
                                     <td className="p-4">
-                                        <button className="cursor-pointer relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20" type="button">
+                                        <button onClick={()=>deleteProduct(product.id)} className="cursor-pointer relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20" type="button">
                                             <div className="w-4 ml-3 ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="red">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -129,5 +161,6 @@ export default function ProductsList({products,isPending,error,search,searchActi
                     </tbody>
                 </table>
             </div>
+        </div>
     )
 }

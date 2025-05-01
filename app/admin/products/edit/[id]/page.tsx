@@ -6,6 +6,7 @@ import { createClient } from "@/app/utils/supabase/client"
 import React, { FormEvent, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import ProductForm from "@/app/components/Admin/ProductForm/ProductForm"
+import useAlert from "@/app/hooks/useAlert"
 
 
 
@@ -14,8 +15,8 @@ export default  function EditProduct({
 }:{
     params:Promise<{id:string}>,
 }){
-    const [error,setError]= useState({message:"",color:""})
     const searchParams = useSearchParams()
+    const {AlertComponent,setAlert} = useAlert(null)
     const [product,setProduct] = useState<ProductCardProps & {img:File}| null>({
         id:"",
         name:"",
@@ -37,20 +38,25 @@ export default  function EditProduct({
 
     useEffect(()=>{
         const getProduct = async ()=>{
+            setAlert(null)
             const productParam = getProductParam()
             if (productParam) {
                return setProduct(productParam)
             }
-            const supabase =  createClient()
-            const {data,error} = await supabase.from("products").select().eq("id",id).single()
-            if (error) {
-                setError({message:"Errore",color:"red"})
-                return
+            try {
+                const supabase =  createClient()
+                const {data,error} = await supabase.from("products").select().eq("id",id).single()
+                if (error) {
+                    return setAlert({message:`Errore durante il recupero del prodotto: ${error.message}`,color:"bg-red-500"})
+                }
+                setProduct(data)
+            } catch (error) {
+                return setAlert({message:`Errore durante il recupero del prodotto`,color:"bg-red-500"})
             }
-            setProduct(data)
         }
         getProduct()
-    },[params])
+    },[params.toString()])
+
 
     function getProductParam(){
         try {
@@ -62,24 +68,37 @@ export default  function EditProduct({
     }
 
   
-    const  handleSubmit = async (e:FormEvent,product:ProductCardProps)=>{
+    const handleSubmit = async (e:FormEvent,product:ProductCardProps)=>{
         e.preventDefault()
-        const res = await fetch("/api/admin/products/edit",{
-            method:"PUT",
-            body:JSON.stringify(product),
-            headers:{
-                "Content-Type":"application/json"
+        try {
+            if (!product) {
+                throw new Error("Prodotto non valido")
             }
-        })
-
-        const data = await res.json()
-        console.log(data);
-        
+            const res = await fetch("/api/admin/products/edit",{
+                method:"PUT",
+                body:JSON.stringify(product),
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            })
+            const data = await res.json()
+            if (data.success) {
+                return setAlert({message:data.message,color:"bg-green-500"})
+            }else{
+                if (data.error?.constraint?.message) {
+                    return setAlert({message:`Errore durante la modifica del prodotto: ${data.error.constraint.message}`,color:"bg-red-500",time:7000})
+                }
+                return setAlert({message:`Errore durante la modifica del prodotto: ${data.error.message}`,color:"bg-red-500",time:5000})
+            }
+            
+        } catch (error) {
+            return setAlert({message:`Errore durante la modifica del prodotto`,color:"bg-red-500",time:5000})
+        }
     }
 
 
 
-    if (!product && error.message) {
+    if (!product) {
         return (
             <div>
                 Prodotto Non Trovato
@@ -90,6 +109,7 @@ export default  function EditProduct({
 
     return product?.id && (
         <div className="pb-20">
+            <AlertComponent/>
             <h1 className="text-2xl mt-4 ml-4 font-semibold">Modifica Prodotto</h1>
                 {/* <form className="mt-10  p-10">
                         <div className="flex flex-row justify-center gap-20  max-md:gap-0 max-md:flex-col  max-md:items-center">

@@ -17,70 +17,49 @@ export default function Products(){
     const [error,setError] = useState<{message:string,color:"red"|"gray"| ""}>({message:"",color:""})
     const params = useSearchParams()
     const [searchActive,setSearchActive]= useState(false)
-    const router = useRouter()
     const pathName = usePathname()
+    const router = useRouter()
 
-
-    useEffect(()=>{
-        async function fetchData(){
-            setIsPending(true)
-            setSearchActive(false)
-            try {
-                const res = await fetch("/api/admin/products",{
-                    method:"POST",
-                    body:JSON.stringify({
-                        page:params.get("page"),
-                        categoria:params.get("categoria"),
-                    })
-                })
-              
-                const data = await res.json()
-                if (data.products) {
-                    setProducts(data.products)
-                    setTotalProducts(data?.totalProducts)
-                }
-            } catch (error) {
-                setError({message:"Errore: Impossibile accedere ai Prodotti",color:"red"})
-            }finally{
-                setIsPending(false)
-            }
-        }
-        if (params.get("categoria") && params.get("page")) {
-            fetchData()
-        }
-    },[params])
-
-
-    async function handleSearch(){
-        if(!search) return 
+    
+   
+    useEffect(() => {
+       async function fetchProducts(){
         setIsPending(true)
+        let isSearching = true
+
+        if (!params.get("search") || params.get("search") !== search) {
+            setSearchActive(false)
+            isSearching = false
+        }
         try {
-            const res = await fetch("/api/products/search",{
+            const res = await fetch("/api/admin/products",{
                 method:"POST",
-                body:JSON.stringify(search)
+                body:JSON.stringify({
+                    page:params.get("page") || "1",
+                    categoria:params.get("categoria") || "tutti-i-prodotti",
+                    search:isSearching ? search : null
+                })
             })
-            if (res.ok ) {
-                const data = await res.json()
-                if (data.errorMessage) {
-                    setError({message:"Impossibile trovare Il prodotto",color:"red"})
-                }
-                if (data.products) {
-                    setProducts(data.products)
-                    setTotalProducts(data?.totalProducts)
-                    setSearchActive(true)
-                }
+            if(!res.ok) throw new Error("Errore nel recupero dei prodotti")
+            const data = await res.json()
+            if (data.products) {
+                setProducts(data.products)
+                setTotalProducts(data?.totalProducts || 0)
             }
         } catch (error) {
-            setError({message:"Errore durante la ricerca del prodotto",color:"red"})
+            console.error("Fetch error:", error);
+            setError({
+                message: error instanceof Error ? error.message : "Errore sconosciuto",
+                color: "red"
+            });
         }finally{
             setIsPending(false)
         }
     }
+    fetchProducts()
+      }, [params.toString()]);
 
-    function handleChangeSearchBar(value:string){
-            setSearchActive(false)
-            setSearch(value)
-    }
+   
 
     
 return (
@@ -90,7 +69,7 @@ return (
                 <div className="w-full flex justify-between items-center mb-3 mt-1 pl-3">
                     <div className=" pt-5 ml-5 mb-5">
                         <Suspense fallback={"loading"}>
-                            <CategoryOption/>
+                            <CategoryOption pathName={pathName} params={params}/>
                         </Suspense>
                     </div>
                     <div className="ml-3">
@@ -99,12 +78,19 @@ return (
                                 <input
                                     className="w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-200 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
                                     placeholder="Carca prodotto..."
-                                    onInput={(e: React.FormEvent<HTMLInputElement>)=>handleChangeSearchBar(e.currentTarget.value)}
+                                    value={search}
+                                    onChange={(e)=>setSearch(e.currentTarget.value)}
                                 />
                                 <button
                                     className="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded cursor-pointer"
                                     type="button"
-                                    onClick={handleSearch}
+                                    onClick={()=>{
+                                        const searcParams = new URLSearchParams(params.toString())
+                                        searcParams.delete("categoria")
+                                        searcParams.set("search",search)
+                                        setSearchActive(true)
+                                        router.push(`${pathName}?${searcParams}`)
+                                    }}
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="3" stroke="currentColor" className="w-8 h-8 text-slate-600">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -122,11 +108,12 @@ return (
                     error={error} 
                     searchActive={searchActive} 
                     search={search}
+                    setTotalProducts={()=>setTotalProducts(prev => prev - 1 )}
                 />
          
                 <Suspense fallback={"loading"}>
                     <Pagination 
-                        pagination={Math.floor(totalProducts / 10)} 
+                        pagination={Math.round(totalProducts / 10)} 
                         totalProducts={totalProducts}
                         productsLength={products.length}
                     />

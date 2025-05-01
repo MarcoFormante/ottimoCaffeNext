@@ -1,17 +1,17 @@
 'use client'
 
-import ProductCard, { ProductCardProps } from "@/app/components/common/ProductCard/ProductCard"
-import {  FormEvent, useState } from "react"
+import { ProductCardProps } from "@/app/components/common/ProductCard/ProductCard"
+import { FormEvent} from "react"
 import ProductForm from "@/app/components/Admin/ProductForm/ProductForm"
+import useAlert from "@/app/hooks/useAlert"
+
 
 export default function NewProduct(){
-    const [openViewCards,setOpenViewCards] = useState(false)
-    const [error,setError] = useState("")
-
-   
+    const {AlertComponent,setAlert} = useAlert(null)
    
     const handleSubmit = async (e:FormEvent,product:ProductCardProps)=>{
            e.preventDefault()
+           setAlert(null)
            try {
                 const res = await fetch("/api/admin/products/new",{
                     method:"POST",
@@ -19,50 +19,24 @@ export default function NewProduct(){
                 })
                 const data = await res.json()
                 if (data.success) {
-                    window.location.reload()
+                   return setAlert({message:data.message,color:"bg-green-500",callback:()=>window.location.reload(),time:2000})
                 }else{
-                    setError("Errore durante la creazione del Prodotto : " + data?.error)
+                    if (data.error.constraint.type) {
+                       return  setAlert({message:"Errore durante la creazione del Prodotto : " + data.error.constraint.message,color:"bg-red-500",})
+                    }
+                    return  setAlert({message:"Errore durante la creazione del Prodotto : " + data.error.message,color:"bg-red-500"})
                 }
             } catch (error) {
-                setError("Errore durante la creazione del Prodotto : " + error)
+                setAlert({message:"Errore durante la creazione del Prodotto : " + error,color:"bg-red-500"})
             }
        }
 
-
    
     return (
-        <div className="pb-20">
-              { error &&  <div className="flex w-full flex-col gap-2">
-                <div className="font-regular relative block w-full bg-red-500 p-4 text-base leading-5 text-white opacity-100">
-                {error}
-                </div>
-            </div>}
+        <div className="pb-20" >
+             <AlertComponent/>
             <h1 className="text-2xl mt-4 ml-4 font-semibold">Crea un Prodotto</h1>
             <ProductForm handleSubmit={handleSubmit} hiddenStatus={true} />
-          
-            {/* <div
-            onClick={()=>setOpenViewCards(!openViewCards)} 
-                className="fixed bottom-10 right-10 text-white border px-5 py-5 w-5 h-5 rounded-4xl flex justify-center items-center">
-                ?
-            </div>
-            <div className='flex justify-center' hidden={openViewCards}>
-             <ProductCard 
-                        id={""}
-                        name={product?.name || ""}
-                        description={product?.description || ""}
-                        price={product?.price || ""}
-                        image_url={product?.img ? URL.createObjectURL(product.img) : ""}
-                        category={product?.category || ""}
-                        code={product?.code || ""}
-                        slug={product?.slug || ""}
-                        offer={product?.offer || ""}
-                        active={product?.active || true}
-                        stripe_price_id={product?.stripe_price_id || ""}
-                        stripe_product_id={product?.stripe_product_id || ""}
-                        hideDetails={true}
-                />
-            </div> */}
-
         </div>
     )
 }

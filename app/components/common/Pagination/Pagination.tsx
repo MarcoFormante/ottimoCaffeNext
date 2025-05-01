@@ -41,11 +41,13 @@ export default function Pagination({
         router.push(`${pathName}?`+ createQueryString(page.toString()))
      }
 
+     console.log(totalProducts);
+     
      
     return (
         <div hidden={!totalProducts} className="flex justify-between items-center px-4 py-3">
                     <div className="text-sm text-slate-500">
-                        <p>Mostrando <b>{productsLength}</b> prodotti di {totalProducts} prodotti totali</p>
+                        <p>Pagina {page} di {pagination} /  <b>{totalProducts}</b> prodotti totali</p>
                     </div>
                     <div className="flex space-x-1">
                         <button 
@@ -56,8 +58,8 @@ export default function Pagination({
                             Prev
                         </button>
                         {pagination >= 0 && Array.from({length:pagination + 1 }).map((_,i)=>{
-                            const pageNumber = i + 1
-                            return(
+                            const pageNumber = i 
+                            return pageNumber !== 0 && (
                                 <button 
                                 key={pageNumber} 
                                 onClick={()=>handleOnClick(pageNumber)} 
@@ -70,8 +72,8 @@ export default function Pagination({
                     
                         <button 
                             onClick={()=>handleOnClick(page + 1)} 
-                            disabled={page >= pagination + 1}  
-                            className={`px-3 py-1 min-w-9 min-h-9 text-sm font-normal text-slate-500 bg-white border border-slate-200 rounded  transition duration-200 ease ${page >= pagination + 1 ? "cursor-not-allowed" : "cursor-pointer hover:bg-slate-50 hover:border-slate-400"}`}
+                            disabled={page >= pagination}  
+                            className={`px-3 py-1 min-w-9 min-h-9 text-sm font-normal text-slate-500 bg-white border border-slate-200 rounded  transition duration-200 ease ${page >= pagination  ? "cursor-not-allowed" : "cursor-pointer hover:bg-slate-50 hover:border-slate-400"}`}
                             >
                             Next
                         </button>

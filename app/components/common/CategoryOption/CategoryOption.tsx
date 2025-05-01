@@ -2,35 +2,35 @@
 'use client'
 
 import { categories } from "@/app/utils"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useRouter, ReadonlyURLSearchParams } from "next/navigation"
+
+interface CategoryOptionProps{
+    pathName:string,
+    params:ReadonlyURLSearchParams
+}
 
 
-export default function CategoryOption(){
- const [category,setCategory] = useState("tutti-i-prodotti")
+export default function CategoryOption({pathName,params}:CategoryOptionProps){
  const router = useRouter()
- const pathName = usePathname()
- const searchParams = useSearchParams()
 
-
- useEffect(()=>{
-        const params = new URLSearchParams(searchParams.toString())
-        params.set("categoria",category)
-        params.set("page","1")
-        router.push(`${pathName}?${params}`)
- },[category])
-
+ function fetchByCategory(category:string){
+    const searchParams = new URLSearchParams(params.toString())
+    searchParams.set("categoria",category)
+    searchParams.set("page","1")
+    searchParams.delete("search")
+    router.push(`${pathName}?${searchParams}`)
+ }
 
 
     return (
         <div>
             <b className="block">Categoria</b>
-                <select id="searchByOption" name="searchByOption" defaultValue={"tutti-i-prodotti"} autoFocus onChange={(e)=>setCategory(e.target.value)}>
+                <select id="searchByOption" name="searchByOption" autoFocus onChange={(e)=>fetchByCategory(e.target.value)}>
+                <option  value={""}>Scegli una categoria</option>
                     {categories.map((c)=>{
                         const value = c.href.replace("/","")
                         return c.nameInNav !== "promozioni" && <option key={c.nameInNav} value={value}>{c.nameInNav}</option>
                     })}
-                   
                 </select>
         </div>
     )
