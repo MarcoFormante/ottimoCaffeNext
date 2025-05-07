@@ -19,6 +19,8 @@ function handleSearchBarVisibleState(state:boolean){
     setSearchBarVisible(state)
 }
 
+
+
 useEffect(()=>{
   window.addEventListener("resize",()=>{
     setWindowWidth(window.innerWidth)
@@ -40,6 +42,9 @@ useEffect(()=>{
 },[menuActive])
 
 
+
+
+
 return (
     <nav className='w-full mx-auto flex justify-between items-center gap-0 '>
         <Logo menuActive={menuActive} setMenuActive={setMenuActive}/>
@@ -52,9 +57,9 @@ return (
               <Links menuActive={menuActive} setMenuActive={setMenuActive}/>
               {/* Icons */}
               <div className='icons-container flex items-center  cl-gap-12 '>
-                <div className='cursor-pointer'>
+               {!searchBarVisible &&  <div className='cursor-pointer'>
                   <Image className='aspect-square' onClick={()=>handleSearchBarVisibleState(true)} width={21} height={21} src={search} alt='Cerca i prodotti' />
-                </div>
+                </div>}
                 <Link href={"/carrello"} className='cursor-pointer flex'>
                   <Image className='aspect-square' width={21} height={21} src={cart} alt='Consulta il carrello' />
                 </Link>

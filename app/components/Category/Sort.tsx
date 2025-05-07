@@ -7,20 +7,26 @@ const Sort = () => {
   const searchParams = useSearchParams()
   const pathName = usePathname()
 
+  // useEffect(()=>{
+  //   const params = new URLSearchParams(searchParams.toString())
+  //   if (!searchParams.get("asc")) {
+  //     params.set("asc","true")
+  //     router.push(pathName + "?" + params.toString())
+  //   }
+  // },[searchParams,pathName,router])
+
 
   function OnChange(value:string){
     const params = new URLSearchParams(searchParams.toString())
-    params.set("ordina",value)
+    params.set("asc",value)
     router.push(pathName + "?" + params.toString())
   }
   
   return (
     <div className='flex  items-center relative'>
-        <select id='sort' onChange={(e)=>OnChange(e.target.value)} defaultValue={"prezzo-decrescente"} className='font-bold focus:outline-0 z-10'>
-            <option value="prezzo-decrescente">Prezzo decrescente</option>
-            <option value="prezzo-crescente">Prezzo crescente</option>
-            <option value="prezzo-decrescente">Prezzo decrescente</option>
-            <option value="prezzo-decrescente">Prezzo decrescente</option>
+        <select id='sort' onChange={(e)=>OnChange(e.target.value)} defaultValue={"true"} className='font-bold focus:outline-0 z-10'>
+            <option value="true">Prezzo crescente</option>
+            <option value="false">Prezzo decrescente</option>
          </select>
           <span className='absolute top-1 right-0.5 z-1'>
                 <svg role="presentation" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -2,30 +2,27 @@
 'use client'
 
 import { categories } from "@/app/utils"
-import { useRouter, ReadonlyURLSearchParams } from "next/navigation"
 
 interface CategoryOptionProps{
-    pathName:string,
-    params:ReadonlyURLSearchParams
+    setCategory:React.Dispatch<React.SetStateAction<string>>
+    setSearch:React.Dispatch<React.SetStateAction<string>>
 }
 
 
-export default function CategoryOption({pathName,params}:CategoryOptionProps){
- const router = useRouter()
+export default function CategoryOption({setCategory,setSearch}:CategoryOptionProps){
 
- function fetchByCategory(category:string){
-    const searchParams = new URLSearchParams(params.toString())
-    searchParams.set("categoria",category)
-    searchParams.set("page","1")
-    searchParams.delete("search")
-    router.push(`${pathName}?${searchParams}`)
- }
-
+    const handleSetCategory = (value:string)=>{
+        if(!value){
+            return 
+        }
+        setCategory(value)
+        setSearch("")
+    }
 
     return (
         <div>
             <b className="block">Categoria</b>
-                <select id="searchByOption" name="searchByOption" autoFocus onChange={(e)=>fetchByCategory(e.target.value)}>
+                <select id="searchByOption" name="searchByOption" autoFocus onChange={(e)=>handleSetCategory(e.target.value)}>
                 <option  value={""}>Scegli una categoria</option>
                     {categories.map((c)=>{
                         const value = c.href.replace("/","")

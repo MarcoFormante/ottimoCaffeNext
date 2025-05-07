@@ -3,26 +3,9 @@ import Section from "./components/layout/Section/Section";
 import ProductCardsSlider from "./components/HomePage/ProductCardsSlider/ProductCardsSlider";
 import CategoryCards from "./components/HomePage/CategoryCards/CategoryCards";
 import BrandHighlight from "./components/HomePage/BrandHighlight/BrandHighlight";
-import { createClient } from "./utils/supabase/server";
-// import { getProduts } from "./actions/products";
-// import { isProduction } from "./helpers";
-
-
-
-
 
 
 export default async function Home() {
-  const supabase = await createClient()
-  const { data, error } = await supabase.auth.getUser()
-  console.log("userss",data);
-  // try {
-  //   const res =  await getProduts()
-  // } catch (error) {
-  //   if (!isProduction()) {
-  //       console.log(error);
-  //   }
-  // }
 
 
   return (
@@ -30,7 +13,7 @@ export default async function Home() {
       <Hero/>
       <div className="flex flex-col max-[482px]:gap-0 gap-10 px-[200px] max-2xl:px-[50px] max-lg:px-[16px] ">
         <Section>
-          <ProductCardsSlider/>
+            <ProductCardsSlider/>
         </Section>
 
         <Section>

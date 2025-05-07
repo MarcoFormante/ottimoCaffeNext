@@ -13,7 +13,7 @@ export default function NewProduct(){
            e.preventDefault()
            setAlert(null)
            try {
-                const res = await fetch("/api/admin/products/new",{
+                const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/admin/products/new`,{
                     method:"POST",
                     body:JSON.stringify(product),
                 })

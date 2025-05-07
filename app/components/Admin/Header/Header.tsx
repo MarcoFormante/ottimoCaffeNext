@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 
  async function signout(){
     try {
-      const res = await fetch("/auth/signout",{
+      const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}auth/signout`,{
         method:"POST"
       })
       if (res.ok) {

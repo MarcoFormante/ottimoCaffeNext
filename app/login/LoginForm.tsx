@@ -14,7 +14,7 @@ export default function LoginPage() {
       setError("")
       const formData = new FormData(event.currentTarget);
       try {
-        const res = await fetch("/auth/login",{
+        const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}auth/login`,{
           method:"POST",
           body:formData,
         })

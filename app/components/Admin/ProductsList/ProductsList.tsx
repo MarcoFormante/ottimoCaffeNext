@@ -15,7 +15,7 @@ interface ProductsListProps{
     error:{
         message:string,
         color:"red"|"gray"|""
-    },
+    } | null,
     search:string,
     searchActive:boolean,
     setTotalProducts:()=>void
@@ -25,55 +25,39 @@ export default function ProductsList({products,isPending,error,search,searchActi
     const [deletedProducts,setDeletedProducts] = useState<string[]>([])
     const {AlertComponent,setAlert} = useAlert(null)
     {if (isPending) return <Loading/>}
-    {if (!isPending && error.message) return <Error message={error.message} color={error.color}/>}
-    if (!products.length && !error.message) return <Error message={"Nessun Prodotto Trovato"} color={"gray"}/>
+    {if (!isPending && error?.message) return <Error message={error.message} color={error.color}/>}
+    if (!products.length && !error?.message) return <Error message={"Nessun Prodotto Trovato"} color={"gray"}/>
     
         
     function FindText(text:string){
         if (searchActive) {
-            const regex = text.match(new RegExp(search,"gi"))
-         
-            const newText = regex?.map(r => text.replace(r,(/[A-Z]/.test(r) ? "Matchione" : "matchino")))[0]
-           
-            return (
-                <p className="text-sm text-slate-500">
-                {newText?.includes("Matchione") ?
-                <>
-                   { newText?.split("Matchione")[0]}
-                   <span className=" bg-amber-300 capitalize">{search}</span>
-                   { newText?.split("Matchione")[1]}
-                </> :
-                newText?.includes("matchino") ?
-                    <>
-                    { newText?.split("matchino")[0]}
-                    <span className=" bg-amber-300">{search}</span>
-                    { newText?.split("matchino")[1]}
-                    </> 
-                    :
-                    <p className="text-sm text-slate-500">{text}</p>
-                }
-                </p>
-            )
+        if (search && text.match(new RegExp(search,"gi"))) {
+            const newText:React.ReactNode[] = [] as Array<string>
+            ([...text]).forEach((t,i)=>{
+                const hasSearchChar = [...search].find(s => t.toLowerCase() === s.toLowerCase())
+                newText.push(<span className={hasSearchChar && "bg-amber-300"}>{t}</span>)
+            })
+            
+           return <p className="text-sm text-slate-500">{newText.map(t => t)}</p>
         }else{
-            return (
-                <p className="text-sm text-slate-500">{text}</p>
-            )
+             return <p className="text-sm text-slate-500">{text}</p>
+        }
+    }else{
+            return <p className="text-sm text-slate-500">{text}</p>
         }
     }
 
     async function deleteProduct(id:string){
         try {
-            const res = await fetch("/api/admin/products/delete",{
+            const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/admin/products/delete`,{
                 method:"DELETE",
                 body:JSON.stringify(id)
             }) 
             if (!res.ok) {
-                console.log("qui ok");
                 return setAlert({message:"Errore durante l'eliminazione del prodotto" + res.statusText,color:"bg-red-500"})
             }
             const data = await res.json()
             if (!data.success) {
-                console.log("qui success");
                 return setAlert({message:`Errore durante l'eliminazione del prodotto : ${data?.error?.message}, `,color:"bg-red-500"})
             }
             setDeletedProducts(prev => [...prev,id])

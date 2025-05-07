@@ -27,7 +27,7 @@ export default function ProductCard({image_url,name,description,price,category,s
         <div>
             <figure>
                 <div className="mb-6 min-h-[187px]">
-                    <Image className="aspect-square w-full h-auto max-w-[202px] max-h-[187]" width={202} height={187} src={(hideDetails ? image_url : "/assets/images/products/" + image_url)}  alt={name} />
+                 { image_url &&   <Image className="aspect-square w-full h-auto max-w-[202px] max-h-[187]" width={202} height={187} src={(hideDetails ? image_url : "/assets/images/products/" + image_url )}  alt={name} />}
                 </div>
                 <figcaption>
                     <h3 className="font-normal text-black">Ottimo Caffè - {name}</h3>

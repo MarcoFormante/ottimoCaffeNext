@@ -3,15 +3,15 @@ import React from 'react'
 import Link from 'next/link'
 import Slider from './Slider'
 import ProductCard, { ProductCardProps } from '../../common/ProductCard/ProductCard'
-import productsList from "./products.json"
 
 
-export default async function  ProductCardsSlider(){
-    // const response = await fetch("/products.json",{next:{tags:["promozione"]}})
-    // const data = await response.json()
-    const products = JSON.parse(JSON.stringify(productsList)).filter((product:ProductCardProps,index:number) => index < 3)
+export default async  function  ProductCardsSlider(){
+    const response = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/public/products/homepage`,{
+    })
+    const {products} = await response.json()
     
-  return (
+    
+  return products.length && (
     <React.Fragment>
         <div className='flex justify-between mt-14 max-[394px]:mt-10 items-baseline'>
             <h2 className='font-semibold text-2xl cl-blue-text mb-8 max-lg:text-xl'>Prodotti in promozione</h2>
@@ -25,7 +25,7 @@ export default async function  ProductCardsSlider(){
     {
       products && 
       <Slider>
-        {products && products.map((product:ProductCardProps)=>(
+        {products.map((product:ProductCardProps)=>(
             <ProductCard
                 id={product.id}
                 key={product.id}
@@ -39,7 +39,8 @@ export default async function  ProductCardsSlider(){
                 offer={product.offer}
                 active={product.active}
             />
-          ))}
+          ))
+        }
       </Slider>
     }
     </React.Fragment>

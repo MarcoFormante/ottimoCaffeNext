@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 import React, { useContext, useEffect, useState} from 'react'
 import Button from '../common/Button/Button'
@@ -12,26 +13,26 @@ const ButtonAddToCart = ({quantity}:{quantity:number}) => {
 
   function addToCart()
     {
-      const products = [...cartContext.products]
-      const index = products.findIndex((product)=> product.UUID === "esa3")
-      if (index !== -1) {
-          products[index].quantity += quantity
-          cartContext.setProducts(products)
-      }else{
-        cartContext.setProducts((prev)=>[...prev,{
-          id:"string",
-          name: "string",
-          desc: "string",
-          price: "string",
-          img: "StaticImageData",
-          category: "string",
-          UUID: "esa3",
-          slug:"slug",
-          offer:"string",
-          quantity
-        }])
-      }
-      setToasts((prev)=>[...prev,quantity])
+      // const products = [...cartContext.products]
+      // const index = products.findIndex((product)=> product.UUID === "esa3")
+      // if (index !== -1) {
+      //     products[index].quantity += quantity
+      //     cartContext.setProducts(products)
+      // }else{
+      //   cartContext.setProducts((prev)=>[...prev,{
+      //     id:"string",
+      //     name: "string",
+      //     desc: "string",
+      //     price: "string",
+      //     img: "StaticImageData",
+      //     category: "string",
+      //     UUID: "esa3",
+      //     slug:"slug",
+      //     offer:"string",
+      //     quantity
+      //   }])
+      // }
+      // setToasts((prev)=>[...prev,quantity])
   }
 
   

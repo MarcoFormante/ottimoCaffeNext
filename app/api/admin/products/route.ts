@@ -30,7 +30,7 @@ export async function POST(req:NextRequest){
         })
     }
     
-    if (!params.page.match(/[0-9]/)) {
+    if (!params.page) {
         return NextResponse.json({success:false,errorMessage:"Page not Valid"},{
             status:400
         })

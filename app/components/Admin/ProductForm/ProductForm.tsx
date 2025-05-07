@@ -17,7 +17,7 @@ export default function ProductForm({handleSubmit,productProps = null,hiddenStat
             name:"",
             price: "",
             description: "",
-            category: "",
+            category: "caffe-in-cialde",
             code: "",
             active: false,
             slug: "",
@@ -57,7 +57,7 @@ export default function ProductForm({handleSubmit,productProps = null,hiddenStat
                                         }}  
                                     />
                                     <div className="mt-2 w-[100px] h-[100px] m-auto">
-                                        {imagePreviewUrl !== null && <Image priority width={100} height={100} src={imagePreviewUrl} alt="" /> }
+                                        {imagePreviewUrl  && <Image priority width={100} height={100} src={imagePreviewUrl} alt="" /> }
                                     </div>
                                 </div>
         
@@ -68,7 +68,7 @@ export default function ProductForm({handleSubmit,productProps = null,hiddenStat
         
                                 <div className="flex flex-col">
                                     <label htmlFor="category" className="font-semibold">Categoria</label>
-                                    <select required className="border rounded p-2" id="category" value={product?.category}  onChange={(e)=>setProduct(prev => ({...prev,category:e.target.value}))}  >
+                                    <select required className="border rounded p-2" id="category" value={product?.category} onChange={(e)=>setProduct(prev => ({...prev,category:e.target.value}))}  >
                                             {categories.map((c)=>{
                                                 const value = c.href.replace("/","")
                                                 const valuesNotAllowed = ["in-promozione","tutti-i-prodotti"]
