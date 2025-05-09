@@ -31,36 +31,35 @@ export default function ProductsList({products,isPending,error,search,searchActi
         
     function FindText(text:string){
         if (searchActive) {
-        if (search && text.match(new RegExp(search,"gi"))) {
-            const newText:React.ReactNode[] = [] as Array<string>
-            ([...text]).forEach((t,i)=>{
-                const hasSearchChar = [...search].find(s => t.toLowerCase() === s.toLowerCase())
-                newText.push(<span className={hasSearchChar && "bg-amber-300"}>{t}</span>)
-            })
-            
-           return <p className="text-sm text-slate-500">{newText.map(t => t)}</p>
-        }else{
-             return <p className="text-sm text-slate-500">{text}</p>
+            if (search && text.match(new RegExp(search,"gi"))) {
+                const newText:React.ReactNode[] = [] as Array<string>
+                ([...text]).forEach((t,i)=>{
+                    const hasSearchChar = [...search].find(s => t.toLowerCase() === s.toLowerCase())
+                    newText.push(<span className={hasSearchChar && "bg-amber-300"}>{t}</span>)
+                })
+                
+            return <p className="text-sm text-slate-500">{newText.map(t => t)}</p>
+            }else{
+                return <p className="text-sm text-slate-500">{text}</p>
+            }
         }
-    }else{
             return <p className="text-sm text-slate-500">{text}</p>
-        }
     }
 
-    async function deleteProduct(id:string){
+    async function deleteProduct(product:ProductCardProps){
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/admin/products/delete`,{
                 method:"DELETE",
-                body:JSON.stringify(id)
+                body:JSON.stringify({product})
             }) 
             if (!res.ok) {
-                return setAlert({message:"Errore durante l'eliminazione del prodotto" + res.statusText,color:"bg-red-500"})
+                return setAlert({message:"Errore durante l'eliminazione del prodotto, status:" + res.statusText,color:"bg-red-500"})
             }
             const data = await res.json()
             if (!data.success) {
                 return setAlert({message:`Errore durante l'eliminazione del prodotto : ${data?.error?.message}, `,color:"bg-red-500"})
             }
-            setDeletedProducts(prev => [...prev,id])
+            setDeletedProducts(prev => [...prev,product.id])
             setTotalProducts()
             return setAlert({message:"Prodotto eliminato con successo",color:"bg-green-500"})
         } catch (error) {
@@ -80,7 +79,7 @@ export default function ProductsList({products,isPending,error,search,searchActi
                             return (
                                 <tr hidden={deletedProducts.includes(product.id)} key={i} className="hover:bg-slate-50 border-b border-slate-200">
                                     <td className="p-4 py-5">
-                                        <Image src={"/assets/images/products/"+ product.image_url} width={40} height={40} alt=""/>
+                                        <Image src={"http://127.0.0.1:20162/storage/v1/object/public/products.images//"+ product.image_url} width={40} height={40} alt=""/>
                                     </td>
                                     <td className="p-4 py-5">
                                        {FindText(product.name)}
@@ -131,7 +130,7 @@ export default function ProductsList({products,isPending,error,search,searchActi
                                     </td>
 
                                     <td className="p-4">
-                                        <button onClick={()=>deleteProduct(product.id)} className="cursor-pointer relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20" type="button">
+                                        <button onClick={()=>deleteProduct(product)} className="cursor-pointer relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20" type="button">
                                             <div className="w-4 ml-3 ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="red">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

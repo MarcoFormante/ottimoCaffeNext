@@ -5,6 +5,7 @@ import Sort from '../components/Category/Sort'
 import { categories } from '../utils'
 import { sortProducts } from './utils'
 
+
 export default async function Category({params,searchParams}:{
     params: Promise<{ category: string }>
     searchParams: Promise<{ asc: string }>
@@ -13,7 +14,6 @@ export default async function Category({params,searchParams}:{
     const {asc} = await searchParams
         
      const categoryElement = categories.find(c => c.href === `/${category}`)
-    
      
     if (!categoryElement) {
         console.log("error category");
@@ -46,7 +46,7 @@ export default async function Category({params,searchParams}:{
             </div>
           
             <div className='flex flex-wrap gap-[15px] gap-y-12 mb-[44px] m-auto items-center min-[1448px]:gap-5 mt-12  max-2xl:grid grid-cols-3  max-[1165]:grid-cols-2 place-items-center max-md:grid-cols-1 max-md:gap-6 '>
-                {products?.length && products?.map((product:ProductCardProps,i:number)=>  
+                { products?.map((product:ProductCardProps,i:number)=>  
                     <ProductCard
                         id={product.id}
                         key={product.code + i }

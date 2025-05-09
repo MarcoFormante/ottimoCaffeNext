@@ -5,13 +5,14 @@ import { categories } from "@/app/utils"
 import ProductPreview from '../ProductPreview/ProductPreview';
 
 interface ProductFormProps{
-    handleSubmit:(e:FormEvent,product:ProductCardProps)=>Promise<void>,
+    handleSubmit:(e:FormEvent,product:ProductCardProps,img:File)=>Promise<void>,
     productProps?:ProductCardProps  | null,
     hiddenStatus?:boolean,
+    setImgIsChanged?:React.Dispatch<React.SetStateAction<boolean>> | null
 }
 
 
-export default function ProductForm({handleSubmit,productProps = null,hiddenStatus = false}:ProductFormProps){
+export default function ProductForm({handleSubmit,productProps = null,hiddenStatus = false,setImgIsChanged}:ProductFormProps){
      const [product,setProduct] = useState(productProps ?? {
             id:"",
             name:"",
@@ -32,7 +33,7 @@ export default function ProductForm({handleSubmit,productProps = null,hiddenStat
               return URL.createObjectURL(img);
             }
             if (product.image_url) {
-              return `/assets/images/products/${product.image_url}`;
+              return `http://127.0.0.1:20162/storage/v1/object/public/products.images//${product.image_url}`;
             }
             return null;
           }, [img, product.image_url]);
@@ -40,7 +41,7 @@ export default function ProductForm({handleSubmit,productProps = null,hiddenStat
 
     return (
             <div>
-                <form className="mt-10 p-10" onSubmit={(e)=>handleSubmit(e,product)}>
+                <form className="mt-10 p-10" onSubmit={(e)=>handleSubmit(e,product,img as File)}>
                         <div className="flex flex-row justify-center gap-20  max-md:gap-0 max-md:flex-col  max-md:items-center">
                             <div className="border p-15 max-md:p-5  flex flex-col gap-7 min-w-[350px] w-[500px] max-md:border-none">
                                 <div className="flex flex-col">
@@ -53,6 +54,7 @@ export default function ProductForm({handleSubmit,productProps = null,hiddenStat
                                     <input required={!img && !product.image_url } className="border rounded p-2" type="file" id="img" onChange={(e)=>{
                                             if (e.target.files && e.target.files[0]) {
                                                 setImg(e.target.files[0])
+                                                if(setImgIsChanged) setImgIsChanged(true)
                                             }
                                         }}  
                                     />

@@ -1,19 +1,19 @@
-import { ProductCardProps } from "@/app/components/common/ProductCard/ProductCard";
 import { createClient } from "@/app/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
 
-
-
 export  async function POST(req:NextRequest){
-    const product:ProductCardProps = await req.json()
-    console.log(product);
-    
-    if (!product) {
-       return  NextResponse.json({success:false,message:"Compila tutti i campi"},{
+    try {
+        const formdata = await req.formData()
+        const product = JSON.parse(formdata.get("product") as string)
+        const img = formdata.get("img")
+        
+    if (!product || !img) {
+       return  NextResponse.json({success:false,message:"Compila tutti i campi obbligatori"},{
         status:500
        })
     }
+    const imagePath:string = `img-${product.code}_${Date.now()}`
 
     function checkKeys(error:string){
         const possibleViolateKeys = ["products_slug_key","products_image_url_key","products_code_key",]
@@ -33,10 +33,11 @@ export  async function POST(req:NextRequest){
     
     const dateValue = Date.now().toString()
     const supabase = await createClient()
+        
 
     const newProduct = {
         name:product.name,
-        image_url:"img-" + dateValue,
+        image_url:imagePath,
         description:product.description,
         category:product.category,
         code:product.code,
@@ -47,8 +48,9 @@ export  async function POST(req:NextRequest){
         stripe_price_id:"price-" + dateValue,
         offer:product.offer
     }
-    const {error} = await supabase.from("products").insert(newProduct)
 
+    const {error,data} = await supabase.from("products").insert(newProduct).select("id")
+    
     if (error) {
         const constraintKey =  checkKeys(error.message)
         
@@ -56,10 +58,29 @@ export  async function POST(req:NextRequest){
             status:500
         })
     }
-  
 
-    return  NextResponse.json({success:true,message:"Prodotto creato con successo"},{
-        status:200
+    const {error:imageError} = await supabase.storage.from("products.images").upload(imagePath,img as File,{
+        cacheControl:"5",
     })
+    
+    if (imageError) {
+        await supabase.from("products").delete().eq("id",data[0].id)
+        return  NextResponse.json({success:false,error:{message:"Errore durante la modifica dell'immagine"}},{
+            status:500
+        })
+    }else{
+        return  NextResponse.json({success:true,message:"Prodotto creato con successo"},{
+            status:200
+        })
+    }
+
+    } catch (error) {
+        console.log(error);
+        
+        return  NextResponse.json({success:false,error:{message:error}},{
+            status:500
+        })
+    }
+    
 
 }  

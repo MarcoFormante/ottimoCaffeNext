@@ -18,16 +18,17 @@ export type ProductCardProps = {
     hideDetails?:boolean
 }
 
+export const revalidate = 0
 
 export default function ProductCard({image_url,name,description,price,category,slug,offer = null,hideDetails = false}:ProductCardProps){
 
     
   return (
-    <article id="art-1" className='product-card drop-shadow-lg  '>
+    <article id="art-1" className='product-card drop-shadow-lg'>
         <div>
             <figure>
                 <div className="mb-6 min-h-[187px]">
-                 { image_url &&   <Image className="aspect-square w-full h-auto max-w-[202px] max-h-[187]" width={202} height={187} src={(hideDetails ? image_url : "/assets/images/products/" + image_url )}  alt={name} />}
+                 { image_url && <Image className="aspect-square w-full h-auto max-w-[202px] max-h-[187]" width={202} height={187} src={(hideDetails ? image_url : `http://127.0.0.1:20162/storage/v1/object/public/products.images//${image_url}` )}  alt={name} />}
                 </div>
                 <figcaption>
                     <h3 className="font-normal text-black">Ottimo Caffè - {name}</h3>
@@ -43,7 +44,6 @@ export default function ProductCard({image_url,name,description,price,category,s
                     :
                     <Link className="mt-4 product-card__button font-semibold" href={`/${category}/${slug}/dettagli`}>Scopri i dettagli</Link>
                 }
-               
             </figure>
         </div>
     </article>

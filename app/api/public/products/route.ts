@@ -3,17 +3,23 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req:NextRequest){
     try {
-
         const searchParams = req.nextUrl.searchParams
         const category = searchParams.get("category")
 
+
         const supabase = await createClient()
 
-        const {data,error} = await supabase.from("products")
+        const {data,error} = (category !== "in-promozione") ? 
+        await supabase.from("products")
         .select("id,slug,name,image_url,category,code,price,offer")
         .eq("category",category)
         .neq("active",false)
 
+        :  await supabase.from("products")
+        .select("id,slug,name,image_url,category,code,price,offer")
+        .neq("offer","")
+        .neq("active",false)
+        
         if (error) {
             return NextResponse.json({success:false,error:"errore durante il recupero dei prodotti"},{
             status:400

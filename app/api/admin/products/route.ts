@@ -2,6 +2,7 @@ import { createClient } from "@/app/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { categories } from "@/app/utils";
 
+
 export async function POST(req:NextRequest){
     const params = await req.json()
     const supabase = await createClient()
@@ -17,9 +18,8 @@ export async function POST(req:NextRequest){
             return NextResponse.json({success:false,errorMessage:"Nessun Prodotto Trovato"},{status:400})
         }
 
-        if (data) {
-            return NextResponse.json({success:true,errorMessage:"",products:data,totalProducts:count},{status:200})
-        }
+       
+        return NextResponse.json({success:true,errorMessage:"",products:data,totalProducts:count},{status:200})
     }
     
     

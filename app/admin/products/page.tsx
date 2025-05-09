@@ -7,9 +7,6 @@ import {Suspense, useEffect, useState} from "react"
 import ProductsList from '../../components/Admin/ProductsList/ProductsList';
 
 
-
-
-
 export default function Products(){
     const [products,setProducts] = useState([])
     const [totalProducts,setTotalProducts] = useState(0)
@@ -36,11 +33,13 @@ export default function Products(){
             try {
                 const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/admin/products`,{
                     method:"POST",
+                    cache:"no-store",
                     body:JSON.stringify({
                         page:page || 1,
                         categoria:category || "tutti-i-prodotti",
                         search:searchActive ? search : null
-                    })
+                    }),
+                    
                 })
                 
                 if(!res.ok) throw new Error("Errore nel recupero dei prodotti")

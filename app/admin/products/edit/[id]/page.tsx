@@ -10,13 +10,14 @@ import useAlert from "@/app/hooks/useAlert"
 
 
 
-export default  function EditProduct({
+export default function EditProduct({
     params,
 }:{
     params:Promise<{id:string}>,
 }){
     const searchParams = useSearchParams()
     const {AlertComponent,setAlert} = useAlert(null)
+    const [imgIsChanged,setImgIsChanged] = useState<boolean>(false)
     const [product,setProduct] = useState<ProductCardProps & {img:File}| null>({
         id:"",
         name:"",
@@ -55,7 +56,7 @@ export default  function EditProduct({
             }
         }
         getProduct()
-    },[params.toString()])
+    },[params])
 
 
     function getProductParam(){
@@ -68,21 +69,26 @@ export default  function EditProduct({
     }
 
   
-    const handleSubmit = async (e:FormEvent,product:ProductCardProps)=>{
+    const handleSubmit = async (e:FormEvent,product:ProductCardProps,img:File)=>{
         e.preventDefault()
         try {
             if (!product) {
                 throw new Error("Prodotto non valido")
             }
+            const formdata = new FormData()
+            formdata.set("product",JSON.stringify(product))
+            formdata.set("img",img)
+            if (imgIsChanged) {
+                formdata.set("imgIsChanged","1")
+            }
             const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/admin/products/edit`,{
                 method:"PUT",
-                body:JSON.stringify(product),
-                headers:{
-                    "Content-Type":"application/json"
-                }
+                body:formdata,
+                cache:"no-store"
             })
             const data = await res.json()
             if (data.success) {
+                setImgIsChanged(false)
                 return setAlert({message:data.message,color:"bg-green-500"})
             }else{
                 if (data.error?.constraint?.message) {
@@ -114,6 +120,7 @@ export default  function EditProduct({
             <ProductForm
              handleSubmit={handleSubmit} 
              productProps={product} 
+             setImgIsChanged={setImgIsChanged}
              />
         </div>
     )
