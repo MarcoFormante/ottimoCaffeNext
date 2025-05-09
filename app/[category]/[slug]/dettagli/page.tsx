@@ -1,55 +1,47 @@
 import Breadcrumb from "@/app/components/common/Breadcrumb/Breadcrumb";
-import { ProductCardProps } from "@/app/components/common/ProductCard/ProductCard";
 import Footer from "@/app/components/ProductDetails/Footer";
 import Header from "@/app/components/ProductDetails/Header";
 import KitInfo from "@/app/components/ProductDetails/KitInfo";
 import { categories } from "@/app/utils";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import productsList from "../../products.json"
+
 
 export default async function ProductDetails({params}:{
   params: Promise<{ slug: string }>
 }){
   const {slug} = await params
-  // const res = await fetch("http://localhost:3000/products.json")
-  // const data = await res.json()
+  const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/public/products/details?slug=${slug}`)
+  const data = await res.json()
+  
 
-  // if (!data || data.length === 0) {
-  //  return  notFound()
-  // }
-
-  const product = JSON.parse(JSON.stringify(productsList)).find((product:ProductCardProps )=> product.slug === slug)
-   
-  if (!product) {
+  if (!data.product || !data.success) {
     return notFound()
   }
+   
 
-  const categoryElement = categories.find(c => c.href === `/${product.category}`)
+  const categoryElement = categories.find(c => c.href === `/${data.product.category}`)
   if (!categoryElement) {
       console.log("Category Error");
       notFound()
   }
+
+
+
   
-  const isKit = true;
+  const isKit = false;
   return (
-    <div className="px-[200px] max-2xl:px-[50px] max-lg:px-[16px] mb-[102px] ">
-    <Breadcrumb categoryName={(categoryElement?.nameInCategoryPage as string)}  categoryHref={product.category} productName={product.name}/>
-      <article className={`flex justify-evenly gap-6  mt-[25px] max-md:flex-col max-md:mt-[21px]`}> 
-         <Image className="max-lg:w-[30vw] max-lg:h-[30vw] max-h-[470px]  max-md:order-1   hidden min-md:block" src={"/assets/images/products/image-details.jpg"} width={508} height={470} alt="Ottimo Caffè - Kit macchinetta del caffè Frog + 1 confezione da 30 cialde"/> 
-        <div className={`flex flex-col justify-between  ${!isKit ? "justify-start gap-8" : ""}`}>
-          <Header name={product.name} UUID={product.UUID}/>
+    <div className="px-[200px] max-2xl:px-[50px] max-lg:px-[16px] mb-[102px]  ">
+    <Breadcrumb categoryName={(categoryElement?.nameInCategoryPage as string)}  categoryHref={data.product.category} productName={data.product.name}/>
+      <article className={` flex justify-evenly gap-6  mt-[25px] max-md:flex-col max-md:mt-[21px]`}> 
+         <Image className="max-lg:w-[40vw] max-lg:h-[40vw] max-h-[470px] w-[508px]  max-md:order-1   hidden min-md:block" src={`http://127.0.0.1:20162/storage/v1/object/public/products.images//${data.product.image_url}`} width={508} height={470} alt={data.product.name}/> 
+        <div className={`p-6 min-md:w-[508px] max-md:w-[90vw] max-[600px]:p-0 max-[600px]:w-full max-md:m-auto flex flex-col justify-between  ${!isKit ? "justify-start gap-8" : ""}`}>
+          <Header name={data.product.name} code={data.product.code}/>
           {isKit && <KitInfo/>}
           <div className="place-items-center order-1 mt-4">
-            <Image className="min-md:hidden max-w-[508px] w-full" src={"/assets/images/products/image-details.jpg"} width={508} height={470} alt="Ottimo Caffè - Kit macchinetta del caffè Frog + 1 confezione da 30 cialde"/>
+            <Image className="min-md:hidden max-w-[508px] w-full" src={`http://127.0.0.1:20162/storage/v1/object/public/products.images//${data.product.image_url}`} width={508} height={470} alt={data.product.name}/>
           </div>
-          <Footer isKit={isKit}>
-            <div className="flex flex-col max-lg:mt-[16px] mt-1.5 max-md:text-right">
-              <span className="text-blue-text font-bold ">Totale</span>
-              <span className="text-2xl font-bold text-blue-primary">58,90<span className="text-[12px]"> EUR</span></span>
-              <span className="text-gray-500 text-[12px]">iva inclusa</span>
-            </div>
-          </Footer>
+          <Footer isKit={isKit} price={+data.product.offer > 0 ? data.product.offer : data.product.price}/>
         </div>
       </article>  
     </div>

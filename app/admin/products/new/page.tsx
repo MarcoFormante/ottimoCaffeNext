@@ -12,7 +12,6 @@ export default function NewProduct(){
     const handleSubmit = async (e:FormEvent,product:ProductCardProps,img:File)=>{
            e.preventDefault()
            setAlert(null)
-           
            try {
                 const formData = new FormData()
                 formData.set("product", JSON.stringify(product))
@@ -22,18 +21,20 @@ export default function NewProduct(){
                     body:formData,
                 })
                 const data = await res.json()
-                console.log(data);
-                
                 if (data.success) {
-                   return setAlert({message:data.message,color:"bg-green-500",callback:()=>window.location.reload(),time:2000})
+                    setAlert({message:data.message,color:"bg-green-500"})
+                    return true
                 }else{
                     if (data.error.constraint.type) {
-                       return  setAlert({message:"Errore durante la creazione del Prodotto : " + data.error.constraint.message,color:"bg-red-500",})
+                       setAlert({message:"Errore durante la creazione del Prodotto : " + data.error.constraint.message,color:"bg-red-500",})
+                       return false
                     }
-                    return  setAlert({message:"Errore durante la creazione del Prodotto : " + data.error.message,color:"bg-red-500"})
+                     setAlert({message:"Errore durante la creazione del Prodotto : " + data.error.message,color:"bg-red-500"})
+                     return false
                 }
             } catch (error) {
                 setAlert({message:"Errore durante la creazione del Prodotto : " + error,color:"bg-red-500"})
+                 return false
             }
        }
 

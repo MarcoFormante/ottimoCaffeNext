@@ -15,7 +15,7 @@ const Breadcrumb = ({categoryName,productName,categoryHref}:BreadcrumbProps) => 
       <BackBtn/>
       <div className=" text-blue-text max-lg:hidden  min-lg:py-6">
         <Link href={"/"}>Home</Link> {">"}
-        {!productName && <span className='font-semibold capitalize'> {categoryName}</span>}
+        {!productName && <span className='font-semibold '> {categoryName}</span>}
         {productName && <>
         <Link className={!productName ? "font-semibold capitalize" : ""}  href={`/${categoryHref}`}> {categoryName} </Link> {productName ? ">" : ""}
         </> 

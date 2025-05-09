@@ -4,7 +4,7 @@ import React, { useState} from 'react'
 import ButtonAddToCart from './ButtonAddToCart'
 
 
-const Footer = ({children,isKit}:{children:React.ReactElement,isKit:boolean}) => {
+const Footer = ({isKit,price}:{isKit:boolean,price:string}) => {
     const [quantity,setQuantity] = useState(1)
 
     function addQuantity(){
@@ -19,11 +19,18 @@ const Footer = ({children,isKit}:{children:React.ReactElement,isKit:boolean}) =>
             setQuantity(quantity - 1)
         }
     }
+console.log(+price * quantity);
+
+
 
   return (
     <section className={`max-md:order-4 ${isKit ? "max-md:mt-8": ""}`}>
-        <div className="flex justify-between w-[50%] max-xl:w-[75%] items-center max-md:flex-row-reverse max-md:w-full  ">
-        {children}
+        <div className="flex justify-between w-[75%] items-center max-md:flex-row-reverse max-md:w-full  ">
+         <div className="flex flex-col max-lg:mt-[16px] mt-1.5 max-md:text-right">
+            <span className="text-blue-text font-bold ">Totale</span>
+            <span className="text-2xl font-bold text-blue-primary">{((parseFloat(price) as number) * quantity).toFixed(2)}<span className="text-[12px]"> EUR</span></span>
+            <span className="text-gray-500 text-[12px]">iva inclusa</span>
+        </div>
         <div className='flex flex-col gap-3'>
             <span className="text-blue-text font-bold">Quantità</span>
             <div>

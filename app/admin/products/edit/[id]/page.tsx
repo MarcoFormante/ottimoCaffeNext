@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client'
 
-import ProductCard, { ProductCardProps } from "@/app/components/common/ProductCard/ProductCard"
+import { ProductCardProps } from "@/app/components/common/ProductCard/ProductCard"
 import { createClient } from "@/app/utils/supabase/client"
 import React, { FormEvent, useEffect, useState } from "react"
-import { useSearchParams } from "next/navigation"
+import {  useSearchParams } from "next/navigation"
 import ProductForm from "@/app/components/Admin/ProductForm/ProductForm"
 import useAlert from "@/app/hooks/useAlert"
+import { useRouter } from "next/navigation"
 
 
 
@@ -18,6 +19,7 @@ export default function EditProduct({
     const searchParams = useSearchParams()
     const {AlertComponent,setAlert} = useAlert(null)
     const [imgIsChanged,setImgIsChanged] = useState<boolean>(false)
+    const router = useRouter()
     const [product,setProduct] = useState<ProductCardProps & {img:File}| null>({
         id:"",
         name:"",
@@ -38,7 +40,18 @@ export default function EditProduct({
     
 
     useEffect(()=>{
+        function getProductParam(){
+        try {
+            const productParam = searchParams.get("product")
+            return productParam ? JSON.parse(decodeURIComponent(searchParams.get("product") as string)) : null
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+            return null
+        }
+    }
         const getProduct = async ()=>{
+            console.log("ciao");
+            
             setAlert(null)
             const productParam = getProductParam()
             if (productParam) {
@@ -51,22 +64,16 @@ export default function EditProduct({
                     return setAlert({message:`Errore durante il recupero del prodotto: ${error.message}`,color:"bg-red-500"})
                 }
                 setProduct(data)
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (error) {
                 return setAlert({message:`Errore durante il recupero del prodotto`,color:"bg-red-500"})
             }
         }
         getProduct()
-    },[params])
+    },[params,id,searchParams,setAlert])
 
 
-    function getProductParam(){
-        try {
-            const productParam = searchParams.get("product")
-            return productParam ? JSON.parse(decodeURIComponent(searchParams.get("product") as string)) : null
-        } catch (error) {
-            return null
-        }
-    }
+    
 
   
     const handleSubmit = async (e:FormEvent,product:ProductCardProps,img:File)=>{
@@ -77,9 +84,10 @@ export default function EditProduct({
             }
             const formdata = new FormData()
             formdata.set("product",JSON.stringify(product))
-            formdata.set("img",img)
+           
             if (imgIsChanged) {
                 formdata.set("imgIsChanged","1")
+                 formdata.set("img",img)
             }
             const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/admin/products/edit`,{
                 method:"PUT",
@@ -89,16 +97,22 @@ export default function EditProduct({
             const data = await res.json()
             if (data.success) {
                 setImgIsChanged(false)
-                return setAlert({message:data.message,color:"bg-green-500"})
+                setAlert({message:data.message,color:"bg-green-500"})
+                router.replace("/admin/products")
+                return true                
             }else{
                 if (data.error?.constraint?.message) {
-                    return setAlert({message:`Errore durante la modifica del prodotto: ${data.error.constraint.message}`,color:"bg-red-500",time:7000})
+                    setAlert({message:`Errore durante la modifica del prodotto: ${data.error.constraint.message}`,color:"bg-red-500",time:7000})
+                    return false
                 }
-                return setAlert({message:`Errore durante la modifica del prodotto: ${data.error.message}`,color:"bg-red-500",time:5000})
+                setAlert({message:`Errore durante la modifica del prodotto: ${data.error.message}`,color:"bg-red-500",time:5000})
+                return false
             }
             
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
-            return setAlert({message:`Errore durante la modifica del prodotto`,color:"bg-red-500",time:5000})
+            setAlert({message:`Errore durante la modifica del prodotto`,color:"bg-red-500",time:5000})
+             return false
         }
     }
 

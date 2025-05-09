@@ -15,7 +15,6 @@ export default function useAlert(al:AlertProps | null){
         let timer = null
           timer = setTimeout(()=>{
             setAlert(null)
-            console.log("ciao");
             if (alert?.callback) {
                 alert.callback()
             }

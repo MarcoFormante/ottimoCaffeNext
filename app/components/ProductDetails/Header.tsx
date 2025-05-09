@@ -2,10 +2,10 @@ import React from 'react'
 
 interface HeaderProps{
     name:string,
-    UUID:string
+    code:string
 }
 
-const Header = ({name,UUID}:HeaderProps) => {
+const Header = ({name,code}:HeaderProps) => {
   return (
         <div>
             <header>
@@ -13,7 +13,7 @@ const Header = ({name,UUID}:HeaderProps) => {
                    {name}
                 </h1>  
             </header>
-            <p className="mt-4 text-blue-text">Codice articolo: {UUID}</p>  
+            <p className="mt-4 text-blue-text">Codice articolo: {code}</p>  
         </div>
   )
 }

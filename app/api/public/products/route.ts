@@ -9,16 +9,23 @@ export async function GET(req:NextRequest){
 
         const supabase = await createClient()
 
-        const {data,error} = (category !== "in-promozione") ? 
-        await supabase.from("products")
-        .select("id,slug,name,image_url,category,code,price,offer")
-        .eq("category",category)
-        .neq("active",false)
+        const {data,error} = 
+                category === "in-promozione" ? 
+                    await supabase.from("products")
+                    .select("id,slug,name,image_url,category,code,price,offer,description")
+                    .neq("offer","")
+                    .neq("active",false)
 
-        :  await supabase.from("products")
-        .select("id,slug,name,image_url,category,code,price,offer")
-        .neq("offer","")
-        .neq("active",false)
+                : category === "tutti-i-prodotti" ? 
+                    await supabase.from("products")
+                    .select("id,slug,name,image_url,category,code,price,offer,description")
+                    .neq("active",false)
+                :  
+                    await supabase.from("products")
+                    .select("id,slug,name,image_url,category,code,price,offer,description")
+                    .eq("category",category)
+                    .neq("active",false)
+
         
         if (error) {
             return NextResponse.json({success:false,error:"errore durante il recupero dei prodotti"},{
@@ -38,3 +45,4 @@ export async function GET(req:NextRequest){
     }
    
 }
+

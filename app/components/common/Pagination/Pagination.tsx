@@ -19,7 +19,7 @@ export default function Pagination({
     return (
         <div hidden={!totalProducts} className="flex justify-between items-center px-4 py-3">
                     <div className="text-sm text-slate-500">
-                        <p>Pagina {page} di {pagination} /  <b>{totalProducts}</b> prodotti totali</p>
+                        <p>Pagina {page} di {pagination + 1} /  <b>{totalProducts}</b> prodotti totali</p>
                     </div>
                     <div className="flex space-x-1">
                         <button 

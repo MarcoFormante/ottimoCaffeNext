@@ -8,7 +8,10 @@ export async function PUT(req:NextRequest){
     const product = JSON.parse(formdata.get("product") as string)
     const imgIsChanged = formdata.get("imgIsChanged")
     const img = formdata.get("img")
-    let newImageUrl:string ;
+   
+    
+    
+    const newImageUrl:string = `img-${product.id}_${Date.now()}`;
     const lastImageUrl:string = product.image_url;
 
     if (!product) {
@@ -17,12 +20,12 @@ export async function PUT(req:NextRequest){
         })
     }
 
-    if (Boolean(imgIsChanged) && !img) {
+    if (imgIsChanged === "1" && !img) {
         return  NextResponse.json({success:false,error:{message:"Errore durante la modifica del prodotto: Problema con l'immagine"}},{
             status:400
         })
-    }else if(Boolean(imgIsChanged) && img) {
-        newImageUrl = `img-${product.code}_${Date.now()}`
+        
+    }else if(imgIsChanged === "1" && img) {
         product.image_url = newImageUrl
     }
 
@@ -54,8 +57,8 @@ export async function PUT(req:NextRequest){
         })
     }
 
-    if (Boolean(Number(imgIsChanged))) {
-        const {error:errorImg} = await supabase.storage.from("products.images").update(product.image_url,img as File,{
+    if (imgIsChanged === "1" && img) {
+        const {error:errorImg} = await supabase.storage.from("products.images").update(newImageUrl,img as File,{
             upsert:true,
         })
         
