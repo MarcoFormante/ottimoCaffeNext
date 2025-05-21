@@ -41,7 +41,8 @@ export async function POST(req:NextRequest){
 
     const {data,error,count} = params.categoria === "tutti-i-prodotti" 
     ? await supabase.from("products").select("*",{count:"exact"}).range((params.page - 1 ) * 10,(params.page * 10) - 1).order("price") 
-    : params.categoria === "in-promozione" ? await supabase.from("products").select("*",{count:"exact"}).neq("offer","").range((params.page - 1 ) * 10,(params.page * 10) - 1).order("offer")
+    : params.categoria === "in-promozione" 
+    ? await supabase.from("products").select("*",{count:"exact"}).neq("offer","").range((params.page - 1 ) * 10,(params.page * 10) - 1).order("offer")
     : await supabase.from("products").select("*",{count:"exact"}).eq("category",params.categoria).range((params.page - 1 ) * 10,(params.page * 10) - 1).order("price")
     
     
@@ -51,9 +52,9 @@ export async function POST(req:NextRequest){
         })
     }
     
-        return NextResponse.json({success:true,products:data,totalProducts:count},{
-            status:200
-        })
+    return NextResponse.json({success:true,products:data,totalProducts:count},{
+        status:200
+    })
     
 
   

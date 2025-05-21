@@ -2,14 +2,15 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { FormEvent, useState } from "react"
 
 const SearchBar = ({onClick}:{onClick:(state:boolean)=>void}) => {
   const [disable,setDisable] = useState(false)
   const [search,setSearch] = useState("")
   const router = useRouter()
     
-  function onSearch(){
+  function onSearch(e:FormEvent){
+    e.preventDefault()
     if (disable || !search) {
         return
     }
