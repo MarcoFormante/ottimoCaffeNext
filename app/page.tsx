@@ -7,6 +7,9 @@ import ProductCardsSlider from "./components/HomePage/ProductCardsSlider/Product
 
 export default function Home() {
 
+  console.log(process.env.NEXT_PUBLIC_DOMAIN_URL);
+  
+
   return (
     <div id='homepage' className="">
       <Hero/>

@@ -31,8 +31,6 @@ export default async function Ricerca({searchParams}:{
                 }
             }
 
-
-    
     
     return (
         <Section style="min-h-[70dvh] px-[200px] max-2xl:px-[50px] max-lg:px-[16px]">
