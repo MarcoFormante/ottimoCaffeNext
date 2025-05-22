@@ -20,7 +20,7 @@ export default async function Category({params,searchParams}:{
         return  notFound()
     }
 
-    const response = await fetch(`/api/public/products?category=${category}&order=false`)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/public/products?category=${category}&order=false`)
     const data = await response.json()
     const products = data.products
     sortProducts(asc,products)

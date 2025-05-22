@@ -20,7 +20,6 @@ export default async  function  ProductCardsSlider(){
         }
 
     
-    
   return products.length && (
     <React.Fragment>
         <div className='flex justify-between mt-14 max-[394px]:mt-10 items-baseline'>
