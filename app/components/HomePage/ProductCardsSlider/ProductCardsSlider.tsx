@@ -3,22 +3,16 @@ import React from 'react'
 import Link from 'next/link'
 import Slider from './Slider'
 import ProductCard from '../../common/ProductCard/ProductCard'
-import { createClient } from '@/app/utils/supabase/server'
+import { getHomeProducts } from '@/app/lib/public/actions'
 
 
-export default async  function  ProductCardsSlider(){
-    const supabase = await createClient()
-        const {data:products ,error} = await supabase.from("products")
-        .select("id,slug,name,image_url,category,code,price,offer,description,active")
-        .neq("offer","")
-        .eq("active",true)
-        .order("offer",{ascending:false})
-        .limit(3)
+export default async function  ProductCardsSlider(){
 
-        if (error) {
-            return null  
-        }
+  const {products,error} = await getHomeProducts()
 
+  if (error){
+    return null  
+  }
     
   return products.length && (
     <React.Fragment>

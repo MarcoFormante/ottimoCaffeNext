@@ -2,6 +2,7 @@ import Breadcrumb from "@/app/components/common/Breadcrumb/Breadcrumb";
 import Footer from "@/app/components/ProductDetails/Footer";
 import Header from "@/app/components/ProductDetails/Header";
 import KitInfo from "@/app/components/ProductDetails/KitInfo";
+import { getProductDetails } from "@/app/lib/public/actions";
 import { CATEGORIES } from "@/app/utils/helpers/constants";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -10,20 +11,13 @@ import { notFound } from "next/navigation";
 export default async function ProductDetails({params}:{
   params: Promise<{ slug: string }>
 }){
-  const {slug} = await params
-  const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/public/products/details?slug=${slug}`,{
-    headers:{
-      "Content-Type":"application/json"
-    }
-  })
-  const data = await res.json()
-  
+    const {slug} = await params
+    const data = await getProductDetails(slug)
 
-  if (!data.product || !data.success) {
+  if (data.error) {
     return notFound()
   }
    
-
   const categoryElement = CATEGORIES.find(c => c.href === `/${data.product.category}`)
   if (!categoryElement) {
       console.log("Category Error");

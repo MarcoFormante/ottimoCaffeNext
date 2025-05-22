@@ -5,8 +5,6 @@ export async function GET(req:NextRequest){
     try {
         const searchParams = req.nextUrl.searchParams
         const category = searchParams.get("category")
-
-
         const supabase = await createClient()
 
         const {data,error} = 
@@ -25,8 +23,8 @@ export async function GET(req:NextRequest){
                     .select("id,slug,name,image_url,category,code,price,offer,description")
                     .eq("category",category)
                     .neq("active",false)
+                ;
 
-        
         if (error) {
             return NextResponse.json({success:false,error:"errore durante il recupero dei prodotti"},{
             status:400

@@ -4,6 +4,7 @@ import Section from "../components/layout/Section/Section";
 import { parseToFloatFixedTwo } from "../utils/helpers/function";
 import Image from "next/image";
 import { ProductCardProps } from "../components/common/ProductCard/ProductCard";
+import { searchProducts } from "../lib/public/actions";
 
 export const revalidate = 0
 
@@ -11,17 +12,14 @@ export default async function Ricerca({searchParams}:{
     searchParams:Promise<{testo:string}>
 }){
 
-    const search =  (await searchParams).testo
+    const search = (await searchParams).testo
     
     if (!search) {
         return
     }
 
-    const response = await fetch(`/api/public/search?text=${search}`,{
-        method:"GET"
-    })
+    const {products,error} = await searchProducts(search)
 
-    const data = await response.json()
 
      function FindText(text:string){
                 const regex = new RegExp(search,"gi")
@@ -39,7 +37,7 @@ export default async function Ricerca({searchParams}:{
             <span className="inline text-lg text-primary">{`" ${search} "`}</span>
 
             <div className='flex flex-wrap gap-[15px] gap-y-12 mb-[44px] m-auto items-center min-[1448px]:gap-5 mt-12  max-2xl:grid grid-cols-3  max-[1165]:grid-cols-2 place-items-center max-md:grid-cols-1 max-md:gap-6 '>
-        {data.products.length ? data.products.map((product:ProductCardProps) => {
+        {!error ?  products.map((product) => {
             const isOffer = product.offer && product.offer !== "0"
              return (
                  <article id="art-1" key={product.id + product.price } className='product-card drop-shadow-lg'>
