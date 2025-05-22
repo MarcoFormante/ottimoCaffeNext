@@ -38,3 +38,12 @@ export function sortProducts(asc:string,products:ProductCardProps[]){
         }
     })
 }
+
+
+export function findText(text:string,search:string){
+    const regex = new RegExp(search,"gi")
+    if (search && text.matchAll(regex)) {
+        const newText = text.replace(regex,`<mark>$&</mark>`)
+        return newText
+    }
+}

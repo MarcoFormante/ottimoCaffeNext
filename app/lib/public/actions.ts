@@ -100,7 +100,7 @@ export async function searchProducts(search:string){
         .select("id,name,category,slug,price,offer,description,image_url")
         .or(`description.ilike.%${search}%,name.ilike.%${search}%,code.ilike.%${search}%`)
 
-        if (error || !data) {
+        if (error || !data.length) {
             throw new Error("Nessun prodotto trovato");
         }
     

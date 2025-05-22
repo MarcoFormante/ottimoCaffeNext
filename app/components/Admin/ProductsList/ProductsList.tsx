@@ -5,9 +5,10 @@ import { ProductCardProps } from '../../common/ProductCard/ProductCard';
 import Image from "next/image";
 import Loading from "../common/Loading/Loading";
 import Error from "../common/Error/Error";
-import React, { SetStateAction, useState } from "react";
+import React, {useState} from "react";
 import Link from "next/link";
 import useAlert from "@/app/hooks/useAlert";
+import { findText } from "@/app/utils/helpers/function";
 
 interface ProductsListProps{
     products:ProductCardProps[],
@@ -21,30 +22,17 @@ interface ProductsListProps{
     setTotalProducts:()=>void
 }
 
-export default function ProductsList({products,isPending,error,search,searchActive,setTotalProducts}:ProductsListProps){
+export default function ProductsList({products,isPending,error,search,setTotalProducts,searchActive}:ProductsListProps){
     const [deletedProducts,setDeletedProducts] = useState<string[]>([])
     const {AlertComponent,setAlert} = useAlert(null)
+
     {if (isPending) return <Loading/>}
+
     {if (!isPending && error?.message) return <Error message={error.message} color={error.color}/>}
+
     if (!products.length && !error?.message) return <Error message={"Nessun Prodotto Trovato"} color={"gray"}/>
     
-        
-    function FindText(text:string){
-        if (searchActive) {
-            if (search && text.match(new RegExp(search,"gi"))) {
-                const newText:React.ReactNode[] = [] as Array<string>
-                ([...text]).forEach((t,i)=>{
-                    const hasSearchChar = [...search].find(s => t.toLowerCase() === s.toLowerCase())
-                    newText.push(<span className={hasSearchChar && "bg-amber-300"}>{t}</span>)
-                })
-                
-            return <p className="text-sm text-slate-500">{newText.map(t => t)}</p>
-            }else{
-                return <p className="text-sm text-slate-500">{text}</p>
-            }
-        }
-            return <p className="text-sm text-slate-500">{text}</p>
-    }
+    
 
     async function deleteProduct(product:ProductCardProps){
         try {
@@ -82,19 +70,19 @@ export default function ProductsList({products,isPending,error,search,searchActi
                                         <Image src={"http://127.0.0.1:20162/storage/v1/object/public/products.images//"+ product.image_url} width={40} height={40} alt=""/>
                                     </td>
                                     <td className="p-4 py-5">
-                                       {FindText(product.name)}
+                                       {search && searchActive ? <span dangerouslySetInnerHTML={{__html:findText(product.name,search) || ""}}/> : product.name}
                                     </td>
                                     <td className="p-4 py-5">
-                                        {FindText(product.slug)}
+                                        {search  && searchActive ? <span dangerouslySetInnerHTML={{__html:findText(product.slug,search) || ""}}/> : product.slug}
                                     </td>
                                     <td className="p-4 py-5">
-                                        {FindText(product.code)}
+                                         {search  && searchActive ? <span dangerouslySetInnerHTML={{__html:findText(product.code,search) || ""}}/> : product.code}
                                     </td>
                                     <td className="p-4 py-5">
-                                        {FindText(product.description || "")}
+                                          {search  && searchActive ? <span dangerouslySetInnerHTML={{__html:findText(product.description || "",search) || ""}}/> : product.description}
                                     </td>
                                     <td className="p-4 py-5">
-                                        {FindText(product.category)}
+                                          {search  && searchActive ? <span dangerouslySetInnerHTML={{__html:findText(product.category,search) || ""}}/> : product.category}
                                     </td>
                                     <td className="p-4 py-5">
                                         <p className="text-sm text-slate-500">{product.price} </p>
