@@ -3,7 +3,6 @@ import Breadcrumb from "../components/common/Breadcrumb/Breadcrumb";
 import Section from "../components/layout/Section/Section";
 import { parseToFloatFixedTwo } from "../utils/helpers/function";
 import Image from "next/image";
-import { ProductCardProps } from "../components/common/ProductCard/ProductCard";
 import { searchProducts } from "../lib/public/actions";
 
 export const revalidate = 0
