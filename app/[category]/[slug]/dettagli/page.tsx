@@ -2,7 +2,7 @@ import Breadcrumb from "@/app/components/common/Breadcrumb/Breadcrumb";
 import Footer from "@/app/components/ProductDetails/Footer";
 import Header from "@/app/components/ProductDetails/Header";
 import KitInfo from "@/app/components/ProductDetails/KitInfo";
-import { categories } from "@/app/utils";
+import { CATEGORIES } from "@/app/utils/helpers/constants";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -20,7 +20,7 @@ export default async function ProductDetails({params}:{
   }
    
 
-  const categoryElement = categories.find(c => c.href === `/${data.product.category}`)
+  const categoryElement = CATEGORIES.find(c => c.href === `/${data.product.category}`)
   if (!categoryElement) {
       console.log("Category Error");
       notFound()
@@ -41,7 +41,7 @@ export default async function ProductDetails({params}:{
           <div className="place-items-center order-1 mt-4">
             <Image className="min-md:hidden max-w-[508px] w-full" src={`http://127.0.0.1:20162/storage/v1/object/public/products.images//${data.product.image_url}`} width={508} height={470} alt={data.product.name}/>
           </div>
-          <Footer isKit={isKit} price={+data.product.offer > 0 ? data.product.offer : data.product.price}/>
+          <Footer isKit={isKit} product={data.product} price={+data.product.offer > 0 ? data.product.offer : data.product.price}/>
         </div>
       </article>  
     </div>

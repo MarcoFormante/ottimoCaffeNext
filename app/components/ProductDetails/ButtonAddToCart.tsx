@@ -2,37 +2,28 @@
 'use client'
 import React, { useContext, useEffect, useState} from 'react'
 import Button from '../common/Button/Button'
-import { Context } from '@/app/context/CartContext'
+import { Context, ProductPropsWithQuantity } from '@/app/context/CartContext'
 import Toast from './Toast'
+import { ProductCardProps } from '../common/ProductCard/ProductCard'
 
 
-const ButtonAddToCart = ({quantity}:{quantity:number}) => {
+const ButtonAddToCart = ({quantity,product}:{quantity:number,product:ProductCardProps}) => {
   const cartContext = useContext(Context)
   const [toasts,setToasts] = useState<number[]>([])
 
 
   function addToCart()
     {
-      // const products = [...cartContext.products]
-      // const index = products.findIndex((product)=> product.UUID === "esa3")
-      // if (index !== -1) {
-      //     products[index].quantity += quantity
-      //     cartContext.setProducts(products)
-      // }else{
-      //   cartContext.setProducts((prev)=>[...prev,{
-      //     id:"string",
-      //     name: "string",
-      //     desc: "string",
-      //     price: "string",
-      //     img: "StaticImageData",
-      //     category: "string",
-      //     UUID: "esa3",
-      //     slug:"slug",
-      //     offer:"string",
-      //     quantity
-      //   }])
-      // }
-      // setToasts((prev)=>[...prev,quantity])
+      const products = [...cartContext.products]
+      const index = products.findIndex((p)=> p.code === product.code)
+      if (index !== -1) {
+          products[index].quantity += quantity
+          cartContext.setProducts(products)
+      }else{
+        const newProduct:ProductPropsWithQuantity = {...product,quantity}
+        cartContext.setProducts([...products,newProduct])
+      }
+      setToasts((prev)=>[...prev,quantity])
   }
 
   

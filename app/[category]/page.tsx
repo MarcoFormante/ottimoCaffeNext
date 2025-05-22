@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import ProductCard, { ProductCardProps } from '../components/common/ProductCard/ProductCard'
 import Breadcrumb from '../components/common/Breadcrumb/Breadcrumb'
 import Sort from '../components/Category/Sort'
-import { categories } from '../utils'
+import { CATEGORIES } from '../utils/helpers/constants'
 import { sortProducts } from './utils'
 
 
@@ -13,7 +13,7 @@ export default async function Category({params,searchParams}:{
     const {category} = await params
     const {asc} = await searchParams
         
-     const categoryElement = categories.find(c => c.href === `/${category}`)
+     const categoryElement = CATEGORIES.find(c => c.href === `/${category}`)
      
     if (!categoryElement) {
         console.log("error category");
@@ -23,10 +23,8 @@ export default async function Category({params,searchParams}:{
     const response = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/public/products?category=${category}&order=false`)
     const data = await response.json()
     const products = data.products
-    
     sortProducts(asc,products)
    
-
 
   return (
     <div> 

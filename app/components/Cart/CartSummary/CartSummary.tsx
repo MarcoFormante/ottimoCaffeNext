@@ -1,24 +1,31 @@
 'use client'
 import Image from "next/image";
 import Button from "../../common/Button/Button";
+import { ProductPropsWithQuantity } from "@/app/context/CartContext";
+import { lengthBasedText } from "@/app/utils/helpers/function";
 
 
-export default function CartSummary(){
+export default function CartSummary({products,price}:{products:ProductPropsWithQuantity[],price:number}){
+    const articlesLengthBasedText = lengthBasedText(products.length,"articoli","1 articolo")
+    const isFreeShipping = price > 69
+    const spedizione = products.length ? (isFreeShipping ? "gratuita" : "6,99 €" ) :  "0.00 €"
+    const totalPrice = products.length ? (isFreeShipping ? price : price + 6.99 ) : 0
+    
     return (
             <div className="rounded-[8px] bg-[#EAEFEF] max-h-fit p-4  sticky top-[150px] left-[65vw] max-lg:static max-lg:min-w-[300px]  max-lg:w-[100%]  max-lg:m-auto">
                 <div className="text-[14px] max-lg:text-[16px] text-blue-text pb-6 border-b-1 border-gray-300 flex flex-col gap-2">
                     <h2 className="font-bold">Riepilogo</h2>
                     <div className="flex items-center justify-between">
-                        <span>1 articolo</span>
-                        <span>59,99 €</span>
+                        <span>{articlesLengthBasedText}</span>
+                        <span>{parseFloat(String(price)|| "0").toFixed(2)} €</span>
                     </div>
                     <div className="flex items-center justify-between">
                         <span>Spedizione</span>
-                        <span>6,99 €</span>
+                        <span>{spedizione}</span>
                     </div>
                     <div className="min-md:font-bold flex items-center justify-between max-md:text-xl">
                         <span>Totale (iva incl.)</span>
-                        <span>65,98 €</span>
+                        <span>{parseFloat(String(totalPrice || "0") ).toFixed(2)} €</span>
                     </div>
                 </div>
                 <div className="mt-6">

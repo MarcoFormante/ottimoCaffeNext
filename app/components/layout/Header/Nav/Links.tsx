@@ -2,42 +2,12 @@
 import Link from 'next/link'
 import React from 'react'
 import { usePathname } from 'next/navigation'
-
+import { NAVLINKS } from '@/app/utils/helpers/constants'
 interface LinksProps{
   menuActive:boolean,
   setMenuActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const navLinks = [
-  {
-    href:"/in-promozione",
-    text:"Promozioni"
-  },
-  {
-    href:"/caffe-in-cialde",
-    text:"Cialde"
-  },
-  {
-    href:"/caffe-in-capsule",
-    text:"Capsule"
-  },
-  {
-    href:"/macchinette-e-accessori",
-    text:"Macchinette e accessori"
-  },
-  {
-    href:"/bottiglieria",
-    text:"Bottiglieria"
-  },
-  {
-    href:"/kit",
-    text:"Kit"
-  },
-  {
-    href:"/non-solo-caffe",
-    text:"Non solo caffè"
-  },
-]
 
 
 
@@ -48,7 +18,7 @@ const Links = ({menuActive,setMenuActive}:LinksProps) => {
        <li >
           <Link id='home-link' className={pathname === "/" ? "active" : ""} onClick={()=>setMenuActive(false)} href={"/"}>{"Home"}</Link>
         </li>
-      {navLinks.map(link => 
+      {NAVLINKS.map(link => 
         <li key={link.text}>
           <Link className={pathname === link.href ? "active" : ""} onClick={()=>setMenuActive(false)} href={link.href}>{link.text}</Link>
         </li>

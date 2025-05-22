@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { categories } from '@/app/utils'
+import { CATEGORIES } from '@/app/utils/helpers/constants'
 
 const CategoryCards = () => {
   return (
@@ -10,7 +10,7 @@ const CategoryCards = () => {
         </div>
         <div>
             <ul id="category-cards" className="text-black grid  gap-6 justify-center w-[100%] m-auto place-items-center max-md:grid-cols-2">
-              {categories.map((c)=>{
+              {CATEGORIES.map((c)=>{
                  return (
                       <li 
                         key={c.nameInCard} 

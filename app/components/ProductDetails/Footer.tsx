@@ -2,16 +2,22 @@
 
 import React, { useState} from 'react'
 import ButtonAddToCart from './ButtonAddToCart'
+import { ProductCardProps } from '../common/ProductCard/ProductCard'
+
+interface FooterProps{
+    isKit:boolean,
+    price:string,
+    product:ProductCardProps
+}
 
 
-const Footer = ({isKit,price}:{isKit:boolean,price:string}) => {
+const Footer = ({isKit,price,product}:FooterProps) => {
     const [quantity,setQuantity] = useState(1)
 
     function addQuantity(){
         if (quantity < 99) {
             setQuantity(quantity + 1)
         }
-       
     }
 
     function subTraitQuantity(){
@@ -19,7 +25,6 @@ const Footer = ({isKit,price}:{isKit:boolean,price:string}) => {
             setQuantity(quantity - 1)
         }
     }
-console.log(+price * quantity);
 
 
 
@@ -42,7 +47,7 @@ console.log(+price * quantity);
             </div>
         </div>
         </div>
-      <ButtonAddToCart quantity={quantity}/>
+      <ButtonAddToCart product={product} quantity={quantity}/>
   </section>
   )
 }

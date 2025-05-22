@@ -1,4 +1,4 @@
-export const categories = [
+export const CATEGORIES = [
     {
         nameInCard:"In Promozione",
         href:"/in-promozione",
@@ -51,3 +51,34 @@ export const categories = [
 ]
 
 
+
+export const NAVLINKS = [
+  {
+    href:"/in-promozione",
+    text:"Promozioni"
+  },
+  {
+    href:"/caffe-in-cialde",
+    text:"Cialde"
+  },
+  {
+    href:"/caffe-in-capsule",
+    text:"Capsule"
+  },
+  {
+    href:"/macchinette-e-accessori",
+    text:"Macchinette e accessori"
+  },
+  {
+    href:"/bottiglieria",
+    text:"Bottiglieria"
+  },
+  {
+    href:"/kit",
+    text:"Kit"
+  },
+  {
+    href:"/non-solo-caffe",
+    text:"Non solo caffè"
+  },
+]

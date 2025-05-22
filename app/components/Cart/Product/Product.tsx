@@ -1,23 +1,49 @@
 'use client'
+import { Context, ProductPropsWithQuantity } from "@/app/context/CartContext";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-export default function Product(){
+interface ProductProps{
+    product:ProductPropsWithQuantity
+    setProductsState:React.Dispatch<React.SetStateAction<ProductPropsWithQuantity[]>>
+    setPrice:React.Dispatch<React.SetStateAction<number>>
+}
 
-    const [quantity,setQuantity] = useState(1)
+export default function Product({product,setProductsState,setPrice}:ProductProps){
+    const cartContext = useContext(Context)
+    const [quantity,setQuantity] = useState(product.quantity)
+    const basePrice = product.offer ? product.offer : product.price
+
     
     function addQuantity(){
         if (quantity < 99) {
             setQuantity(quantity + 1)
+            setPrice(prev => prev + +basePrice)
         }
-       
     }
 
     function subTraitQuantity(){
         if (quantity > 1 ) {
             setQuantity(quantity - 1)
+            setPrice(prev => prev - +basePrice) 
         }
     }
+
+
+    function deleteProductFromCart(){
+        const filteredProducts = cartContext.products.filter(p => p.code !== product.code)
+        cartContext.setProducts(filteredProducts)
+        setProductsState(filteredProducts)
+         setPrice(prev => prev - (+basePrice * quantity))
+    }
+
+
+    useEffect(()=>{
+       setPrice(prev => prev + (+basePrice * quantity))
+    },[])
+
+
+
     return(
         <div className="py-10 max-md:py-5 border-b-2  border-gray-400">
             <div className="flex items-center gap-6 max-md:gap-2 max-md:justify-between max-lg:justify-evenly">
@@ -37,11 +63,11 @@ export default function Product(){
                                 <div className='flex flex-col gap-3'>
                                     <span className="text-blue-text max-md:font-semibold max-md:text-[14px]">Quantità</span>
                                     <div>
-                                            <div className='flex gap-[13px] items-center border-1 rounded-lg border-gray-400 w-[95px] text-blue-text justify-center '>
-                                                <button className='appearance-none p-1 cursor-pointer' onClick={subTraitQuantity}><span className='w-2.5 h-[1.5px] bg-blue-text block'></span></button>
-                                                <span className='p-1'>{quantity}</span>
-                                                <button className='appearance-none p-1 cursor-pointer' onClick={addQuantity}><span className='block'>+</span></button>
-                                            </div>
+                                        <div className='flex gap-[13px] items-center border-1 rounded-lg border-gray-400 w-[95px] text-blue-text justify-center '>
+                                            <button className='appearance-none p-1 cursor-pointer' onClick={subTraitQuantity}><span className='w-2.5 h-[1.5px] bg-blue-text block'></span></button>
+                                            <span className='p-1'>{quantity}</span>
+                                            <button className='appearance-none p-1 cursor-pointer' onClick={addQuantity}><span className='block'>+</span></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +75,7 @@ export default function Product(){
                             <div>
                                 <div className='flex flex-col gap-3 text-blue-text'>
                                     <span className="max-md:font-semibold max-md:text-[14px]">Prezzo</span>
-                                    <span className="flex items-center gap-1 max-md:font-semibold max-md:text-blue-primary">59,99 <span className="text-[12px] max-md:hidden">EUR</span> <span className="min-md:hidden">€</span></span>
+                                    <span className="flex items-center gap-1 max-md:font-semibold max-md:text-blue-primary">{+(parseFloat(product.offer ? product.offer : product.price)* quantity).toFixed(2) } <span className="text-[12px] max-md:hidden">EUR</span> <span className="min-md:hidden">€</span></span>
                                 </div>
                             </div>
                             <div className="border-l-1 border-gray-500 opacity-30 h-[69px] max-md:hidden"></div>
@@ -59,7 +85,7 @@ export default function Product(){
                         
                             <div className="flex items-center gap-2 text-blue-text"> 
                                 <span className="min-md:hidden max-md:text-[14px]">Rimuovi</span> 
-                                <svg className="cursor-pointer max-md:h-[32px] max-md:w-[100%]"  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg onClick={deleteProductFromCart} className="cursor-pointer max-md:h-[32px] max-md:w-[100%]"  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="1" y="1" width="22" height="22" rx="11" stroke="#292F6C" strokeWidth="1"/>
                                     <path d="M8 17L7 16L11 12L7 8L8 7L12 11L16 7L17 8L13 12L17 16L16 17L12 13L8 17Z" fill="#292F6C"/>
                                 </svg>

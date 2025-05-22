@@ -12,7 +12,6 @@ export async function GET(req:NextRequest){
     const {data,error} = await supabase.from("products")
     .select("name,category,slug,price,offer,description,image_url")
     .or(`description.ilike.%${text}%,name.ilike.%${text}%,code.ilike.%${text}%`)
-    
         if (error) {
             return NextResponse.json({success:false,products:[]},{
             status:500

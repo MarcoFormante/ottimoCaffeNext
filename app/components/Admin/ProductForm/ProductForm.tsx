@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { FormEvent, useMemo, useRef, useState } from "react"
 import { ProductCardProps } from "../../common/ProductCard/ProductCard"
-import { categories } from "@/app/utils"
+import { CATEGORIES } from "@/app/utils/helpers/constants";
 import ProductPreview from '../ProductPreview/ProductPreview';
 
 interface ProductFormProps{
@@ -91,7 +91,7 @@ export default function ProductForm({handleSubmit,productProps = null,hiddenStat
                                 <div className="flex flex-col">
                                     <label htmlFor="category" className="font-semibold">Categoria</label>
                                     <select required className="border rounded p-2" id="category" value={product?.category} onChange={(e)=>setProduct(prev => ({...prev,category:e.target.value}))}  >
-                                            {categories.map((c)=>{
+                                            {CATEGORIES.map((c)=>{
                                                 const value = c.href.replace("/","")
                                                 const valuesNotAllowed = ["in-promozione","tutti-i-prodotti"]
                                                 return !valuesNotAllowed.includes(value) && <option key={c.href} value={value}>{c.nameInNav}</option>

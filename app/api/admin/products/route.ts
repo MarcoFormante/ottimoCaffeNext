@@ -1,6 +1,6 @@
 import { createClient } from "@/app/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
-import { categories } from "@/app/utils";
+import { CATEGORIES } from "@/app/utils/helpers/constants";
 
 
 export async function POST(req:NextRequest){
@@ -23,7 +23,7 @@ export async function POST(req:NextRequest){
     }
     
     
-    const isValidCategory = categories.find((c)=>c.href.replace("/","") === params.categoria)
+    const isValidCategory = CATEGORIES.find((c)=>c.href.replace("/","") === params.categoria)
     if (!isValidCategory) {
         return NextResponse.json({success:false,errorMessage:"Category not Valid"},{
             status:400
