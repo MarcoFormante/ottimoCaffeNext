@@ -11,7 +11,7 @@ export default async function ProductDetails({params}:{
   params: Promise<{ slug: string }>
 }){
   const {slug} = await params
-  const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/public/products/details?slug=${slug}`)
+  const res = await fetch(`/api/public/products/details?slug=${slug}`)
   const data = await res.json()
   
 

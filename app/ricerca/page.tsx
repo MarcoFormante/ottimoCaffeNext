@@ -17,7 +17,7 @@ export default async function Ricerca({searchParams}:{
         return
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/public/search?text=${search}`,{
+    const response = await fetch(`/api/public/search?text=${search}`,{
         method:"GET"
     })
 
