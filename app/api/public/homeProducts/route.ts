@@ -4,7 +4,12 @@ import { NextResponse } from "next/server";
 export async function GET(){
     try {
         const supabase = await createClient()
-        const {data,error} = await supabase.from("products").select("id,slug,name,image_url,category,code,price,offer").neq("offer","").eq("active",true).order("offer",{ascending:false}).limit(3)
+        const {data,error} = await supabase.from("products").select("id,slug,name,image_url,category,code,price,offer")
+        .neq("offer","")
+        .eq("active",true)
+        .order("offer",{ascending:false})
+        .limit(3)
+        
         if (error) {
             return NextResponse.json({success:false,error:"Errore durante il recupero dei prodotti in promozione"},{
                 status:400

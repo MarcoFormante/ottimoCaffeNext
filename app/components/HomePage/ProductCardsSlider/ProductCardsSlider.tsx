@@ -2,13 +2,23 @@
 import React from 'react'
 import Link from 'next/link'
 import Slider from './Slider'
-import ProductCard, { ProductCardProps } from '../../common/ProductCard/ProductCard'
+import ProductCard from '../../common/ProductCard/ProductCard'
+import { createClient } from '@/app/utils/supabase/server'
 
 
 export default async  function  ProductCardsSlider(){
-    const response = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/public/products/homepage`,{
-    })
-    const {products} = await response.json()
+    const supabase = await createClient()
+        const {data:products ,error} = await supabase.from("products")
+        .select("id,slug,name,image_url,category,code,price,offer,description,active")
+        .neq("offer","")
+        .eq("active",true)
+        .order("offer",{ascending:false})
+        .limit(3)
+
+        if (error) {
+            return null  
+        }
+
     
     
   return products.length && (
@@ -23,24 +33,25 @@ export default async  function  ProductCardsSlider(){
             </Link>  
         </div>
     {
-      products && 
       <Slider>
-        {products.map((product:ProductCardProps)=>(
-            <ProductCard
-                id={product.id}
-                key={product.id}
-                name={product.name}
-                description={product.description}
-                price={product.price}
-                image_url={product.image_url}
-                category={product.category}
-                code={product.code}
-                slug={product.slug}
-                offer={product.offer}
-                active={product.active}
-            />
-          ))
-        }
+        <>
+            { products.map((product)=>{
+              return (
+                <ProductCard
+                    id={product.id}
+                    key={product.id}
+                    name={product.name}
+                    description={product.description}
+                    price={product.price}
+                    image_url={product.image_url}
+                    category={product.category}
+                    code={product.code}
+                    slug={product.slug}
+                    offer={product.offer}
+                    active={product.active}
+                />)
+         }) }
+        </>
       </Slider>
     }
     </React.Fragment>
