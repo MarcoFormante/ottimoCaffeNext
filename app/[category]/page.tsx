@@ -3,7 +3,7 @@ import ProductCard, { ProductCardProps } from '../components/common/ProductCard/
 import Breadcrumb from '../components/common/Breadcrumb/Breadcrumb'
 import Sort from '../components/Category/Sort'
 import { CATEGORIES } from '../utils/helpers/constants'
-import { sortProducts } from './utils'
+import { sortProducts } from '../utils/helpers/function';
 
 
 export default async function Category({params,searchParams}:{
