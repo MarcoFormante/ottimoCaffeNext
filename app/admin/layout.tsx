@@ -19,11 +19,11 @@ export default function Layout({
         children:React.ReactElement
     }>){
     return (
-        <html lang="it">
-            <body className={`${jost.className} admin`}>
+       
+            <div className={`${jost.className} admin fixed left-0 top-0 w-full h-full overflow-y-auto overflow-x-hidden bg-[#F5F5F5]`}>
                 <Header/>
                 {children}
-            </body>
-        </html>
+            </div>
+        
     )
 }

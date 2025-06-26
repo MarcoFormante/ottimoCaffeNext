@@ -3,15 +3,17 @@
 import React, { useState} from 'react'
 import ButtonAddToCart from './ButtonAddToCart'
 import { ProductCardProps } from '../common/ProductCard/ProductCard'
+import { parseToFloatFixedTwo } from '@/app/utils/helpers/function'
 
 interface FooterProps{
     isKit:boolean,
     price:string,
-    product:ProductCardProps
+    product:ProductCardProps,
+    offer:string | null
 }
 
 
-const Footer = ({isKit,price,product}:FooterProps) => {
+const Footer = ({isKit,price,product,offer}:FooterProps) => {
     const [quantity,setQuantity] = useState(1)
 
     function addQuantity(){
@@ -33,7 +35,12 @@ const Footer = ({isKit,price,product}:FooterProps) => {
         <div className="flex justify-between w-[75%] items-center max-md:flex-row-reverse max-md:w-full  ">
          <div className="flex flex-col max-lg:mt-[16px] mt-1.5 max-md:text-right">
             <span className="text-blue-text font-bold ">Totale</span>
-            <span className="text-2xl font-bold text-blue-primary">{((parseFloat(price) as number) * quantity).toFixed(2)}<span className="text-[12px]"> EUR</span></span>
+            <div>
+              <span className={` ${offer  ? "product-card__price-del text-base line-through font-semibold": "product-card__price"}`}>{parseToFloatFixedTwo(price,quantity)}{!offer && "EUR"}</span>
+              {offer ? <span className="product-card__price"> {parseToFloatFixedTwo(offer,quantity)}EUR</span>:""} 
+            </div>
+           
+            {/* <span className="text-2xl font-bold text-blue-primary">{((parseFloat(price) as number) * quantity).toFixed(2)}<span className="text-[12px]"> EUR</span></span> */}
             <span className="text-gray-500 text-[12px]">iva inclusa</span>
         </div>
         <div className='flex flex-col gap-3'>

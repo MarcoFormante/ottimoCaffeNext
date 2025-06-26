@@ -16,7 +16,12 @@ export type ProductCardProps = {
     active:boolean,
     stripe_price_id?: string,
     stripe_product_id?: string,
-    hideDetails?:boolean
+    hideDetails?:boolean,
+    kit?: Array<{
+        quantity:string,
+        text:string,
+        price:string
+    }>
 }
 
 
@@ -35,7 +40,7 @@ export default function ProductCard({image_url,name,description,price,category,s
                 </div>
                 <figcaption>
                     <h3 className="font-normal text-black">Ottimo Caffè - {name}</h3>
-                    <p className="product-card__desc font-normal mt-3 text-base">{description}</p>
+                    <p className="product-card__desc font-normal mt-3 text-base break-words">{description}</p>
                     <p>
                         <span className={`mt-3 ${isOffer  ? "product-card__price-del text-base line-through font-semibold": "product-card__price"}`}>{parseToFloatFixedTwo(price)}</span>
                         {isOffer ? <span className="product-card__price"> {parseToFloatFixedTwo(offer)}</span>:""} 

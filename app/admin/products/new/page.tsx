@@ -7,8 +7,9 @@ import useAlert from "@/app/hooks/useAlert"
 
 
 export default function NewProduct(){
-    const {AlertComponent,setAlert} = useAlert(null)
-   
+    const {AlertComponent,setAlert} = useAlert()
+
+  
     const handleSubmit = async (e:FormEvent,product:ProductCardProps,img:File)=>{
            e.preventDefault()
            setAlert(null)
@@ -26,7 +27,7 @@ export default function NewProduct(){
                     return true
                 }else{
                     if (data.error.constraint.type) {
-                       setAlert({message:"Errore durante la creazione del Prodotto : " + data.error.constraint.message,color:"bg-red-500",})
+                       setAlert({message:"Errore durante la creazione del Prodotto : " + data.error.constraint.message,color:"bg-red-500"})
                        return false
                     }
                      setAlert({message:"Errore durante la creazione del Prodotto : " + data.error.message,color:"bg-red-500"})
@@ -41,7 +42,7 @@ export default function NewProduct(){
    
     return (
         <div className="pb-20" >
-             <AlertComponent/>
+             <AlertComponent style={"max-w-full"}/>
             <h1 className="text-2xl mt-4 ml-4 font-semibold">Crea un Prodotto</h1>
             <ProductForm setImgIsChanged={null} handleSubmit={handleSubmit} hiddenStatus={true} />
         </div>

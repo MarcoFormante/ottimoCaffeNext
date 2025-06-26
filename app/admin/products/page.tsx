@@ -3,7 +3,7 @@
 'use client'
 import Pagination from "@/app/components/common/Pagination/Pagination"
 import CategoryOption from "../../components/common/CategoryOption/CategoryOption"
-import {Suspense, useEffect, useState} from "react"
+import {Suspense, useCallback, useEffect, useRef, useState} from "react"
 import ProductsList from '../../components/Admin/ProductsList/ProductsList';
 
 
@@ -17,6 +17,7 @@ export default function Products(){
     const [category,setCategory] = useState("tutti-i-prodotti")
     const [page,setPage] = useState(1)
     const [searchActive,setSearchActive]= useState(false)
+    
 
 
     useEffect(()=>{
@@ -29,20 +30,56 @@ export default function Products(){
  
    
 
-    const handleSearch = async ()=>{
+    // const handleSearch = async ()=>{
+    //         setIsPending(true)
+    //         try {
+    //             const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/admin/products`,{
+    //                 method:"POST",
+    //                 cache:"no-store",
+    //                 body:JSON.stringify({
+    //                     page:page || 1,
+    //                     categoria:category || "tutti-i-prodotti",
+    //                     search:searchActive ? search : null
+    //                 }),
+    //             })
+                
+    //             if(!res.ok) throw new Error("Errore nel recupero dei prodotti")
+    //             const data = await res.json()
+    //             if (data.products) {
+    //                 setProducts(data.products)
+    //                 setTotalProducts(data?.totalProducts || 0)
+    //             }
+    //             if (data.errorMessage) {
+    //                 throw new Error("Nessun Prodotto Trovato")
+    //             }
+    //             setError(null)
+    //         } catch (error) {
+    //             console.error("Fetch error:", error);
+    //             setError({
+    //                 message: error instanceof Error ? error.message : "Errore sconosciuto",
+    //                 color: "red"
+    //             });
+    //         }finally{
+    //             setIsPending(false)
+    //         }
+    // }
+
+const handleSearch = async () => {
             setIsPending(true)
             try {
                 const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}api/admin/products`,{
                     method:"POST",
                     cache:"no-store",
                     body:JSON.stringify({
-                        page:page || 1,
+                        page: page || 1,
                         categoria:category || "tutti-i-prodotti",
                         search:searchActive ? search : null
                     }),
                 })
                 
-                if(!res.ok) throw new Error("Errore nel recupero dei prodotti")
+                if(!res.ok){
+                    throw new Error("Errore nel recupero dei prodotti")
+                }
                 const data = await res.json()
                 if (data.products) {
                     setProducts(data.products)
@@ -53,18 +90,22 @@ export default function Products(){
                 }
                 setError(null)
             } catch (error) {
+                 
                 console.error("Fetch error:", error);
                 setError({
                     message: error instanceof Error ? error.message : "Errore sconosciuto",
                     color: "red"
                 });
+                
             }finally{
                 setIsPending(false)
             }
-    }
+        }
+
+
 
     useEffect(()=>{
-        handleSearch()
+       handleSearch()
     },[category,page])
 
 
@@ -77,9 +118,7 @@ return (
             <div className="w-full p-10">
                 <div className="w-full flex justify-between items-center mb-3 mt-1 pl-3">
                     <div className=" pt-5 ml-5 mb-5">
-                        <Suspense fallback={"loading"}>
-                            <CategoryOption setCategory={setCategory} setSearch={setSearch}/>
-                        </Suspense>
+                        <CategoryOption setCategory={setCategory} setSearch={setSearch} setPage={setPage}/>
                     </div>
                     <div className="ml-3">
                         <div className="w-full max-w-sm min-w-[200px] relative">
@@ -94,7 +133,6 @@ return (
                                     className="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded cursor-pointer"
                                     type="button"
                                     onClick={()=>{
-                                     
                                         handleSearch()
                                     }}
                                 >
@@ -108,26 +146,26 @@ return (
                 </div>
                 
               <Suspense>
-              <ProductsList 
-                    products={products} 
-                    isPending={isPending} 
-                    error={error} 
-                    searchActive={searchActive} 
-                    search={search}
-                    setTotalProducts={()=>setTotalProducts(prev => prev - 1 )}
-                />              
+                <ProductsList 
+                        products={products} 
+                        isPending={isPending} 
+                        error={error} 
+                        searchActive={searchActive} 
+                        search={search}
+                        setTotalProducts={()=>setTotalProducts(prev => prev - 1 )}
+                    />              
               </Suspense>
                 
          
-                <Suspense fallback={"loading"}>
-                    <Pagination 
-                        pagination={Math.floor(totalProducts / 10) } 
-                        totalProducts={totalProducts}
-                        productsLength={products.length}
-                        setPage={setPage}
-                        page={page}
-                    />
-                </Suspense>
+               
+                <Pagination 
+                    pagination={totalProducts / 10} 
+                    totalProducts={totalProducts}
+                    productsLength={products.length}
+                    setPage={setPage}
+                    page={page}
+                />
+             
             </div>
         </div>
     </div>

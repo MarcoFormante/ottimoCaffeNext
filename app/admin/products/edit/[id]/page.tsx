@@ -33,7 +33,8 @@ export default function EditProduct({
         stripe_product_id: "",
         slug: "",
         offer: "" ,
-        image_url:""
+        image_url:"",
+        kit: [{ quantity: "1", text: "",price:"" }]
     })
 
     const id = React.use(params).id
@@ -50,15 +51,13 @@ export default function EditProduct({
         }
     }
         const getProduct = async ()=>{
-            console.log("ciao");
-            
             setAlert(null)
             const productParam = getProductParam()
             if (productParam) {
                return setProduct(productParam)
             }
             try {
-                const supabase =  createClient()
+                const supabase =   createClient()
                 const {data,error} = await supabase.from("products").select().eq("id",id).single()
                 if (error) {
                     return setAlert({message:`Errore durante il recupero del prodotto: ${error.message}`,color:"bg-red-500"})
@@ -133,7 +132,7 @@ export default function EditProduct({
             <h1 className="text-2xl mt-4 ml-4 font-semibold">Modifica Prodotto</h1>
             <ProductForm
              handleSubmit={handleSubmit} 
-             productProps={product} 
+             productProps={{...product,kit:product.kit}} 
              setImgIsChanged={setImgIsChanged}
              />
         </div>

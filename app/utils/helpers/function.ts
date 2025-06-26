@@ -1,8 +1,8 @@
 import { ProductCardProps } from "@/app/components/common/ProductCard/ProductCard";
 
 
-export function parseToFloatFixedTwo(value:string |number | "" | null){
-    return (parseFloat(value as string)).toFixed(2)
+export function parseToFloatFixedTwo(value:string | number | "" | null,quantity:number = 1){
+    return (parseFloat(value as string) * quantity ).toFixed(2)
 }
 
 export function parseFloatMultiply(value:string | number | "" | null,quantity:number){

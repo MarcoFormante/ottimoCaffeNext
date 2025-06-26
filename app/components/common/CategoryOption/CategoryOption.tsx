@@ -6,13 +6,17 @@ import { CATEGORIES } from "@/app/utils/helpers/constants"
 interface CategoryOptionProps{
     setCategory:React.Dispatch<React.SetStateAction<string>>
     setSearch:React.Dispatch<React.SetStateAction<string>>
+    setPage:React.Dispatch<React.SetStateAction<number>>
 }
 
 
-export default function CategoryOption({setCategory,setSearch}:CategoryOptionProps){
+export default function CategoryOption({setCategory,setSearch,setPage}:CategoryOptionProps){
 
     const handleSetCategory = (value:string)=>{
+        setPage(1)
         if(!value){
+            setCategory("")
+            setSearch("")
             return 
         }
         setCategory(value)

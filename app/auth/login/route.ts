@@ -1,10 +1,12 @@
+
 import { createClient } from "@/app/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 export async function POST(req:NextRequest){
+    try {
     const formData = await req.formData()
-    
     const email = formData.get("email") as string
     const password = formData.get("password") as string
     
@@ -39,10 +41,18 @@ export async function POST(req:NextRequest){
     }
 
     if (!error) {
+        revalidatePath("/","layout")
+        
         return NextResponse.json({success:true},{
             status:200
         })
     }
     
+    } catch (error) {
+         return NextResponse.json({success:false,errorMessage:"Invalid Credentials"},{
+            status:400
+        })
+    }
+   
 
 }

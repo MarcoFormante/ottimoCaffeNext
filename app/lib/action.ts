@@ -31,7 +31,8 @@ export async function login( formData: FormData): Promise<string | null > {
     return null
     
   } catch(error){
-        return "Error during Login, try again" + error
+    console.log(error);
+      return "Error during Login, try again" + error
   }
 }
 

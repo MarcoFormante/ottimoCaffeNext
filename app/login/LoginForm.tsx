@@ -14,14 +14,15 @@ export default function LoginPage() {
       setError("")
       const formData = new FormData(event.currentTarget);
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_URL}auth/login`,{
+        const res = await fetch(`/auth/login`,{
           method:"POST",
           body:formData,
         })
-
+        
         const data = await res.json()
         if (data.success) {
-            router.push('/'); 
+           setIsPending(false)
+            return router.push('/admin/dashboard'); 
         }else{
           setError(data?.errorMessage || "Problem during LOGIN")
           setIsPending(false)

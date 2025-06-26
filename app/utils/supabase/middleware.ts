@@ -1,3 +1,4 @@
+
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
@@ -11,7 +12,6 @@ export async function updateSession(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     
     {
-      
       cookies: {
         getAll() {
           return request.cookies.getAll()
@@ -35,17 +35,19 @@ export async function updateSession(request: NextRequest) {
 
   // IMPORTANT: DO NOT REMOVE auth.getUser()
 
+
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
+  let isAdmin = false;
+
+if (user && user.role) {
+  isAdmin = user.role ===  "authenticated" && user.email === process.env.ADMIN_EMAIL;
+}
   if (
-   user 
-   //&&
-  /*!request.nextUrl.pathname.startsWith('/login') &&
-  !request.nextUrl.pathname.startsWith('/auth') && 
-  !request.nextUrl.pathname.startsWith('/admin')*/
-  // request.nextUrl.pathname.startsWith('/api/admin')
+    !isAdmin &&
+    request.nextUrl.pathname.startsWith('/admin')
   ) {
     // no user so:
     const url = request.nextUrl.clone()
@@ -55,9 +57,3 @@ export async function updateSession(request: NextRequest) {
 
   return supabaseResponse
 }
-
-//da rimpiazare nell IF
-/*!user &&
-!request.nextUrl.pathname.startsWith('/login') &&
-!request.nextUrl.pathname.startsWith('/auth')*/
-//provare anche con /api/admin

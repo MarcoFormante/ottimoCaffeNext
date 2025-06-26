@@ -50,7 +50,7 @@ export async function getProductDetails(slug:string){
         const supabase = await createClient()
     
         const {data,error} = await supabase.from("products")
-        .select("id,name,image_url,description,slug,category,code,price,offer,active")
+        .select("id,name,image_url,description,slug,category,code,price,offer,active,kit")
         .eq("active",true)
         .eq("slug",slug)
         .single()
@@ -92,6 +92,9 @@ export async function getHomeProducts(){
         return {success:false,error:{message:"Errore durante la richiesta dei prodotti in promozione"},products:false}
     }
 }
+
+
+
 
 export async function searchProducts(search:string){
     try {

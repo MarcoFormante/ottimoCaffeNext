@@ -1,3 +1,4 @@
+'use client'
 export default function NotFound(){
     return (
         <div className="grid place-items-center h-dvh text-center m">

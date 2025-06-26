@@ -7,7 +7,7 @@ export interface AlertProps{
     time?:number
 }
 
-export default function useAlert(al:AlertProps | null){
+export default function useAlert(al:AlertProps | null = null){
     const [alert,setAlert] = useState<AlertProps | null>(al)
 
     useEffect(()=>{
@@ -22,10 +22,10 @@ export default function useAlert(al:AlertProps | null){
         return ()=>clearTimeout(timer)
     },[alert])
 
-    const AlertComponent = () => {
+    const AlertComponent = ({style}:{style?:string}) => {
        return alert?.message && ( 
        <div onClick={()=>setAlert(null)}>
-            <div className={`fixed top-0 z-10 left-[50%] font-regular max-w-[1440px] translate-x-[-50%]   block w-full p-6 ${alert?.color} text-base leading-5 text-white opacity-100`}>
+            <div className={`fixed top-0 z-10 left-[50%] font-regular max-w-[1440px] translate-x-[-50%]   block w-full p-6 ${alert?.color} text-base leading-5 text-white opacity-100 ${style}`}>
             {alert?.message}
             </div>
         </div>
