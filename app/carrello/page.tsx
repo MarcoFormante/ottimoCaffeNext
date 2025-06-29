@@ -50,7 +50,7 @@ export default  function Cart(){
                             }
                         </div>
                         
-                        <CartSummary price={price} products={productsState}/>
+                        <CartSummary price={price} products={productsState} />
                     </div>
                 </div>
             </div>

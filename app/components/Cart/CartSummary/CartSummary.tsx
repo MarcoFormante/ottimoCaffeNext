@@ -1,15 +1,50 @@
-'use client'
+
 import Image from "next/image";
 import Button from "../../common/Button/Button";
 import { ProductPropsWithQuantity } from "@/app/context/CartContext";
 import { lengthBasedText } from "@/app/utils/helpers/function";
 
+const shippingCost = 6.99;
 
 export default function CartSummary({products,price}:{products:ProductPropsWithQuantity[],price:number}){
     const articlesLengthBasedText = lengthBasedText(products.length,"articoli","1 articolo")
     const isFreeShipping = price > 69
-    const spedizione = products.length ? (isFreeShipping ? "gratuita" : "6,99 €" ) :  "0.00 €"
+    const spedizione = products.length ? (isFreeShipping ? "gratuita" : shippingCost ) :  "0.00 €"
     const totalPrice = products.length ? (isFreeShipping ? price : price + 6.99 ) : 0
+
+    // const {canceled} = await searchParams
+
+    // if (canceled) {
+    //     console.log("Cancellata");
+    // }
+
+
+    const handleCheckout = async ()=>{
+        if (products.length === 0) {
+            console.error("Il carrello è vuoto");
+            return;
+        }
+        const response = await fetch("/api/checkout_session", {
+            method:"POST",
+            body:JSON.stringify({
+                items: products.map(p => ({
+                    code: p.code,
+                    quantity: p.quantity
+                })),
+                shippingCost: isFreeShipping ? 0 : shippingCost
+            })
+        }).catch((error) => {
+            console.error("Errore durante la richiesta di checkout:", error);
+        });
+        if (!response?.ok) {
+            console.error("Errore durante la creazione della sessione di checkout");
+            return;
+        }
+        const data = await response.json()
+        if (data.url) {
+            window.location.href = data.url;
+        }
+    }
     
     return (
             <div className="rounded-[8px] bg-[#EAEFEF] max-h-fit p-4  sticky top-[150px] left-[65vw] max-lg:static max-lg:min-w-[300px]  max-lg:w-[100%]  max-lg:m-auto">
@@ -33,9 +68,9 @@ export default function CartSummary({products,price}:{products:ProductPropsWithQ
                     <Image className="mt-4 block " src={"/assets/svg/payment-methods.svg"}  alt="Metodi di pagamento - Ottimo Caffé" width={242} height={27.7} />
                 </div>
                 <div className="mt-8 max-lg:flex">
-                   <Button onClick={()=>{}}>
-                        Procedi al checkout
-                   </Button>
+                     <Button onClick={handleCheckout}>
+                            Procedi al checkout
+                    </Button>
                 </div>
                 <div className="flex justify-center gap-1 mt-3">
                     <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">
