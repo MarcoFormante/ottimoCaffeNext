@@ -11,10 +11,10 @@
 ## 📦 Planned Features
 
 - Product browsing (coffee beans, capsules, ground coffee, etc.)
-- User authentication system
+- Admin authentication system
 - Dynamic cart and Stripe-integrated checkout
-- User dashboard with order history
-- Custom CMS for product management (powered by Supabase)
+- Orders history (in progress)
+- Custom CMS for product management 
 
 ## 🛠️ Project Status
 
